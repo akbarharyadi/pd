@@ -9,7 +9,7 @@ class KelurahansController < ApplicationController
   def index
     kelurahan_scope = Kelurahan.all
     kelurahan_scope = kelurahan_scope.like(params[:filter]) if params[:filter]
-    @kelurahan = smart_listing_create(:kelurahans, kelurahan_scope, partial: "kelurahans/listing", default_sort: {kode: "asc"})
+    @kelurahan = smart_listing_create(:kelurahans, kelurahan_scope, partial: "kelurahans/listing", default_sort: {kecamatan_id: "asc", kode: "asc"})
   end
 
   # GET /kelurahans/1
