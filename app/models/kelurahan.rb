@@ -7,7 +7,7 @@ class Kelurahan < ApplicationRecord
     validates :kecamatan_id, :kode, :nama, presence: true
     
     #Validasi kode
-    validates :kode, uniqueness: true
+    validates_uniqueness_of :kode, :scope => :kecamatan_id
     validates :kode, length: { minimum:2 }
 
     #slugger
