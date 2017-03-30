@@ -6,7 +6,7 @@
       <div class="form-group">
         <%= f.label :kecamatan_id, class: "col-sm-2 control-label no-padding-right" %>
         <div class="col-sm-3">
-          <%= collection_select(:kelurahan, :kecamatan_id, Kecamatan.all, :id, :nama,
+          <%= collection_select(:kelurahan, :kecamatan_id, Kecamatan.all, :id, :kecamatan_params,
                  {:prompt => ' -- Pilih Kecamatan -- '}, {class: "chosen-select form-control", 'data-placeholder'=>" -- Pilih Kecamatan -- "}) %>
         </div>
       </div>
