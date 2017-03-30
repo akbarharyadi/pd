@@ -2,8 +2,8 @@
 
 one:
   no_pendaftaran: MyString
-  nama_wp: 
-  alamat_wp: MyString
+  nama_usaha: 
+  alamat_usaha: MyString
   kecamatan_id: 
   kelurahan_id: 
   no_telp_wp: MyString
@@ -16,8 +16,8 @@ one:
 
 two:
   no_pendaftaran: MyString
-  nama_wp: 
-  alamat_wp: MyString
+  nama_usaha: 
+  alamat_usaha: MyString
   kecamatan_id: 
   kelurahan_id: 
   no_telp_wp: MyString
