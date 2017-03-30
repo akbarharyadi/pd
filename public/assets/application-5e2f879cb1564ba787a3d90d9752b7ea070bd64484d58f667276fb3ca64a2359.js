@@ -15301,7 +15301,7 @@ $(document).on('turbolinks:load ready', function () {
         }
       });
     });
-    $(document).on('keyup', '#pendaftaran_no_telp_wp', function(evt) {
+    $(document).on('keyup', '#pendaftaran_no_telp_usaha', function(evt) {
       return $('#pendaftaran_no_telp_pemilik').val($(this).val());
     });
     $(document).on('change', '#pendaftaran_kelurahan_id', function(evt) {

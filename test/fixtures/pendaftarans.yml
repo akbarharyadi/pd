@@ -6,7 +6,7 @@ one:
   alamat_usaha: MyString
   kecamatan_id: 
   kelurahan_id: 
-  no_telp_wp: MyString
+  no_telp_usaha: MyString
   nama_pemilik: MyString
   alamat_pemilik: MyString
   no_telp_pemilik: MyString
@@ -20,7 +20,7 @@ two:
   alamat_usaha: MyString
   kecamatan_id: 
   kelurahan_id: 
-  no_telp_wp: MyString
+  no_telp_usaha: MyString
   nama_pemilik: MyString
   alamat_pemilik: MyString
   no_telp_pemilik: MyString

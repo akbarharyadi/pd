@@ -22,7 +22,7 @@ $ ->
         $('#pendaftaran_npwpd').val($('#pajak').val() + '.' + $('#golongan').val() + '.' + $('#pendaftaran_no_pendaftaran').val() + '.' + $("#pendaftaran_kecamatan_id option:selected").text().substring(0, 3).trim() + '.' + $("#pendaftaran_kelurahan_id option:selected").text().substring(0,3).trim())
         $('.chosen-select').trigger('chosen:updated')
 
-  $(document).on 'keyup', '#pendaftaran_no_telp_wp', (evt) ->
+  $(document).on 'keyup', '#pendaftaran_no_telp_usaha', (evt) ->
     $('#pendaftaran_no_telp_pemilik').val($(this).val())
 
   $(document).on 'change', '#pendaftaran_kelurahan_id', (evt) ->
