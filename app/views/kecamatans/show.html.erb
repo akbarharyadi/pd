@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-xs-12">
+    <div class="widget-box">
+      <div class="widget-header widget-header-flat">
+        <h4 class="widget-title smaller">Detail Kecamatan</h4>
+        <div class="widget-toolbar">
+          <%= link_to(raw('<i class="ace-icon fa fa-pencil align-center"></i> Edit'), edit_kecamatan_path(@kecamatan)) %> | 
+          <%= link_to(raw('<i class="ace-icon fa fa-undo icon-only"></i> kembali'), kecamatans_path) %> |
+          <%= link_to(raw('<i class="ace-icon fa fa-trash icon-only"></i> Hapus'), @kecamatan, method: :delete, data: { confirm: 'Ada yakin ingin menghapus data ini?' }) %>
+        </div>
+      </div>
+      <div class="widget-body">
+        <div class="widget-main">
+          <dl id="dt-list-1" class="">
+            <dt><strong>Kode Kecamatan:</strong></dt>
+            <dd><%= @kecamatan.kode %></dd>
+            <dt><strong>Nama Kecamatan:</strong></dt>
+            <dd><%= @kecamatan.nama %></dd>
+					</dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

@@ -1,0 +1,170 @@
+<div class="row">
+  <div class="col-xs-12">
+    <%= form_for(pendaftaran) do |f| %>
+      <%= render 'shared/error', error_form: pendaftaran %>
+      <div class="row">
+        <div class="col-md-1">
+          <div class="field">
+            <div class="form-group">
+              <%= label_tag :pajak %>
+              <%= text_field_tag :pajak, 'P', class: "form-control", class: 'form-control', readonly: true %>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="field">
+            <div class="form-group">
+              <%= f.label :no_pendaftaran %>
+              <%= f.text_field :no_pendaftaran, class: "form-control", validate: true, readonly: true %>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="field">
+            <div class="form-group">
+              <%= f.label :no_reg_pendaftaran %>
+              <%= f.text_field :no_reg_pendaftaran, class: "form-control", validate: true, readonly: true %>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <div class="field">
+              <%= f.label :tgl_daftar %>
+              <div class='input-group'>
+                <%= f.text_field :tgl_daftar, class: "form-control date-picker", validate: true, 'data-date-format'=>"dd-mm-yyyy" %>
+                <span class="input-group-addon">
+																		<i class="fa fa-calendar bigger-110"></i>
+																	</span>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="field">
+            <div class="form-group">
+              <%= f.label :nama_usaha %>
+              <%= f.text_field :nama_usaha, class: "form-control", validate: true %>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="field">
+            <div class="form-group">
+              <%= label_tag :golongan %>
+              <%= select_tag :golongan, options_for_select(Pendaftaran::GOLONGAN), {class: "form-control"} %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-9">
+          <div class="field">
+            <div class="form-group">
+              <%= f.label :alamat_usaha %>
+              <%= f.text_area :alamat_usaha, class: "form-control", validate: true %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <div class="field">
+            <div class="form-group">
+              <%= f.label :kecamatan_id %>
+              <%= f.collection_select(:kecamatan_id, Kecamatan.all, :id, :kode_dan_kecamatan, {prompt: ' -- Pilih Kecamatan -- '}, {class: "chosen-select  form-control"}) %>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="field">
+            <div class="form-group">
+              <%= f.label :kelurahan_id %>
+              <%= f.collection_select(:kelurahan_id, Kelurahan.where(kecamatan_id: pendaftaran.kecamatan_id), :id, :kode_dan_kelurahan, {prompt: ' -- Pilih Kelurahan -- '}, {class: "chosen-select form-control kecamatan_id", selected: pendaftaran.kelurahan_id}) %>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="field">
+            <div class="form-group">
+              <%= f.label :no_telp_usaha %>
+              <%= f.text_field :no_telp_usaha, class: "form-control", validate: true, :maxlength => 12,  onkeypress: 'return event.charCode >= 48 && event.charCode <= 57' %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="field">
+            <div class="form-group">
+              <%= f.label :nama_pemilik %>
+              <%= f.text_field :nama_pemilik, class: "form-control", validate: true %>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="field">
+            <div class="form-group">
+              <%= f.label :no_telp_pemilik %>
+              <%= f.text_field :no_telp_pemilik, class: "form-control", validate: true, :maxlength => 12,  onkeypress: 'return event.charCode >= 48 && event.charCode <= 57' %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-9">
+          <div class="field">
+            <div class="form-group">
+              <%= f.label :alamat_pemilik %>
+              <%= f.text_area :alamat_pemilik, class: "form-control", validate: true %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <div class="field">
+              <%= f.label :npwpd %>
+              <%= f.text_field :npwpd, class: "form-control", validate: true, readonly: true %>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <div class="field">
+              <%= f.label :tgl_npwpd %>
+              <div class='input-group'>
+                <%= f.text_field :tgl_npwpd, class: "form-control date-picker", validate: true, 'data-date-format'=>"dd-mm-yyyy" %>
+                <span class="input-group-addon">
+																		<i class="fa fa-calendar bigger-110"></i>
+																	</span>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="field">
+            <div class="form-group">
+              <%= f.label :usaha_id %>
+              <%= f.collection_select(:usaha_id, Usaha.all, :id, :kode_dan_usaha, {prompt: ' -- Pilih Kode Usaha -- '}, {class: "chosen-select  form-control"}) %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix form-actions">
+        <div class="col-md-offset-3 col-md-9">
+          <%= button_tag(type: 'submit', class: "btn btn-info") do %>
+            <i class="ace-icon fa fa-check bigger-110"></i> Simpan
+          <% end %>
+          &nbsp; &nbsp; &nbsp;
+          <%= link_to(raw('<i class="ace-icon fa fa-undo bigger-110"></i> kembali'), pendaftarans_path, class: "btn") %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  no_pendaftaran: MyString
+  nama_wp: 
+  alamat_wp: MyString
+  kecamatan_id: 
+  kelurahan_id: 
+  no_telp_wp: MyString
+  nama_pemilik: MyString
+  alamat_pemilik: MyString
+  no_telp_pemilik: MyString
+  npwpd: MyString
+  tgl_npwpd: 2017-03-25
+  usaha_id: 
+
+two:
+  no_pendaftaran: MyString
+  nama_wp: 
+  alamat_wp: MyString
+  kecamatan_id: 
+  kelurahan_id: 
+  no_telp_wp: MyString
+  nama_pemilik: MyString
+  alamat_pemilik: MyString
+  no_telp_pemilik: MyString
+  npwpd: MyString
+  tgl_npwpd: 2017-03-25
+  usaha_id: 

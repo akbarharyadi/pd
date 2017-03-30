@@ -1,0 +1,80 @@
+<div class="row">
+  <div class="col-xs-12">
+    <%= form_for(rekening, :html => {:class => "form-horizontal", :role => "form"}) do |f| %>
+      <%= render 'shared/error', error_form: rekening %>
+
+      <div class="row">
+          <div class="field">
+            <div class="form-group">
+              <%= f.label :tahun, class: "col-sm-2 control-label no-padding-right" %>
+        <div class="col-md-1">
+              <%= f.text_field :tahun, class: "form-control", validate: true, :maxlength => 4,  onkeypress: 'return event.charCode >= 48 && event.charCode <= 57' %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+          <div class="field">
+            <div class="form-group">
+              <%= f.label :Kode_rekening, class: "col-sm-2 control-label no-padding-right" %>
+        <div class="col-md-3">
+              <div class='input-group'>
+                <span class="input-group-addon">4.</span>
+                <%= f.text_field :kode, class: "form-control", validate: true, :maxlength => 4,  onkeypress: 'return event.charCode >= 48 && event.charCode <= 57' %>
+                <span class="input-group-addon">.</span>
+                <%= f.text_field :jenis_kode, class: "form-control", validate: true, :maxlength => 2,  onkeypress: 'return event.charCode >= 48 && event.charCode <= 57' %>
+                <span class="input-group-addon">.</span>
+                <%= f.text_field :turunan_kode, class: "form-control", validate: true, :maxlength => 2,  onkeypress: 'return event.charCode >= 48 && event.charCode <= 57' %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+          <div class="field">
+            <div class="form-group">
+              <%= f.label :nama_rekening, class: "col-sm-2 control-label no-padding-right" %>
+        <div class="col-md-4">
+              <%= f.text_field :nama_rekening, class: "form-control", validate: true %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+          <div class="field">
+            <div class="form-group">
+              <%= f.label :tarif_rupiah, class: "col-sm-2 control-label no-padding-right" %>
+        <div class="col-md-3">
+              <div class='input-group'>
+                <span class="input-group-addon">Rp.</span>
+                  <%= f.text_field :tarif, class: "form-control", validate: true %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+          <div class="field">
+            <div class="form-group">
+              <%= f.label :tarif_persen, class: "col-sm-2 control-label no-padding-right" %>
+        <div class="col-md-2">
+              <div class='input-group'>
+                <%= f.text_field :persen, class: "form-control", validate: true %>
+                <span class="input-group-addon">%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix form-actions">
+        <div class="col-md-offset-3 col-md-9">
+          <%= button_tag(type: 'submit', class: "btn btn-info") do %>
+            <i class="ace-icon fa fa-check bigger-110"></i> Simpan
+          <% end %>
+          &nbsp; &nbsp; &nbsp;
+          <%= link_to(raw('<i class="ace-icon fa fa-undo bigger-110"></i> kembali'), rekenings_path, class: "btn") %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

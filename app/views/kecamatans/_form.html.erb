@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col-xs-12">
+    <%= form_for(kecamatan, :html => {:class => "form-horizontal" , :role => "form"}) do |f| %>
+      <%= render 'shared/error', error_form: kecamatan %>
+      <div class="field">
+        <div class="form-group">
+          <%= f.label :kode, class: "col-sm-2 control-label no-padding-right" %>
+          <div class="col-sm-1">
+            <%= f.text_field :kode, class: "form-control", validate: true, :maxlength => 3,  onkeypress: 'return event.charCode >= 48 && event.charCode <= 57' %>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <div class="form-group">
+          <%= f.label :nama, class: "col-sm-2 control-label no-padding-right" %>
+          <div class="col-sm-6">
+            <%= f.text_field :nama, class: "form-control", validate: true %>
+          </div>
+        </div>
+      </div>
+      
+      <div class="clearfix form-actions">
+        <div class="col-md-offset-3 col-md-9">
+        <%= button_tag(type: 'submit', class: "btn btn-info") do %>
+          <i class="ace-icon fa fa-check bigger-110"></i> Simpan
+        <% end %>
+        &nbsp; &nbsp; &nbsp;
+        <%= link_to(raw('<i class="ace-icon fa fa-undo bigger-110"></i> kembali'), kecamatans_path, class: "btn") %>
+      </div>
+       </div>
+    <% end %>
+  </div>
+</div>

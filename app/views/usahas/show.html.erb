@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-xs-12">
+    <div class="widget-box">
+      <div class="widget-header widget-header-flat">
+        <h4 class="widget-title smaller">Detail Jenis Usaha</h4>
+        <div class="widget-toolbar">
+          <%= link_to(raw('<i class="ace-icon fa fa-pencil align-center"></i> Edit'), edit_usaha_path(@usaha)) %> | 
+          <%= link_to(raw('<i class="ace-icon fa fa-undo icon-only"></i> Kembali'), usahas_path) %> |
+          <%= link_to(raw('<i class="ace-icon fa fa-trash icon-only"></i> Hapus'), @usaha, method: :delete, data: { confirm: 'Ada yakin ingin menghapus data ini?' }) %>
+        </div>
+      </div>
+      <div class="widget-body">
+        <div class="widget-main">
+          <dl id="dt-list-1" class="">
+            <dt><strong>Kode Uaha:</strong></dt>
+            <dd><%= @usaha.kode_usaha %></dd>
+            <dt><strong>Nama Usaha:</strong></dt>
+            <dd><%= @usaha.nama_usaha %></dd>
+					</dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

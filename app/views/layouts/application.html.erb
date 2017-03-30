@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <%= csrf_meta_tags %>
+     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body class="no-skin">
+  	<%= render 'layouts/header' %>
+	<div class="main-container ace-save-state" id="main-container">
+		<script type="text/javascript">
+			try{ace.settings.loadState('main-container')}catch(e){}
+		</script>
+		<a href="#" class="menu-toggler invisible" id="menu-toggler" data-target="#sidebar"></a>
+		<div id="sidebar" class="sidebar  navbar-collapse  ace-save-state collapse out" data-sidebar="true" data-sidebar-scroll="true" data-sidebar-hover="true" aria-expanded="true">
+				<script type="text/javascript">
+					try{ace.settings.loadState('sidebar')}catch(e){}
+				</script>
+
+				<%#<div class="sidebar-shortcuts hidden-xs" id="sidebar-shortcuts">
+					<div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+						<%= image_tag 'logo.png', class:"img-thumbnail img-responsive", style:"width: 100%; display: block; height:140px;" %>
+					<%#<</div>
+				</div>%>
+
+				<%= render 'layouts/menu' %>
+
+				<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+					<i id="sidebar-toggle-icon" class="ace-icon fa fa-angle-double-left ace-save-state" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+				</div>
+			</div>
+		<div class="main-content">
+			<div class="main-content-inner">
+				<div class="breadcrumbs ace-save-state" id="breadcrumbs">
+					<ul class="breadcrumb">
+						<%= render_breadcrumbs %>
+					</ul><!-- /.breadcrumb -->
+				</div>
+				<div class="page-content">
+					<div class="row">
+						<div class="col-xs-12">
+							<%= render 'layouts/notice', data: notice %>
+							<%= render 'layouts/notice', data: alert %>
+							<%= yield %>
+						</div><!-- /.col -->
+					</div><!-- /.row -->
+				</div><!-- /.page-content -->
+			</div>
+		</div><!-- /.main-content -->
+		<%= render 'layouts/footer'%>
+		<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+			<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+		</a>
+	</div>
+  </body>
+</html>

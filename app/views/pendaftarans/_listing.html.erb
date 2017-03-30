@@ -1,0 +1,47 @@
+
+<% unless smart_listing.empty? %>
+<div class="table-container">
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr role="row">
+        <th class="sorting"><%= smart_listing.sortable "No. Pendaftaran", :no_pendaftaran %></th>
+        <th class="sorting"><%= smart_listing.sortable "NPWPD", :npwpd %></th>
+        <th class="sorting"><%= smart_listing.sortable "Tgl. Daftar", :tgl_daftar %></th>
+        <th class="sorting"><%= smart_listing.sortable "Nama Usaha", :nama_usaha %></th>
+        <th class="sorting"><%= smart_listing.sortable "Nama Pemilik", :nama_pemilik %></th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% 
+          counting = 1
+      %>
+      <% smart_listing.collection.each do |pendaftaran| %>
+              <% if counting.odd? %>
+                  <tr role="row" class="odd">
+              <% else %>
+                <tr role="row" class="even">
+              <% end %>
+          <td><%= pendaftaran.no_pendaftaran %></td>
+          <td><%= pendaftaran.npwpd %></td>
+          <td><%= pendaftaran.tgl_daftar.strftime('%d-%m-%Y') %></td>
+          <td><%= pendaftaran.nama_usaha %></td>
+          <td><%= pendaftaran.nama_pemilik %></td>
+          <td>
+              <div class="action-buttons">
+                  <%= link_to(raw('<i class="ace-icon fa fa-search-plus bigger-130"></i>'), pendaftaran, class:"blue") %>
+                  <%= link_to(raw('<i class="ace-icon fa fa-pencil bigger-130"></i>'), edit_pendaftaran_path(pendaftaran), class:"green") %>
+                  <%= link_to(raw('<i class="ace-icon fa fa-trash-o bigger-130"></i>'), pendaftaran, method: :delete, data: { confirm: 'Anda yakin?' }, class:"red") %>
+              </div>
+          </td>
+        </tr>
+        <% counting += 1 %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%= smart_listing.paginate  %>
+<% else %>
+<p> Data tidak ditemukan </p>
+<% end %>

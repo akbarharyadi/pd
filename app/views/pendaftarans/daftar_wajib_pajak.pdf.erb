@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset='utf-8' />
+  </head>
+  <body>
+  <table width="100%" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse">
+  <tr>
+	<td style="text-align:center; padding-top:10px;">
+	  <p style="font-size:12pt;">DAFTAR WAJIB PAJAK <%= @wilayah.jenis_wilayah.upcase + ' ' + @wilayah.nama_wilayah.upcase %></p>
+      <p style="font-size:9pt;"><%= @tanggal %></p>
+	</td>
+  </tr>
+</td>
+</table>
+<hr>
+<div class="container">
+  <table width="100%" border="1" cellpadding="0" cellspacing="0" style="border-collapse:collapse;font-size:10pt;" >
+    <thead>
+      <tr role="row" style="text-align:center; padding-top:10px;">
+        <th class="sorting">No</th>
+        <th class="sorting">No. Pendaftaran</th>
+        <th class="sorting">NPWPD</th>
+        <th class="sorting">Tgl. Daftar</th>
+        <th class="sorting">Nama Usaha</th>
+        <th class="sorting">Nama Pemilik</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% 
+          counting = 1
+      %>
+      <% @pendaftaran.each do |pendaftaran| %>
+              <% if counting.odd? %>
+                  <tr role="row" class="odd">
+              <% else %>
+                <tr role="row" class="even">
+              <% end %>
+              <td style="text-align:center; padding:5px;"><%= counting %></td>
+          <td style="text-align:center; padding:5px;"><%= pendaftaran.no_pendaftaran %></td>
+          <td style="text-align:center; padding:5px;"><%= pendaftaran.npwpd %></td>
+          <td style="text-align:center; padding:5px;"><%= pendaftaran.tgl_daftar.strftime('%d-%m-%Y') %></td>
+          <td style="padding:5px;"><%= pendaftaran.nama_usaha %></td>
+          <td style="padding:5px;"><%= pendaftaran.nama_pemilik %></td>
+        </tr>
+        <% counting += 1 %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+  </body>
+</html>

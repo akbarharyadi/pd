@@ -1,0 +1,144 @@
+<div class="row">
+  <div class="col-xs-12">
+    <div class="widget-box">
+      <div class="widget-header widget-header-flat">
+        <h4 class="widget-title smaller">Detail Pendaftaran</h4>
+        <div class="widget-toolbar">
+          <%= link_to(raw('<i class="ace-icon fa fa-pencil align-center"></i> Edit'), edit_pendaftaran_path(@pendaftaran)) %> | 
+          <%= link_to(raw('<i class="ace-icon fa fa-undo icon-only"></i> Kembali'), pendaftarans_path) %> |
+          <%= link_to(raw('<i class="ace-icon fa fa-trash icon-only"></i> Hapus'), @pendaftaran, method: :delete, data: { confirm: 'Ada yakin ingin menghapus data ini?' }) %>
+        </div>
+      </div>
+      <div class="widget-body">
+        <div class="widget-main">
+        <div class="profile-user-info profile-user-info-striped">
+            <div class="profile-info-row">
+              <div class="profile-info-name"> <strong>Tanggal pendaftaran </strong>
+              </div>
+              <div class="profile-info-value">
+                <span class="editable editable-click"><%= @pendaftaran.tgl_daftar %></span>
+              </div>
+            </div>
+          </div>
+          <div class="profile-user-info profile-user-info-striped">
+            <div class="profile-info-row">
+              <div class="profile-info-name"> <strong>No pendaftaran </strong>
+              </div>
+              <div class="profile-info-value">
+                <span class="editable editable-click"><%= @pendaftaran.no_pendaftaran %></span>
+              </div>
+            </div>
+          </div>
+          <div class="profile-user-info profile-user-info-striped">
+            <div class="profile-info-row">
+              <div class="profile-info-name"> <strong>No reg pendaftaran</strong>
+              </div>
+              <div class="profile-info-value">
+                <span class="editable editable-click"><%= @pendaftaran.no_reg_pendaftaran %></span>
+              </div>
+            </div>
+          </div>
+          <div class="profile-user-info profile-user-info-striped">
+            <div class="profile-info-row">
+              <div class="profile-info-name"> <strong>Nama WP</strong> 
+              </div>
+              <div class="profile-info-value">
+                <span class="editable editable-click"><%= @pendaftaran.nama_wp %></span>
+              </div>
+            </div>
+          </div>
+          <div class="profile-user-info profile-user-info-striped">
+            <div class="profile-info-row">
+              <div class="profile-info-name"> <strong>Alamat WP</strong> 
+              </div>
+              <div class="profile-info-value">
+                <span class="editable editable-click"><%= @pendaftaran.alamat_wp %></span>
+              </div>
+            </div>
+					</div>
+          <div class="profile-user-info profile-user-info-striped">
+            <div class="profile-info-row">
+              <div class="profile-info-name"> <strong>Kecamatan</strong> 
+              </div>
+              <div class="profile-info-value">
+                <span class="editable editable-click"><%= @pendaftaran.kecamatan.try(:nama) %></span>
+              </div>
+            </div>
+					</div>
+          <div class="profile-user-info profile-user-info-striped">
+            <div class="profile-info-row">
+              <div class="profile-info-name"> <strong>Kelurahan</strong> 
+              </div>
+              <div class="profile-info-value">
+                <span class="editable editable-click"><%= @pendaftaran.kelurahan.try(:nama) %></span>
+              </div>
+            </div>
+					</div>
+          <div class="profile-user-info profile-user-info-striped">
+            <div class="profile-info-row">
+              <div class="profile-info-name"> <strong>No telp wp</strong> 
+              </div>
+              <div class="profile-info-value">
+                <span class="editable editable-click"><%= @pendaftaran.no_telp_wp %></span>
+              </div>
+            </div>
+					</div>
+          <div class="profile-user-info profile-user-info-striped">
+            <div class="profile-info-row">
+              <div class="profile-info-name"> <strong>Nama pemilik</strong> 
+              </div>
+              <div class="profile-info-value">
+                <span class="editable editable-click"><%= @pendaftaran.nama_pemilik %></span>
+              </div>
+            </div>
+					</div>
+          <div class="profile-user-info profile-user-info-striped">
+            <div class="profile-info-row">
+              <div class="profile-info-name"> <strong>Alamat pemilik</strong> 
+              </div>
+              <div class="profile-info-value">
+                <span class="editable editable-click"><%= @pendaftaran.alamat_pemilik  %></span>
+              </div>
+            </div>
+					</div>
+          <div class="profile-user-info profile-user-info-striped">
+            <div class="profile-info-row">
+              <div class="profile-info-name"> <strong>No telp pemilik</strong> 
+              </div>
+              <div class="profile-info-value">
+                <span class="editable editable-click"><%= @pendaftaran.no_telp_pemilik  %></span>
+              </div>
+            </div>
+					</div>
+          <div class="profile-user-info profile-user-info-striped">
+            <div class="profile-info-row">
+              <div class="profile-info-name"> <strong>NPWPD</strong> 
+              </div>
+              <div class="profile-info-value">
+                <span class="editable editable-click"><%= @pendaftaran.npwpd %></span>
+              </div>
+            </div>
+					</div>
+          <div class="profile-user-info profile-user-info-striped">
+            <div class="profile-info-row">
+              <div class="profile-info-name"> <strong>Tgl. NPWPD</strong> 
+              </div>
+              <div class="profile-info-value">
+                <span class="editable editable-click"><%= @pendaftaran.tgl_npwpd %></span>
+              </div>
+            </div>
+					</div>
+          <div class="profile-user-info profile-user-info-striped">
+            <div class="profile-info-row">
+              <div class="profile-info-name"> <strong>Jenis Usaha</strong> 
+              </div>
+              <div class="profile-info-value">
+                <span class="editable editable-click"><%= @pendaftaran.usaha.try(:nama_usaha) %></span>
+              </div>
+            </div>
+					</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Wilayahs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nama wilayah</th>
+      <th>Jenis wilayah</th>
+      <th>Pemimpin</th>
+      <th>Ibu kota</th>
+      <th>Nama badan</th>
+      <th>Alamat badan</th>
+      <th>Telp badan</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @wilayahs.each do |wilayah| %>
+      <tr>
+        <td><%= wilayah.nama_wilayah %></td>
+        <td><%= wilayah.jenis_wilayah %></td>
+        <td><%= wilayah.pemimpin %></td>
+        <td><%= wilayah.ibu_kota %></td>
+        <td><%= wilayah.nama_badan %></td>
+        <td><%= wilayah.alamat_badan %></td>
+        <td><%= wilayah.telp_badan %></td>
+        <td><%= link_to 'Show', wilayah %></td>
+        <td><%= link_to 'Edit', edit_wilayah_path(wilayah) %></td>
+        <td><%= link_to 'Destroy', wilayah, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Wilayah', new_wilayah_path %>

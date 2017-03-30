@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nama wilayah:</strong>
+  <%= @wilayah.nama_wilayah %>
+</p>
+
+<p>
+  <strong>Jenis wilayah:</strong>
+  <%= @wilayah.jenis_wilayah %>
+</p>
+
+<p>
+  <strong>Pemimpin:</strong>
+  <%= @wilayah.pemimpin %>
+</p>
+
+<p>
+  <strong>Ibu kota:</strong>
+  <%= @wilayah.ibu_kota %>
+</p>
+
+<p>
+  <strong>Nama badan:</strong>
+  <%= @wilayah.nama_badan %>
+</p>
+
+<p>
+  <strong>Alamat badan:</strong>
+  <%= @wilayah.alamat_badan %>
+</p>
+
+<p>
+  <strong>Telp badan:</strong>
+  <%= @wilayah.telp_badan %>
+</p>
+
+<%= link_to 'Edit', edit_wilayah_path(@wilayah) %> |
+<%= link_to 'Back', wilayahs_path %>

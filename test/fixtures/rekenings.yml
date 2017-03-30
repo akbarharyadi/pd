@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  kode: MyString
+  jenis_kode: MyString
+  turunan_kode: MyString
+  tahun: 1
+  tarif: 1.5
+  persen: 1.5
+
+two:
+  kode: MyString
+  jenis_kode: MyString
+  turunan_kode: MyString
+  tahun: 1
+  tarif: 1.5
+  persen: 1.5

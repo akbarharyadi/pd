@@ -1,0 +1,85 @@
+<div class="row">
+  <div class="col-xs-12">
+  <%= form_for(wilayah, :html => {:class => "form-vertical", :role => "form"}) do |f| %>
+  <%= render 'shared/error', error_form: wilayah %>
+
+<div class="row">
+ <div class="col-md-4">
+  <div class="field">
+      <div class="form-group">
+          <%= f.label :nama_wilayah %>
+            <%= f.text_field :nama_wilayah, class: "form-control", validate: true %>
+        </div>
+  </div>
+</div>
+
+ <div class="col-md-4">
+  <div class="field">
+    <div class="form-group">
+    <%= f.label :jenis_wilayah %>
+    <%= f.text_field :jenis_wilayah, class: "form-control", validate: true %>
+  </div>
+  </div>
+  </div>
+
+<div class="col-md-4">
+  <div class="field">
+  <div class="form-group">
+    <%= f.label :pemimpin %>
+    <%= f.text_field :pemimpin, class: "form-control", validate: true %>
+     </div>
+  </div>
+  </div>
+   </div>
+
+
+<div class="row">
+<div class="col-md-4">
+  <div class="field">
+  <div class="form-group">
+    <%= f.label :ibu_kota %>
+    <%= f.text_field :ibu_kota, class: "form-control", validate: true %>
+     </div>
+  </div>
+  </div>
+
+<div class="col-md-4">
+  <div class="field">
+  <div class="form-group">
+    <%= f.label :nama_badan %>
+    <%= f.text_field :nama_badan, class: "form-control", validate: true %>
+     </div>
+  </div>
+</div>
+
+<div class="col-md-4">
+  <div class="field">
+  <div class="form-group">
+    <%= f.label :telp_badan %>
+    <%= f.text_field :telp_badan, class: "form-control", validate: true %>
+     </div>
+  </div>
+ </div>
+   </div>
+
+<div class="row">
+  <div class="col-md-8">
+  <div class="field">
+  <div class="form-group">
+    <%= f.label :alamat_badan %>
+    <%= f.text_area :alamat_badan, class: "form-control", validate: true %>
+     </div>
+  </div>
+   </div>
+  </div>
+
+ <div class="clearfix form-actions">
+        <div class="col-md-offset-3 col-md-9">
+        <%= button_tag(type: 'submit', class: "btn btn-info") do %>
+          <i class="ace-icon fa fa-check bigger-110"></i> Simpan
+        <% end %>
+      </div>
+    </div>
+<% end %>
+</div>
+</div>

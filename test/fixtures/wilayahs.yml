@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nama_wilayah: MyString
+  jenis_wilayah: MyString
+  pemimpin: MyString
+  ibu_kota: MyString
+  nama_badan: MyString
+  alamat_badan: MyString
+  telp_badan: MyString
+
+two:
+  nama_wilayah: MyString
+  jenis_wilayah: MyString
+  pemimpin: MyString
+  ibu_kota: MyString
+  nama_badan: MyString
+  alamat_badan: MyString
+  telp_badan: MyString

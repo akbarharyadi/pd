@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Kode:</strong>
+  <%= @rekening.kode %>
+</p>
+
+<p>
+  <strong>Jenis kode:</strong>
+  <%= @rekening.jenis_kode %>
+</p>
+
+<p>
+  <strong>Turunan kode:</strong>
+  <%= @rekening.turunan_kode %>
+</p>
+
+<p>
+  <strong>Tahun:</strong>
+  <%= @rekening.tahun %>
+</p>
+
+<p>
+  <strong>Tarif:</strong>
+  <%= @rekening.tarif %>
+</p>
+
+<p>
+  <strong>Persen:</strong>
+  <%= @rekening.persen %>
+</p>
+
+<%= link_to 'Edit', edit_rekening_path(@rekening) %> |
+<%= link_to 'Back', rekenings_path %>
