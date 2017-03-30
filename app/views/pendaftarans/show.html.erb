@@ -16,7 +16,7 @@
               <div class="profile-info-name"> <strong>Tanggal pendaftaran </strong>
               </div>
               <div class="profile-info-value">
-                <span class="editable editable-click"><%= @pendaftaran.tgl_daftar %></span>
+                <span class="editable editable-click"><%= @pendaftaran.tgl_daftar.strftime('%d-%m-%Y') %></span>
               </div>
             </div>
           </div>
@@ -76,7 +76,7 @@
 					</div>
           <div class="profile-user-info profile-user-info-striped">
             <div class="profile-info-row">
-              <div class="profile-info-name"> <strong>No telp wp</strong> 
+              <div class="profile-info-name"> <strong>No telp usaha</strong> 
               </div>
               <div class="profile-info-value">
                 <span class="editable editable-click"><%= @pendaftaran.no_telp_usaha %></span>
@@ -124,7 +124,7 @@
               <div class="profile-info-name"> <strong>Tgl. NPWPD</strong> 
               </div>
               <div class="profile-info-value">
-                <span class="editable editable-click"><%= @pendaftaran.tgl_npwpd %></span>
+                <span class="editable editable-click"><%= @pendaftaran.tgl_npwpd.strftime('%d-%m-%Y') %></span>
               </div>
             </div>
 					</div>
