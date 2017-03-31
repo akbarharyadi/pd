@@ -12,7 +12,7 @@
 						<b class="arrow"></b>
                         <ul class="submenu">
                             <li class="<%= 'active' if params[:controller] == 'pendaftarans' and params[:action] != 'daftar_wajib_pajak' %>">
-                                <%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Pendaftaran </span>'), pendaftarans_path) %>
+                                <%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Index Pendaftaran </span>'), pendaftarans_path) %>
                                 <b class="arrow"></b>
 							</li>
 							<li class="<%= 'active open' if params[:controller] == 'pendaftarans' and params[:action] == 'daftar_wajib_pajak' %>">
