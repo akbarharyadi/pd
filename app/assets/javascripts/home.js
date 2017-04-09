@@ -42,4 +42,18 @@ $(document).on('turbolinks:load ready', function () {
 				.prev().on(ace.click_event, function(){
 					$(this).prev().focus();
 				});
+
+    money_fields = $('input[data-role=money]')
+    money_fields.autoNumeric('init', {
+        digitGroupSeparator        : '.',
+        decimalCharacter           : ',',
+    });
+
+    money_fields.keydown(function(e){
+        if(e.keyCode == 13){
+            $(this).autoNumeric('set', $(this).autoNumeric('get'))
+        }
+    });
+              
 });
+  
