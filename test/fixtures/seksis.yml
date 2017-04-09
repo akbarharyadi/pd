@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  kode_seksi: MyString
+  nama_seksi: MyString
+  singkatan: MyString
+  bidang_id: 1
+
+two:
+  kode_seksi: MyString
+  nama_seksi: MyString
+  singkatan: MyString
+  bidang_id: 1

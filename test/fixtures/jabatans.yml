@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  kode_jabatan: MyString
+  nama_jabatan: MyString
+  singkatan: MyString
+
+two:
+  kode_jabatan: MyString
+  nama_jabatan: MyString
+  singkatan: MyString

@@ -1,5 +1,20 @@
 Rails.application.routes.draw do
-  resources :rekenings
+  resources :jabatans
+  resources :seksis
+  resources :bidangs
+  resources :ttds
+  resources :pendataans do
+    collection do
+      get 'cetak_sptpd'
+      get 'surat_teguran'
+      get 'cetak_surat_teguran'
+    end
+  end
+  resources :rekenings do
+    collection do 
+      get 'update_rekening'
+    end 
+  end
   resources :pendaftarans do
     collection do
       get 'daftar_wajib_pajak'

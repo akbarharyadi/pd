@@ -1,248 +1,210 @@
 <ul class="nav nav-list">
-                    <li class="<%= 'active' if params[:controller] == 'home' %>">
-                        <%= link_to(raw('<i class="menu-icon fa fa-tachometer"></i><span class="menu-text"> Dashboard </span>'), root_path) %>
+	<li class="<%= 'active' if params[:controller] == 'home' %>">
+		<%= link_to(raw('<i class="menu-icon fa fa-tachometer"></i><span class="menu-text"> Dashboard </span>'), root_path) %>
+		<b class="arrow"></b>
+	</li>
+	<li class="<%= 'active open' if params[:controller] == 'pendaftarans' %>">
+		<a href="#" class="dropdown-toggle">
+			<i class="menu-icon fa fa-book"></i>
+			<span class="menu-text"> Pendaftaran </span>
+            <b class="arrow fa fa-angle-down"></b>
+		</a>
+		<b class="arrow"></b>
+        <ul class="submenu">
+        	<li class="<%= 'active' if params[:controller] == 'pendaftarans' and params[:action] != 'daftar_wajib_pajak' %>">
+            	<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Index Pendaftaran </span>'), pendaftarans_path) %>
+                <b class="arrow"></b>
+			</li>
+			<li class="<%= 'active open' if params[:controller] == 'pendaftarans' and params[:action] == 'daftar_wajib_pajak' %>">
+				<a href="#" class="dropdown-toggle">
+					<i class="menu-icon fa fa-caret-right"></i>
+					Cetak
+					<b class="arrow fa fa-angle-down"></b>
+				</a>
+				<b class="arrow"></b>
+				<ul class="submenu">
+					<li class="<%= 'active' if params[:controller] == 'pendaftarans' and params[:action] == 'daftar_wajib_pajak' %>">
+						<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Daftar Wajib Pajak </span>'), daftar_wajib_pajak_pendaftarans_path()) %>
 						<b class="arrow"></b>
 					</li>
-					<li class="<%= 'active open' if params[:controller] == 'pendaftarans' %>">
-						<a href="#" class="dropdown-toggle">
-							<i class="menu-icon fa fa-list"></i>
-							<span class="menu-text"> Pendaftaran </span>
-                            <b class="arrow fa fa-angle-down"></b>
-						</a>
+				</ul>
+			</li>
+		</ul>
+	</li>
+	<li class="<%= 'active open' if params[:controller] == 'pendataans' %>">
+		<a href="#" class="dropdown-toggle">
+			<i class="menu-icon fa fa-list"></i>
+			<span class="menu-text"> Pendataan </span>
+            <b class="arrow fa fa-angle-down"></b>
+		</a>
+		<b class="arrow"></b>
+        <ul class="submenu">
+			<li class="<%= 'active' if params[:controller] == 'pendataans' and (params[:kode_rekening] == '1101' or session[:kode_rekening] == '1101') %>">
+				<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Pajak Hotel </span>'), pendataans_path(kode_rekening: '1101')) %>
+				<b class="arrow"></b>
+			</li>
+			<li class="<%= 'active' if params[:controller] == 'pendataans' and (params[:kode_rekening] == '1102' or session[:kode_rekening] == '1102') %>">
+				<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Pajak Restoran </span>'), pendataans_path(kode_rekening: '1102')) %>
+				<b class="arrow"></b>
+			</li>
+			<li class="<%= 'active' if params[:controller] == 'pendataans' and (params[:kode_rekening] == '1103' or session[:kode_rekening] == '1103') %>">
+				<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Pajak Hiburan </span>'), pendataans_path(kode_rekening: '1103')) %>
+				<b class="arrow"></b>
+			</li>
+			<li class="<%= 'active' if params[:controller] == 'pendataans' and (params[:kode_rekening] == '1105' or session[:kode_rekening] == '1105') %>">
+				<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Pajak Penerangan Jalan </span>'), pendataans_path(kode_rekening: '1105')) %>
+				<b class="arrow"></b>
+			</li>
+			<li class="<%= 'active' if params[:controller] == 'pendataans' and (params[:kode_rekening] == '1111' or session[:kode_rekening] == '1111') %>">
+				<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Pajak MBLB </span>'), pendataans_path(kode_rekening: '1111')) %>
+				<b class="arrow"></b>
+			</li>
+			<li class="<%= 'active' if params[:controller] == 'pendataans' and (params[:kode_rekening] == '1107' or session[:kode_rekening] == '1107') %>">
+				<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Pajak Parkir </span>'), pendataans_path(kode_rekening: '1107')) %>
+				<b class="arrow"></b>
+			</li>
+			<li class="<%= 'active open' if params[:controller] == 'pendataans' and params[:action] == 'surat_teguran' %>">
+				<a href="#" class="dropdown-toggle">
+					<i class="menu-icon fa fa-caret-right"></i>
+					Cetak
+					<b class="arrow fa fa-angle-down"></b>
+				</a>
+				<b class="arrow"></b>
+				<ul class="submenu">
+					<li class="<%= 'active' if params[:controller] == 'pendataans' and params[:action] == 'surat_teguran' %>">
+						<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Surat Teguran </span>'), surat_teguran_pendataans_path()) %>
 						<b class="arrow"></b>
-                        <ul class="submenu">
-                            <li class="<%= 'active' if params[:controller] == 'pendaftarans' and params[:action] != 'daftar_wajib_pajak' %>">
-                                <%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Index Pendaftaran </span>'), pendaftarans_path) %>
-                                <b class="arrow"></b>
-							</li>
-							<li class="<%= 'active open' if params[:controller] == 'pendaftarans' and params[:action] == 'daftar_wajib_pajak' %>">
-								<a href="#" class="dropdown-toggle">
-									<i class="menu-icon fa fa-caret-right"></i>
-									Cetak
-									<b class="arrow fa fa-angle-down"></b>
-								</a>
-								<b class="arrow"></b>
-								<ul class="submenu">
-									<li class="<%= 'active' if params[:controller] == 'pendaftarans' and params[:action] == 'daftar_wajib_pajak' %>">
-										<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Daftar Wajib Pajak </span>'), daftar_wajib_pajak_pendaftarans_path()) %>
-										<b class="arrow"></b>
-									</li>
-								</ul>
-							</li>
-						</ul>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+	<li class="">
+		<a href="#" class="dropdown-toggle">
+			<i class="menu-icon fa fa-bar-chart"></i>
+			<span class="menu-text"> Penetapan </span>
+            <b class="arrow fa fa-angle-down"></b>
+		</a>
+		<b class="arrow"></b>
+        <ul class="submenu">
+            <li class="">
+                <%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Index Penetapan </span>'), '#') %>
+                <b class="arrow"></b>
+			</li>
+			<li class="">
+				<a href="#" class="dropdown-toggle">
+					<i class="menu-icon fa fa-caret-right"></i>
+					Cetak
+					<b class="arrow fa fa-angle-down"></b>
+				</a>
+				<b class="arrow"></b>
+				<ul class="submenu">
+					<li class="">
+						<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Nota Perhitungan </span>'), '#') %>
+						<b class="arrow"></b>
 					</li>
 					<li class="">
-						<a href="#" class="dropdown-toggle">
-							<i class="menu-icon fa fa-list"></i>
-							<span class="menu-text"> Pendataan </span>
-                            <b class="arrow fa fa-angle-down"></b>
-						</a>
+						<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> SKPD/N/KB </span>'), '#') %>
 						<b class="arrow"></b>
-                        <ul class="submenu">
-                            <li class="">
-                                <a href="#" class="dropdown-toggle">
-									<i class="menu-icon fa fa-caret-right"></i>
-									Self Assessment
-									<b class="arrow fa fa-angle-down"></b>
-								</a>
-                                <b class="arrow"></b>
-								<ul class="submenu">
-									<li class="">
-										<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Pajak Hotel </span>'), '#') %>
-										<b class="arrow"></b>
-									</li>
-									<li class="">
-										<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Pajak Restoran </span>'), '#') %>
-										<b class="arrow"></b>
-									</li>
-									<li class="">
-										<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Pajak Hiburan </span>'), '#') %>
-										<b class="arrow"></b>
-									</li>
-									<li class="">
-										<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Pajak Penerangan Jalan </span>'), '#') %>
-										<b class="arrow"></b>
-									</li>
-									<li class="">
-										<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Pajak MBLB </span>'), '#') %>
-										<b class="arrow"></b>
-									</li>
-									<li class="">
-										<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Pajak Parkir </span>'), '#') %>
-										<b class="arrow"></b>
-									</li>
-								</ul>
-							</li>
-							<li class="">
-								<a href="#" class="dropdown-toggle">
-									<i class="menu-icon fa fa-caret-right"></i>
-									Official Assessment
-									<b class="arrow fa fa-angle-down"></b>
-								</a>
-								<b class="arrow"></b>
-								<ul class="submenu">
-									<li class="">
-										<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Pajak Hotel </span>'), '#') %>
-										<b class="arrow"></b>
-									</li>
-									<li class="">
-										<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Pajak Restoran </span>'), '#') %>
-										<b class="arrow"></b>
-									</li>
-									<li class="">
-										<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Pajak Hiburan </span>'), '#') %>
-										<b class="arrow"></b>
-									</li>
-									<li class="">
-										<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Pajak Reklame </span>'), '#') %>
-										<b class="arrow"></b>
-									</li>
-									<li class="">
-										<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Pajak Penerangan Jalan </span>'), '#') %>
-										<b class="arrow"></b>
-									</li>
-									<li class="">
-										<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Pajak MBLB </span>'), '#') %>
-										<b class="arrow"></b>
-									</li>
-									<li class="">
-										<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Pajak Parkir </span>'), '#') %>
-										<b class="arrow"></b>
-									</li>
-									<li class="">
-										<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Pajak Air Tanah </span>'), '#') %>
-										<b class="arrow"></b>
-									</li>
-								</ul>
-							</li>
-						</ul>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+	<li class="">
+		<a href="#" class="dropdown-toggle">
+			<i class="menu-icon fa fa-file-text-o"></i>
+			<span class="menu-text"> Penyetoran </span>
+            <b class="arrow fa fa-angle-down"></b>
+		</a>
+		<b class="arrow"></b>
+        <ul class="submenu">
+            <li class="">
+                <%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Index Penyetoran </span>'), '#') %>
+                <b class="arrow"></b>
+			</li>
+			<li class="">
+				<a href="#" class="dropdown-toggle">
+					<i class="menu-icon fa fa-caret-right"></i>
+					Cetak
+					<b class="arrow fa fa-angle-down"></b>
+				</a>
+				<b class="arrow"></b>
+				<ul class="submenu">
+					<li class="">
+						<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Daftar Setoran </span>'), '#') %>
+						<b class="arrow"></b>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+	<li class="<%= 'active open' if params[:controller] == 'kecamatans' or params[:controller] == 'kelurahans' or params[:controller] == 'wilayahs' or params[:controller] == 'usahas' or params[:controller] == 'rekenings' or params[:controller] == 'bidangs' or params[:controller] == 'seksis' %>">
+		<a href="#" class="dropdown-toggle">
+			<i class="menu-icon fa fa-gear"></i>
+			<span class="menu-text"> Master </span>
+            <b class="arrow fa fa-angle-down"></b>
+		</a>
+		<b class="arrow"></b>
+        <ul class="submenu">
+			<li class="<%= 'active' if params[:controller] == 'rekenings' %>">
+                <%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Rekening </span>'), rekenings_path) %>
+                <b class="arrow"></b>
+			</li>
+            <li class="<%= 'active' if params[:controller] == 'kecamatans' %>">
+                <%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Kecamatan </span>'), kecamatans_path) %>
+                <b class="arrow"></b>
+			</li>
+			<li class="<%= 'active' if params[:controller] == 'kelurahans' %>">
+                <%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Kelurahan/Desa </span>'), kelurahans_path) %>
+                <b class="arrow"></b>
+			</li>
+			<li class="<%= 'active' if params[:controller] == 'wilayahs' %>">
+                <%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Wilayah </span>'), wilayah_path(1)) %>
+                <b class="arrow"></b>
+			</li>
+			<li class="<%= 'active' if params[:controller] == 'usahas' %>">
+                <%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Jenis usaha </span>'), usahas_path) %>
+                <b class="arrow"></b>
+			</li>
+			<li class="<%= 'active open' if params[:controller] == 'bidangs' or params[:controller] == 'seksis' %>">
+				<a href="#" class="dropdown-toggle">
+					<i class="menu-icon fa fa-caret-right"></i>
+					Kepegawaian
+					<b class="arrow fa fa-angle-down"></b>
+				</a>
+				<b class="arrow"></b>
+				<ul class="submenu">
+					<li class="<%= 'active' if params[:controller] == 'bidangs' %>">
+						<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Bidang </span>'), bidangs_path) %>
+						<b class="arrow"></b>
+					</li>
+					<li class="<%= 'active' if params[:controller] == 'seksis' %>">
+						<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Seksi </span>'), seksis_path) %>
+						<b class="arrow"></b>
 					</li>
 					<li class="">
-						<a href="#" class="dropdown-toggle">
-							<i class="menu-icon fa fa-list"></i>
-							<span class="menu-text"> Penetapan </span>
-                            <b class="arrow fa fa-angle-down"></b>
-						</a>
+						<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Jabatan </span>'), '#') %>
 						<b class="arrow"></b>
-                        <ul class="submenu">
-                            <li class="">
-                                <%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Index Penetapan </span>'), '#') %>
-                                <b class="arrow"></b>
-							</li>
-							<li class="">
-								<a href="#" class="dropdown-toggle">
-									<i class="menu-icon fa fa-caret-right"></i>
-									Cetak
-									<b class="arrow fa fa-angle-down"></b>
-								</a>
-								<b class="arrow"></b>
-								<ul class="submenu">
-									<li class="">
-										<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Nota Perhitungan </span>'), '#') %>
-										<b class="arrow"></b>
-									</li>
-									<li class="">
-										<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> SKPD/N/KB </span>'), '#') %>
-										<b class="arrow"></b>
-									</li>
-								</ul>
-							</li>
-						</ul>
 					</li>
 					<li class="">
-						<a href="#" class="dropdown-toggle">
-							<i class="menu-icon fa fa-list"></i>
-							<span class="menu-text"> Penyetoran </span>
-                            <b class="arrow fa fa-angle-down"></b>
-						</a>
+						<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Golongan </span>'), '#') %>
 						<b class="arrow"></b>
-                        <ul class="submenu">
-                            <li class="">
-                                <%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Index Penyetoran </span>'), '#') %>
-                                <b class="arrow"></b>
-							</li>
-							<li class="">
-								<a href="#" class="dropdown-toggle">
-									<i class="menu-icon fa fa-caret-right"></i>
-									Cetak
-									<b class="arrow fa fa-angle-down"></b>
-								</a>
-								<b class="arrow"></b>
-								<ul class="submenu">
-									<li class="">
-										<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Daftar Setoran </span>'), '#') %>
-										<b class="arrow"></b>
-									</li>
-								</ul>
-							</li>
-						</ul>
-					</li>
-					<li class="<%= 'active open' if params[:controller] == 'kecamatans' or params[:controller] == 'kelurahans' or params[:controller] == 'wilayahs' or params[:controller] == 'usahas' or params[:controller] == 'rekenings' %>">
-						<a href="#" class="dropdown-toggle">
-							<i class="menu-icon fa fa-gear"></i>
-							<span class="menu-text"> Master </span>
-                            <b class="arrow fa fa-angle-down"></b>
-						</a>
-						<b class="arrow"></b>
-                        <ul class="submenu">
-							<li class="<%= 'active' if params[:controller] == 'rekenings' %>">
-                                <%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Rekening </span>'), rekenings_path) %>
-                                <b class="arrow"></b>
-							</li>
-                            <li class="<%= 'active' if params[:controller] == 'kecamatans' %>">
-                                <%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Kecamatan </span>'), kecamatans_path) %>
-                                <b class="arrow"></b>
-							</li>
-							<li class="<%= 'active' if params[:controller] == 'kelurahans' %>">
-                                <%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Kelurahan/Desa </span>'), kelurahans_path) %>
-                                <b class="arrow"></b>
-							</li>
-							<li class="<%= 'active' if params[:controller] == 'wilayahs' %>">
-                                <%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Wilayah </span>'), wilayah_path(1)) %>
-                                <b class="arrow"></b>
-							</li>
-							<li class="<%= 'active' if params[:controller] == 'usahas' %>">
-                                <%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Jenis usaha </span>'), usahas_path) %>
-                                <b class="arrow"></b>
-							</li>
-							<li class="">
-								<a href="#" class="dropdown-toggle">
-									<i class="menu-icon fa fa-caret-right"></i>
-									Kepegawaian
-									<b class="arrow fa fa-angle-down"></b>
-								</a>
-								<b class="arrow"></b>
-								<ul class="submenu">
-									<li class="">
-										<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Bidang </span>'), '#') %>
-										<b class="arrow"></b>
-									</li>
-									<li class="">
-										<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Seksi </span>'), '#') %>
-										<b class="arrow"></b>
-									</li>
-									<li class="">
-										<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Jabatan </span>'), '#') %>
-										<b class="arrow"></b>
-									</li>
-									<li class="">
-										<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Golongan </span>'), '#') %>
-										<b class="arrow"></b>
-									</li>
-									<li class="">
-										<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Pegawai </span>'), '#') %>
-										<b class="arrow"></b>
-									</li>
-								</ul>
-							</li>
-						</ul>
 					</li>
 					<li class="">
-						<a href="#" class="dropdown-toggle">
-							<i class="menu-icon fa fa-gear"></i>
-							<span class="menu-text"> Manajemen User </span>
-                            <b class="arrow fa fa-angle-down"></b>
-						</a>
+						<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Pegawai </span>'), '#') %>
 						<b class="arrow"></b>
 					</li>
-				</ul><!-- /.nav-list -->
+				</ul>
+			</li>
+		</ul>
+	</li>
+	<li class="">
+		<a href="#" class="dropdown-toggle">
+			<i class="menu-icon fa fa-user"></i>
+			<span class="menu-text"> Manajemen User </span>
+            <b class="arrow fa fa-angle-down"></b>
+		</a>
+		<b class="arrow"></b>
+	</li>
+</ul><!-- /.nav-list -->

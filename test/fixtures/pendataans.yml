@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tgl_daftar: 2017-04-03
+  tahun_spt: 1
+  pendaftaran_id: 1
+  rekening_id: 1
+  periode_awal: 2017-04-03
+  periode_akhir: 2017-04-03
+  omzet: 1.5
+  jumlah_pajak: 1.5
+
+two:
+  tgl_daftar: 2017-04-03
+  tahun_spt: 1
+  pendaftaran_id: 1
+  rekening_id: 1
+  periode_awal: 2017-04-03
+  periode_akhir: 2017-04-03
+  omzet: 1.5
+  jumlah_pajak: 1.5
