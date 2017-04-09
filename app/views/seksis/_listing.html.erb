@@ -1,0 +1,45 @@
+
+<% unless smart_listing.empty? %>
+<div class="table-container">
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr role="row">
+        <th class="sorting"><%= smart_listing.sortable "Bidang", :bidang_id %></th>
+        <th class="sorting"><%= smart_listing.sortable "Kode seksi", :kode_seksi %></th>
+        <th class="sorting"><%= smart_listing.sortable "Nama seksi", :nama_seksi %></th>
+        <th class="sorting"><%= smart_listing.sortable "Singkatan", :singkatan %></th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% 
+          counting = 1
+      %>
+      <% smart_listing.collection.each do |seksi| %>
+              <% if counting.odd? %>
+                  <tr role="row" class="odd">
+              <% else %>
+                <tr role="row" class="even">
+              <% end %>
+          <td><%= seksi.bidang.nama_bidang %></td>
+          <td><%= seksi.kode_seksi %></td>
+          <td><%= seksi.nama_seksi %></td>
+          <td><%= seksi.singkatan %></td>
+          <td>
+              <div class="action-buttons">
+                  <%= link_to(raw('<i class="ace-icon fa fa-search-plus bigger-130"></i>'), seksi, class:"blue") %>
+                  <%= link_to(raw('<i class="ace-icon fa fa-pencil bigger-130"></i>'), edit_seksi_path(seksi), class:"green") %>
+                  <%= link_to(raw('<i class="ace-icon fa fa-trash-o bigger-130"></i>'), seksi, method: :delete, data: { confirm: 'Anda yakin?' }, class:"red") %>
+              </div>
+          </td>
+        </tr>
+        <% counting += 1 %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%= smart_listing.paginate  %>
+<% else %>
+<p> Data tidak ditemukan </p>
+<% end %>

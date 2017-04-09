@@ -1,0 +1,50 @@
+<div class="row">
+  <div class="col-xs-12">
+    <%= form_for(seksi, :html => {:class => "form-horizontal" , :role => "form"}) do |f| %>
+      <%= render 'shared/error', error_form: seksi %>
+      <div class="field">
+        <div class="form-group">
+          <%= f.label :bidang_id, class: "col-sm-2 control-label no-padding-right" %>
+          <div class="col-sm-4">
+            <%= collection_select(:seksi, :bidang_id, Bidang.all, :id, :kode_dan_bidang,
+                 {:prompt => ' -- Pilih Bidang -- '}, {class: "chosen-select form-control", 'data-placeholder'=>" -- Pilih Bidang -- "}) %>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <div class="form-group">
+          <%= f.label :kode_seksi, class: "col-sm-2 control-label no-padding-right" %>
+          <div class="col-sm-1">
+            <%= f.text_field :kode_seksi, class: "form-control", validate: true, :maxlength => 2,  onkeypress: 'return event.charCode >= 48 && event.charCode <= 57' %>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <div class="form-group">
+          <%= f.label :nama_seksi, class: "col-sm-2 control-label no-padding-right" %>
+          <div class="col-sm-6">
+            <%= f.text_field :nama_seksi, class: "form-control", validate: true %>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <div class="form-group">
+          <%= f.label :singkatan, class: "col-sm-2 control-label no-padding-right" %>
+          <div class="col-sm-6">
+            <%= f.text_field :singkatan, class: "form-control", validate: true %>
+          </div>
+        </div>
+      </div>
+      
+      <div class="clearfix form-actions">
+        <div class="col-md-offset-3 col-md-9">
+        <%= button_tag(type: 'submit', class: "btn btn-info") do %>
+          <i class="ace-icon fa fa-check bigger-110"></i> Simpan
+        <% end %>
+        &nbsp; &nbsp; &nbsp;
+        <%= link_to(raw('<i class="ace-icon fa fa-undo bigger-110"></i> kembali'), seksis_path, class: "btn") %>
+      </div>
+       </div>
+    <% end %>
+  </div>
+</div>

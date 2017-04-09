@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-xs-12">
+    <div class="widget-box">
+      <div class="widget-header widget-header-flat">
+        <h4 class="widget-title smaller">Detail Seksi</h4>
+        <div class="widget-toolbar">
+          <%= link_to(raw('<i class="ace-icon fa fa-pencil align-center"></i> Edit'), edit_seksi_path(@seksi)) %> | 
+          <%= link_to(raw('<i class="ace-icon fa fa-undo icon-only"></i> kembali'), seksis_path) %> |
+          <%= link_to(raw('<i class="ace-icon fa fa-trash icon-only"></i> Hapus'), @seksi, method: :delete, data: { confirm: 'Ada yakin ingin menghapus data ini?' }) %>
+        </div>
+      </div>
+      <div class="widget-body">
+        <div class="widget-main">
+          <dl id="dt-list-1" class="">
+            <dt><strong>Bidang:</strong></dt>
+            <dd><%= @seksi.bidang.nama_bidang %></dd>
+            <dt><strong>Kode Seksi:</strong></dt>
+            <dd><%= @seksi.kode_seksi %></dd>
+            <dt><strong>Nama Seksi:</strong></dt>
+            <dd><%= @seksi.nama_seksi %></dd>
+            <dt><strong>Singakatan:</strong></dt>
+            <dd><%= @seksi.singkatan %></dd>
+					</dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
