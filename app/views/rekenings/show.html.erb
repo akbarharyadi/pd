@@ -1,34 +1,63 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Kode:</strong>
-  <%= @rekening.kode %>
-</p>
-
-<p>
-  <strong>Jenis kode:</strong>
-  <%= @rekening.jenis_kode %>
-</p>
-
-<p>
-  <strong>Turunan kode:</strong>
-  <%= @rekening.turunan_kode %>
-</p>
-
-<p>
-  <strong>Tahun:</strong>
-  <%= @rekening.tahun %>
-</p>
-
-<p>
-  <strong>Tarif:</strong>
-  <%= @rekening.tarif %>
-</p>
-
-<p>
-  <strong>Persen:</strong>
-  <%= @rekening.persen %>
-</p>
-
-<%= link_to 'Edit', edit_rekening_path(@rekening) %> |
-<%= link_to 'Back', rekenings_path %>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="widget-box">
+      <div class="widget-header widget-header-flat">
+        <h4 class="widget-title smaller">Detail Rekening</h4>
+        <div class="widget-toolbar">
+          <%= link_to(raw('<i class="ace-icon fa fa-pencil align-center"></i> Edit'), edit_rekening_path(@rekening)) %> | 
+          <%= link_to(raw('<i class="ace-icon fa fa-undo icon-only"></i> Kembali'), rekenings_path) %> |
+          <%= link_to(raw('<i class="ace-icon fa fa-trash icon-only"></i> Hapus'), @rekening, method: :delete, data: { confirm: 'Ada yakin ingin menghapus data ini?' }) %>
+        </div>
+      </div>
+      <div class="widget-body">
+        <div class="widget-main">
+          <div class="profile-user-info profile-user-info-striped">
+            <div class="profile-info-row">
+              <div class="profile-info-name"> <strong> Tahun Rekening </strong>
+              </div>
+              <div class="profile-info-value">
+                <span class="editable editable-click"><%= @rekening.tahun %></span>
+              </div>
+            </div>
+          </div>
+          <div class="profile-user-info profile-user-info-striped">
+            <div class="profile-info-row">
+              <div class="profile-info-name"> <strong> Kode Rekening </strong>
+              </div>
+              <div class="profile-info-value">
+                <span class="editable editable-click"><%= '4.' + @rekening.kode + '.' + @rekening.jenis_kode + '.' + @rekening.turunan_kode %></span>
+              </div>
+            </div>
+          </div>
+          <div class="profile-user-info profile-user-info-striped">
+            <div class="profile-info-row">
+              <div class="profile-info-name"> <strong> Nama Rekening </strong>
+              </div>
+              <div class="profile-info-value">
+                <span class="editable editable-click"><%= @rekening.nama_rekening %></span>
+              </div>
+            </div>
+          </div>
+          <div class="profile-user-info profile-user-info-striped">
+            <div class="profile-info-row">
+              <div class="profile-info-name"> <strong> Tarif Rupiah </strong>
+              </div>
+              <div class="profile-info-value">
+                <span class="editable editable-click">Rp. <%= humanized_money @rekening.tarif %></span>
+              </div>
+            </div>
+          </div>
+          <div class="profile-user-info profile-user-info-striped">
+            <div class="profile-info-row">
+              <div class="profile-info-name"> <strong> Tarif Persen </strong>
+              </div>
+              <div class="profile-info-value">
+                <span class="editable editable-click"><%= number_with_precision @rekening.persen, precision: 2,  strip_insignificant_zeros: true, separator: '.', delimiter: ',' %>%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

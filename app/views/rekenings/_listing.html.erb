@@ -7,6 +7,8 @@
         <th class="sorting"><%= smart_listing.sortable "Tahun", :tahun %></th>
         <th class="sorting">Kode Rekening</th>
         <th class="sorting">Nama Rekening</th>
+        <th class="sorting">Tarif Persen</th>
+        <th class="sorting">Nilai Pasar</th>
         <th></th>
       </tr>
     </thead>
@@ -24,6 +26,8 @@
           <td><%= n.tahun %></td>
           <td><%= '4.' + n.kode + '.' + n.jenis_kode + '.' + n.turunan_kode %></td>
           <td><%= n.nama_rekening %></td>
+          <td><%= number_with_precision n.persen, precision: 2,  strip_insignificant_zeros: true, separator: '.', delimiter: ',' %> %</td>
+          <td style="text-align:right;">Rp. <%= humanized_money n.tarif %></td>
           <td>
               <div class="action-buttons">
                   <%= link_to(raw('<i class="ace-icon fa fa-search-plus bigger-130"></i>'), n, class:"blue") %>

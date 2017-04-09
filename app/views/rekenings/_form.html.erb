@@ -43,11 +43,11 @@
       <div class="row">
           <div class="field">
             <div class="form-group">
-              <%= f.label :tarif_rupiah, class: "col-sm-2 control-label no-padding-right" %>
-        <div class="col-md-3">
+              <%= f.label :nilai_pasar, class: "col-sm-2 control-label no-padding-right" %>
+              <div class="col-md-3">
               <div class='input-group'>
                 <span class="input-group-addon">Rp.</span>
-                  <%= f.text_field :tarif, class: "form-control", validate: true %>
+                  <%= f.text_field :tarif, class: "form-control money-left", validate: true, data: { role: 'money' } %>
               </div>
             </div>
           </div>
@@ -57,9 +57,10 @@
           <div class="field">
             <div class="form-group">
               <%= f.label :tarif_persen, class: "col-sm-2 control-label no-padding-right" %>
-        <div class="col-md-2">
+            <div class="col-md-2">
               <div class='input-group'>
-                <%= f.text_field :persen, class: "form-control", validate: true %>
+                <% rekening.persen = number_with_precision rekening.persen, precision: 2,  strip_insignificant_zeros: true, separator: '.', delimiter: ',' %>
+                <%= f.text_field :persen, class: "form-control money-left", validate: true,  onkeypress: 'return event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)', :maxlength => 3 %>
                 <span class="input-group-addon">%</span>
               </div>
             </div>
