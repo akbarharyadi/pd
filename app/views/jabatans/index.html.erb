@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Jabatans</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Kode jabatan</th>
+      <th>Nama jabatan</th>
+      <th>Singkatan</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @jabatans.each do |jabatan| %>
+      <tr>
+        <td><%= jabatan.kode_jabatan %></td>
+        <td><%= jabatan.nama_jabatan %></td>
+        <td><%= jabatan.singkatan %></td>
+        <td><%= link_to 'Show', jabatan %></td>
+        <td><%= link_to 'Edit', edit_jabatan_path(jabatan) %></td>
+        <td><%= link_to 'Destroy', jabatan, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Jabatan', new_jabatan_path %>

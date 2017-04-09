@@ -1,0 +1,32 @@
+<%= form_for(jabatan) do |f| %>
+  <% if jabatan.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(jabatan.errors.count, "error") %> prohibited this jabatan from being saved:</h2>
+
+      <ul>
+      <% jabatan.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :kode_jabatan %>
+    <%= f.text_field :kode_jabatan %>
+  </div>
+
+  <div class="field">
+    <%= f.label :nama_jabatan %>
+    <%= f.text_field :nama_jabatan %>
+  </div>
+
+  <div class="field">
+    <%= f.label :singkatan %>
+    <%= f.text_field :singkatan %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
