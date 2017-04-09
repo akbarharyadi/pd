@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  baris1: MyString
+  baris2: MyString
+  baris3: MyString
+  pegawai_id: MyString
+
+two:
+  baris1: MyString
+  baris2: MyString
+  baris3: MyString
+  pegawai_id: MyString

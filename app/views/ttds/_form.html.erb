@@ -1,0 +1,37 @@
+<%= form_for(ttd) do |f| %>
+  <% if ttd.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(ttd.errors.count, "error") %> prohibited this ttd from being saved:</h2>
+
+      <ul>
+      <% ttd.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :baris1 %>
+    <%= f.text_field :baris1 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :baris2 %>
+    <%= f.text_field :baris2 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :baris3 %>
+    <%= f.text_field :baris3 %>
+  </div>
+
+  <div class="field">
+    <%= f.label :pegawai_id %>
+    <%= f.text_field :pegawai_id %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

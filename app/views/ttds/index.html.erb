@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Ttds</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Baris1</th>
+      <th>Baris2</th>
+      <th>Baris3</th>
+      <th>Pegawai</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ttds.each do |ttd| %>
+      <tr>
+        <td><%= ttd.baris1 %></td>
+        <td><%= ttd.baris2 %></td>
+        <td><%= ttd.baris3 %></td>
+        <td><%= ttd.pegawai_id %></td>
+        <td><%= link_to 'Show', ttd %></td>
+        <td><%= link_to 'Edit', edit_ttd_path(ttd) %></td>
+        <td><%= link_to 'Destroy', ttd, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Ttd', new_ttd_path %>
