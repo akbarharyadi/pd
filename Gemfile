@@ -40,6 +40,7 @@ gem 'rails-i18n', '~> 5.0.0'
 gem 'devise-i18n'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
+gem 'money-rails', '~>1'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
