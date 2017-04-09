@@ -1,0 +1,41 @@
+
+<% unless smart_listing.empty? %>
+<div class="table-container">
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr role="row">
+        <th class="sorting"><%= smart_listing.sortable "Kode Bidang", :kode_bidang %></th>
+        <th class="sorting"><%= smart_listing.sortable "Nama Bidang", :nama_bidang %></th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% 
+          counting = 1
+      %>
+      <% smart_listing.collection.each do |bidang| %>
+              <% if counting.odd? %>
+                  <tr role="row" class="odd">
+              <% else %>
+                <tr role="row" class="even">
+              <% end %>
+          <td><%= bidang.kode_bidang %></td>
+          <td><%= bidang.nama_bidang %></td>
+          <td>
+              <div class="action-buttons">
+                  <%= link_to(raw('<i class="ace-icon fa fa-search-plus bigger-130"></i>'), bidang, class:"blue") %>
+                  <%= link_to(raw('<i class="ace-icon fa fa-pencil bigger-130"></i>'), edit_bidang_path(bidang), class:"green") %>
+                  <%= link_to(raw('<i class="ace-icon fa fa-trash-o bigger-130"></i>'), bidang, method: :delete, data: { confirm: 'Anda yakin?' }, class:"red") %>
+              </div>
+          </td>
+        </tr>
+        <% counting += 1 %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%= smart_listing.paginate  %>
+<% else %>
+<p> Data tidak ditemukan </p>
+<% end %>
