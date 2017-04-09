@@ -1,0 +1,186 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset='utf-8' />
+    <style>
+td{
+	text-align:left;
+	vertical-align:middle;
+}
+.line1{
+	border:#000000 1px solid;
+	border-right:none;
+}
+.line2{
+	border:#000000 1px solid;
+}
+.line3{
+	border-left:#000000 1px solid;
+	border-right:#000000 1px solid;
+}
+.line4{
+	border-bottom:#000000 1px solid;
+	vertical-align:bottom;
+}
+.line5{
+	border-bottom:#000000 1px solid;
+}
+.line6{
+	border-bottom:#000000 1px solid;
+	border-right:#000000 1px solid;
+}
+.line9{
+	border:#000000 1px solid;
+	border-left:none;
+}
+.line10{
+	border:#000000 1px solid;
+	border-left:none;
+	border-right:none;
+}
+.line11{
+	border:#000000 1px solid;
+	border-top:none;
+}
+.line12{
+	border-right:#000000 1px solid;
+    border-left:none;
+}
+.line13{
+	border-left:#000000 1px solid;
+    border-right:none;
+}
+.line14{
+	border-top:#000000 1px solid;
+	border-right:#000000 1px solid;
+	border-left:#000000 1px solid;
+}
+hr {
+	color:#000000;
+	margin:0px;
+	padding:0px;
+}
+p{ margin:0px;}
+.baseline {
+  vertical-align: baseline;
+}
+</style>
+  </head>
+  <body>
+    <table width="100%" class='line5'  border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse">
+        <tr>
+            <!-- Header start -->
+	        <td width="10%" style="text-align:center">
+                <%= wicked_pdf_image_tag 'logo.png',  width:"90", height:"90", style:"padding:5px;" %>
+            </td>
+            <td width="90%" style="padding-left:-600px;">
+                <p style="font-size:12pt;text-align:center;margin-left:-40px;"><strong>PEMERINTAH <%= @wilayah.jenis_wilayah.upcase + ' ' + @wilayah.nama_wilayah.upcase %></strong></p>
+                <p style="font-size:12pt;text-align:center;margin-left:-40px;"><strong><%= @wilayah.nama_badan.upcase %> (<%= @wilayah.singkatan.upcase %>)</strong></p>
+                <p style="font-size:9pt;text-align:center;margin-left:-10px;"><%= @wilayah.alamat_badan + ' Kode Pos. ' + @wilayah.kode_pos + ' Telp. ' + @wilayah.telp_badan + ' Fax. ' + @wilayah.fax %></p>
+            </td>
+        </tr>
+    </table>
+    <br>
+        <!-- Header end -->
+        <!-- content top start -->
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse">
+        <tr>
+            <td width="60%" colspan=3>
+            </td>
+            <td width="40%" >
+                <p style="font-size:10pt;"><%= @wilayah.ibu_kota %>, <%= I18n.l(DateTime.parse(@tgl_cetak), format:'%d %B %Y') %></p>
+            </td>
+        </tr>
+        <tr>
+            <td width="60%" colspan=3>
+            </td>
+            <td width="40%">
+                <p style="font-size:10pt;">Kepada</p>
+            </td>
+        </tr>
+        <tr>
+            <td width="10%" style="padding-top:20px;" class="baseline">
+                <p style="font-size:10pt;">Nomor</p>
+            </td>
+            <td width="1%" style="padding-top:20px;" class="baseline">
+                <p style="font-size:10pt;">:</p>
+            </td>
+            <td width="49%" style="padding-top:20px;" class="baseline">
+                <p style="font-size:10pt;"></p>
+            </td>
+            <td width="40%" colspan="4" style="padding-top:20px;">
+                <p style="font-size:10pt;"><strong>Yth;  <u><%= @pendataan.pendaftaran.nama_pemilik %></u></strong></p>
+            </td>
+        </tr>
+        <tr>
+            <td width="10%" class="baseline">
+                <p style="font-size:10pt;">Lampiran</p>
+            </td>
+            <td width="1%" class="baseline">
+                <p style="font-size:10pt;">:</p>
+            </td>
+            <td width="49%" class="baseline">
+                <p style="font-size:10pt;">1(satu) lembar</p>
+            </td>
+            <td width="40%" colspan="4" class="baseline">
+                <p style="font-size:10pt;">Selaku</p>
+            </td>
+        </tr>
+        <tr>
+            <td width="10%" class="baseline">
+                <p style="font-size:10pt;" class="baseline">Perihal</p>
+            </td>
+            <td width="1%" class="baseline">
+                <p style="font-size:10pt;">:</p>
+            </td>
+            <td width="49%" class="baseline">
+                <p style="font-size:10pt;"><strong><%= @perihal %></strong></p>
+            </td>
+            <td width="40%" colspan="4" class="baseline">
+                <p style="font-size:10pt;"><strong>Pengusaha <%= @pendataan.rekening.nama_rekening.split.map(&:capitalize).join(' ') %></strong></p>
+            </td>
+        </tr>
+        <tr>
+            <td width="60%" class="baseline" colspan=3 style="padding-top:30px;">
+            </td>
+            <td width="40%" colspan="4" class="baseline" style="padding-top:30px;">
+                <p style="font-size:10pt;">di-</p>
+                <p style="font-size:10pt;"><strong>Tempat</strong></p>
+            </td>
+        </tr>
+        <tr>
+            <td width="60%" class="baseline" colspan=2 style="padding-top:10px;">
+            </td>
+            <td width="40%" colspan="4" class="baseline" style="padding-top:10px;" colspan=2>
+            <br>
+                <p style="text-align:justify;font-size: 12.6667px; left: 490.667px; top: 256.187px; transform: scale(0.50212, 1); transform-origin: 0% 0% 0px;">
+                &emsp; &emsp; Disampaikan dengan hormat, berdasarkan Penelitian Administrasi 
+                terhadap Pengusaha <%= @pendataan.rekening.nama_rekening.split.map(&:capitalize).join(' ') %> tentang kewajiban untuk melaporkan 
+                penghitungan dan/atau 
+                pembayaran <%= @rekening_induk.nama_rekening.split.map(&:capitalize).join(' ') %> terutang melalui Surat Pemberitahuan Pajak Daerah (SPTPD) seperti 
+                tercantum pada lampiran, Saudara belum memenuhi kewajiban dibidang Perpajakan Daerah.</p>
+                <br>
+                <p style="text-align:justify;font-size: 14.6667px; left: 490.667px; top: 256.187px; transform: scale(0.50212, 1); transform-origin: 0% 0% 0px;">
+                &emsp; &emsp; Sehubungan hal tersebut, sesuai dengan pasal 96 ayat (5) Undang-Undang 
+                Nomor 28 Tahun 2009 tentang Pajak Daerah dan Retribusi Daerah serta Pasal 11 
+                ayat (2) Peraturan Daerah <%= @wilayah.jenis_wilayah.split.map(&:capitalize).join(' ') %> <%= @wilayah.nama_wilayah.split.map(&:capitalize).join(' ') %> Nomor 10 tahun 2011 tentang 
+                <%= @rekening_induk.nama_rekening.split.map(&:capitalize).join(' ') %>, dimohon kepada Saudara agar kiranya segera melaporkan 
+                penghitungan dan melakukan pembayaran pajak terutang dengan menggunakan 
+                Formulir Surat Pemberitahuan Pajak Daerah (SPTPD), paling lambat <%= @jml_hari %> hari
+                setelah surat teguran ini diterima.</p>
+                <br>
+                <p style="text-align:justify;font-size: 14.6667px; left: 490.667px; top: 256.187px; transform: scale(0.50212, 1); transform-origin: 0% 0% 0px;">
+                &emsp; &emsp; Demikian, atas perhatian serta kerjasamanya kami ucapkan terima kasih.</p>
+            </td>
+        </tr>
+        <tr>
+            <td width="60%" colspan=3>
+            </td>
+            <td width="40%">
+                <p style="font-size:10pt;text-align:center;"><strong>Tempat</strong></p>
+            </td>
+        </tr>
+    </table>
+    <!-- content top <end></end> -->
+  </body>
+</html>

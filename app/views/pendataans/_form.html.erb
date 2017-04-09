@@ -1,0 +1,206 @@
+<div class="row">
+  <div class="col-xs-12">
+    <%= form_for(pendataan) do |f| %>
+      <%= render 'shared/error', error_form: pendataan %>
+      <div class="row">
+        <div class="col-md-2">
+          <div class="field">
+            <div class="form-group">
+              <%= f.label :tahun_spt, 'Tahun SPT' %>
+              <%= f.text_field :tahun_spt, class: "form-control", validate: true, :maxlength => 4,  onkeypress: 'return event.charCode >= 48 && event.charCode <= 57' %>
+              <%= f.hidden_field :kode_rekening, value:rekening.kode %>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="field">
+            <div class="form-group">
+              <%= f.label :no_pendataan, 'No Pendataan' %>
+              <%= f.text_field :no_pendataan, class: "form-control", validate: true, readonly:true %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <div class="field">
+            <div class="form-group">
+              <%= f.label :tgl_data, 'Tanggal Pendataan' %>
+              <div class='input-group'>
+                <%= f.text_field :tgl_data, class: "form-control date-picker", validate: true, 'data-date-format'=>"dd-mm-yyyy" %>
+                <span class="input-group-addon">
+                  <i class="fa fa-calendar bigger-110"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="field">
+            <div class="form-group">
+              <%= f.label :pendaftaran_id, 'Wajib Pajak' %>
+              <%= f.collection_select(:pendaftaran_id, Pendaftaran.all, :id, :npwpd_nama_usaha, {prompt: ' -- Pilih Wajib Pajak -- '}, {class: "chosen-select form-control", selected: pendataan.pendaftaran_id}) %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-5">
+          <div class="field">
+            <div class="form-group">
+              <%= f.label :periode_awal, 'Periode' %>
+              <div class='input-group'>
+                <%= f.text_field :periode_awal, class: "form-control date-picker", validate: true, 'data-date-format'=>"dd-mm-yyyy" %>
+                <span class="input-group-addon" style="background-color:white;">
+                  s/d
+                </span>
+                <%= f.text_field :periode_akhir, class: "form-control", validate: true, 'data-date-format'=>"dd-mm-yyyy", readonly:true %>
+                <span class="input-group-addon">
+                  <i class="fa fa-calendar bigger-110"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="field">
+            <div class="form-group">
+              <%= f.label :tgl_jth_tempo, 'Tanggal Jatuh Tempo' %>
+              <div class='input-group'>
+                <%= text_field_tag :tgl_jth_tempo, '', {class: "form-control", readonly:true} %>
+                <span class="input-group-addon">
+                  <i class="fa fa-calendar bigger-110"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-5">
+          <div class="field">
+            <div class="form-group">
+              <%= f.label :rekening_id, 'Rekening' %>
+              <% if pendataan.tahun_spt.present? %>
+                <% tahun = pendataan.tahun_spt %>
+              <% else %>
+                <% tahun = 0 %>
+              <% end %>
+              <%= f.collection_select(:rekening_id, Rekening.where("jenis_kode != '00' and kode= '" + rekening.kode + "' and tahun = " + tahun.to_s), :id, :kode_dan_nama_rekening, {prompt: ' -- Pilih Rekening -- '}, {class: "chosen-select form-control", selected: pendataan.rekening_id}) %>
+            </div>
+          </div>
+        </div>
+        
+        <% if rekening.kode != '1105' and rekening.kode != '1111' %>
+          <div class="col-md-3">
+            <div class="field">
+              <div class="form-group">
+                <%= f.label :omzet %>
+                <div class='input-group'>
+                  <span class="input-group-addon">
+                    Rp.
+                  </span>
+                  <%= f.text_field :omzet, class: "form-control money-left", data: { role: 'money' }, validate: true %>
+                </div>
+              </div>
+            </div>
+          </div>          
+        <% end %>
+        <% if rekening.kode != '1105' and rekening.kode == '1111' %>
+          <div class="col-md-3">
+            <div class="field">
+              <div class="form-group">
+                <%= f.label :jumlah_volume %>
+                <div class='input-group'>
+                  <%= f.text_field :jumlah_volume, class: "form-control money-left", data: { role: 'money' }, validate: true %>
+                  <span class="input-group-addon">
+                    m<sup>3</sup>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>    
+        <% end %>
+        
+      </div>
+      
+      <% if rekening.kode == '1105' %>
+        <div class="row">
+          <div class="col-md-2">
+            <div class="field">
+              <div class="form-group">
+                <%= f.label :pemakaian_daya %>
+                <div class='input-group'>
+                  <%= f.text_field :pemakaian_daya, class: "form-control money-left", data: { role: 'money' } %>
+                  <span class="input-group-addon">
+                    KVA
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="field">
+              <div class="form-group">
+                <%= f.label :volume_pemakaian %>
+                <%= f.text_field :volume_pemakaian, class: "form-control money-left", data: { role: 'money' } %>
+              </div>
+            </div>
+          </div>
+        </div>    
+      <% end %>
+      
+      <div class="row">
+        <div class="col-md-2">
+          <div class="field">
+            <div class="form-group">
+              <%= f.label :tarif_persen, 'Tarif Persen' %>
+              <div class='input-group'>
+                <%= f.text_field :tarif_persen, class: "form-control money-left", readonly:true %>
+                <span class="input-group-addon">
+                  %
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="field">
+            <div class="form-group">
+              <%= f.label :tarif_rupiah, 'Tarif Rupiah' %>
+              <div class='input-group'>
+                <span class="input-group-addon">
+                  Rp.
+                </span>
+                <%= f.text_field :tarif_rupiah, class: "form-control money-left", data: { role: 'money' }, readonly:true %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="field">
+            <div class="form-group">
+              <%= f.label :jumlah_pajak %>
+              <div class='input-group'>
+                <span class="input-group-addon">
+                  Rp.
+                </span>
+                <%= f.text_field :jumlah_pajak, class: "form-control money-left", data: { role: 'money' }, validate: true, readonly:true %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix form-actions">
+        <div class="col-md-offset-3 col-md-9">
+          <%= button_tag(type: 'submit', class: "btn btn-info") do %>
+            <i class="ace-icon fa fa-check bigger-110"></i> Simpan
+          <% end %>
+          &nbsp; &nbsp; &nbsp;
+          <%= link_to(raw('<i class="ace-icon fa fa-undo bigger-110"></i> kembali'), pendataans_path, class: "btn") %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+

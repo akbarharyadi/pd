@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col-xs-12">
+    <h3 class="header smaller lighter blue">Index Daftar Pendataan <%= @rekening.nama_rekening.split.map(&:capitalize).join(' ') %></h3>
+    <div class="clearfix"></div>
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="pull-right tableTools-container">
+				<div class="dt-buttons btn-overlap btn-group">
+					<%= link_to(raw('<i class="ace-icon fa fa-plus icon-on-right bigger-110"></i> Tambah Pendataan'), new_pendataan_path(:kode_rekening => @rekening.kode), class: "dt-button buttons-collection buttons-colvis btn btn-success") %>
+				</div>
+			</div>
+		</div>
+	</div>
+  <div class="table-header"> Tabel Pendataan </div>
+		<div id="dynamic-table_wrapper" class="dataTables_wrapper form-inline">
+			<div class="row">
+				<%= smart_listing_controls_for(:pendataans, {class: "form-inline text-right"}) do %>
+				<div class="col-xs-12 col-sm-12 col-md-12">
+					<div class="input-group">
+						<%= text_field_tag :filter, '', class: "search form-control", placeholder: "Search...", autocomplete: :on %>
+						<div class="input-group-btn">
+							<button class="btn btn-primary no-border btn-sm" type="submit">
+								<i class="ace-icon fa fa-search icon-on-right bigger-110"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+				<% end %>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12">
+					<%= smart_listing_render(:pendataans) %>
+				</div>
+			</div>
+		</div>
+	</div>
+  </div>
+</div>

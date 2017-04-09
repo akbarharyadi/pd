@@ -1,0 +1,196 @@
+<div class="row">
+  <div class="col-xs-12">
+    <div class="widget-box">
+      <div class="widget-header widget-header-flat">
+        <h4 class="widget-title smaller">Detail Pendataan</h4>
+        <div class="widget-toolbar">
+          <%= link_to(raw('<i class="ace-icon fa fa-print"> Cetak SPTPD</i>'), cetak_sptpd_pendataans_path(id: @pendataan.id, format: 'pdf')) %> |
+          <%= link_to(raw('<i class="ace-icon fa fa-pencil align-center"></i> Edit'), edit_pendataan_path(@pendataan)) %> | 
+          <%= link_to(raw('<i class="ace-icon fa fa-undo icon-only"></i> Kembali'), pendataans_path) %> |
+          <%= link_to(raw('<i class="ace-icon fa fa-trash icon-only"></i> Hapus'), @pendataan, method: :delete, data: { confirm: 'Ada yakin ingin menghapus data ini?' }) %>
+        </div>
+      </div>
+      <div class="widget-body">
+        <div class="widget-main">
+          <div class="profile-user-info profile-user-info-striped">
+            <div class="profile-info-row">
+              <div class="profile-info-name"> <strong>Tahun SPT </strong>
+              </div>
+              <div class="profile-info-value">
+                <span class="editable editable-click"><%= @pendataan.tahun_spt %></span>
+              </div>
+            </div>
+          </div>
+          <div class="profile-user-info profile-user-info-striped">
+            <div class="profile-info-row">
+              <div class="profile-info-name"> <strong>Tanggal Pendataan </strong>
+              </div>
+              <div class="profile-info-value">
+                <span class="editable editable-click"><%= I18n.l(@pendataan.tgl_data, format:'%d %B %Y') %></span>
+              </div>
+            </div>
+          </div>
+          <div class="profile-user-info profile-user-info-striped">
+            <div class="profile-info-row">
+              <div class="profile-info-name"> <strong>No Pendataan </strong>
+              </div>
+              <div class="profile-info-value">
+                <span class="editable editable-click"><%= @pendataan.no_pendataan %></span>
+              </div>
+            </div>
+          </div>
+          <div class="profile-user-info profile-user-info-striped">
+            <div class="profile-info-row">
+              <div class="profile-info-name"> <strong>NPWPD</strong>
+              </div>
+              <div class="profile-info-value">
+                <span class="editable editable-click"><%= @pendataan.pendaftaran.npwpd %></span>
+              </div>
+            </div>
+          </div>
+          <div class="profile-user-info profile-user-info-striped">
+            <div class="profile-info-row">
+              <div class="profile-info-name"> <strong>Nama WP</strong> 
+              </div>
+              <div class="profile-info-value">
+                <span class="editable editable-click"><%= @pendataan.pendaftaran.nama_usaha %></span>
+              </div>
+            </div>
+          </div>
+          <div class="profile-user-info profile-user-info-striped">
+            <div class="profile-info-row">
+              <div class="profile-info-name"> <strong>Alamat WP</strong> 
+              </div>
+              <div class="profile-info-value">
+                <span class="editable editable-click"><%= @pendataan.pendaftaran.alamat_usaha %></span>
+              </div>
+            </div>
+					</div>
+          <div class="profile-user-info profile-user-info-striped">
+            <div class="profile-info-row">
+              <div class="profile-info-name"> <strong>Kecamatan WP</strong> 
+              </div>
+              <div class="profile-info-value">
+                <span class="editable editable-click"><%= @pendataan.pendaftaran.kecamatan.try(:nama) %></span>
+              </div>
+            </div>
+					</div>
+          <div class="profile-user-info profile-user-info-striped">
+            <div class="profile-info-row">
+              <div class="profile-info-name"> <strong>Kelurahan WP</strong> 
+              </div>
+              <div class="profile-info-value">
+                <span class="editable editable-click"><%= @pendataan.pendaftaran.kelurahan.try(:nama) %></span>
+              </div>
+            </div>
+					</div>
+          <div class="profile-user-info profile-user-info-striped">
+            <div class="profile-info-row">
+              <div class="profile-info-name"> <strong>Periode</strong> 
+              </div>
+              <div class="profile-info-value">
+                <span class="editable editable-click"><%= I18n.l(@pendataan.periode_awal, format:'%d %B %Y') + ' s/d ' + I18n.l(@pendataan.periode_akhir, format:'%d %B %Y') %></span>
+              </div>
+            </div>
+					</div>
+          <div class="profile-user-info profile-user-info-striped">
+            <div class="profile-info-row">
+              <div class="profile-info-name"> <strong>Tanggal Jatuh Tempo</strong> 
+              </div>
+              <div class="profile-info-value">
+                <span class="editable editable-click"><%= I18n.l((@pendataan.periode_awal + 14.days + 1.months), format:'%d %B %Y') %></span>
+              </div>
+            </div>
+					</div>
+          <div class="profile-user-info profile-user-info-striped">
+            <div class="profile-info-row">
+              <div class="profile-info-name"> <strong>Kode Rekening</strong> 
+              </div>
+              <div class="profile-info-value">
+                <span class="editable editable-click"><%= '4.' + @pendataan.rekening.kode + '.' + @pendataan.rekening.jenis_kode + '.' + @pendataan.rekening.turunan_kode  %></span>
+              </div>
+            </div>
+					</div>
+          <div class="profile-user-info profile-user-info-striped">
+            <div class="profile-info-row">
+              <div class="profile-info-name"> <strong>Rekening</strong> 
+              </div>
+              <div class="profile-info-value">
+                <span class="editable editable-click"><%= @pendataan.rekening.nama_rekening   %></span>
+              </div>
+            </div>
+					</div>
+          <div class="profile-user-info profile-user-info-striped">
+            <div class="profile-info-row">
+              <div class="profile-info-name"> <strong>Tarif</strong> 
+              </div>
+              <div class="profile-info-value">
+                <span class="editable editable-click"><%= humanized_money @pendataan.rekening.persen %>%</span>
+              </div>
+            </div>
+					</div>
+          <% if @pendataan.rekening.kode != '1111' and @pendataan.rekening.kode != '1105' %>
+            <div class="profile-user-info profile-user-info-striped">
+              <div class="profile-info-row">
+                <div class="profile-info-name"> <strong>omzet</strong> 
+                </div>
+                <div class="profile-info-value">
+                  <span class="editable editable-click">Rp. <%= humanized_money @pendataan.omzet %></span>
+                </div>
+              </div>
+            </div>
+          <% else %>
+            <div class="profile-user-info profile-user-info-striped">
+              <div class="profile-info-row">
+                <div class="profile-info-name"> <strong>Nilai Pasar</strong> 
+                </div>
+                <div class="profile-info-value">
+                  <span class="editable editable-click">Rp. <%= humanized_money @pendataan.rekening.tarif %></span>
+                </div>
+              </div>
+            </div>
+            <% if @pendataan.rekening.kode == '1105' %>
+              <div class="profile-user-info profile-user-info-striped">
+                <div class="profile-info-row">
+                  <div class="profile-info-name"> <strong>Pemakaian Daya</strong> 
+                  </div>
+                  <div class="profile-info-value">
+                    <span class="editable editable-click"><%= humanized_money @pendataan.pemakaian_daya %> KVA</span>
+                  </div>
+                </div>
+              </div>
+              <div class="profile-user-info profile-user-info-striped">
+                <div class="profile-info-row">
+                  <div class="profile-info-name"> <strong>Volume Pemakaian</strong> 
+                  </div>
+                  <div class="profile-info-value">
+                    <span class="editable editable-click"><%= humanized_money @pendataan.volume_pemakaian %></span>
+                  </div>
+                </div>
+              </div>
+            <% elsif @pendataan.rekening.kode == '1111' %>
+              <div class="profile-user-info profile-user-info-striped">
+                <div class="profile-info-row">
+                  <div class="profile-info-name"> <strong>Jumlah Volume</strong> 
+                  </div>
+                  <div class="profile-info-value">
+                    <span class="editable editable-click"><%= humanized_money @pendataan.jumlah_volume %> M<sup>3</sup></span>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+          <div class="profile-user-info profile-user-info-striped">
+            <div class="profile-info-row">
+              <div class="profile-info-name"> <strong>Jumlah Pajak</strong> 
+              </div>
+              <div class="profile-info-value">
+                <span class="editable editable-click">Rp. <%= humanized_money @pendataan.jumlah_pajak %></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

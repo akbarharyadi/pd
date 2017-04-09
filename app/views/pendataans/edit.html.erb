@@ -1,0 +1,9 @@
+<div class="page-header">
+    <h1>Pendaftaran <%= @rekening.nama_rekening.split.map(&:capitalize).join(' ') %>
+        <small>
+            <i class="ace-icon fa fa-angle-double-right"></i>
+            Edit : <%= @pendataan.no_pendataan %>
+        </small>
+    </h1>
+</div>
+<%= render 'form', pendataan: @pendataan, rekening: @rekening %>

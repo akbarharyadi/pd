@@ -1,0 +1,517 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset='utf-8' />
+    <style>
+td{
+	text-align:left;
+	vertical-align:middle;
+}
+.line1{
+	border:#000000 1px solid;
+	border-right:none;
+}
+.line2{
+	border:#000000 1px solid;
+}
+.line3{
+	border-left:#000000 1px solid;
+	border-right:#000000 1px solid;
+}
+.line4{
+	border-bottom:#000000 1px solid;
+	vertical-align:bottom;
+}
+.line5{
+	border-bottom:#000000 1px solid;
+}
+.line6{
+	border-bottom:#000000 1px solid;
+	border-right:#000000 1px solid;
+}
+.line9{
+	border:#000000 1px solid;
+	border-left:none;
+}
+.line10{
+	border:#000000 1px solid;
+	border-left:none;
+	border-right:none;
+}
+.line11{
+	border:#000000 1px solid;
+	border-top:none;
+}
+.line12{
+	border-right:#000000 1px solid;
+    border-left:none;
+}
+.line13{
+	border-left:#000000 1px solid;
+    border-right:none;
+}
+.line14{
+	border-top:#000000 1px solid;
+	border-right:#000000 1px solid;
+	border-left:#000000 1px solid;
+}
+hr {
+	color:#000000;
+	margin:0px;
+	padding:0px;
+}
+p{ margin:0px;}
+.baseline {
+  vertical-align: baseline;
+}
+</style>
+  </head>
+  <body>
+    <table width="100%"  border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse">
+        <tr>
+            <!-- Header start -->
+	        <td width="100px" class="line1" style="text-align:center">
+                <%= wicked_pdf_image_tag 'logo.png',  width:"90", height:"90", style:"padding:5px;" %>
+            </td>
+            <td width="530px" class="line1" style="padding-left:10px;">
+                <p style="font-size:12pt;"><strong>PEMERINTAH <%= @wilayah.jenis_wilayah.upcase + ' ' + @wilayah.nama_wilayah.upcase %></strong></p>
+                <p style="font-size:10pt"><strong><%= @wilayah.nama_badan.upcase %></strong></p>
+                <p style="font-size:9pt;"><%= @wilayah.alamat_badan + ' Kode Pos. ' + @wilayah.kode_pos %></p>
+                <p style="font-size:9pt;"><%= 'Telp. ' + @wilayah.telp_badan + ', Fax. ' + @wilayah.fax %></p>
+            </td>
+            <td width="110px" class="line1" style="padding-left:10px;">
+                <p style="font-size:8pt;"><strong>Masa Pajak</strong></p>
+                <p style="font-size:8pt"><strong>Tahun Pajak</strong></p>
+                <p style="font-size:8pt;"><strong>No. Pendataan</strong></p>
+            </td>
+            <td width="5px" class="line10" style="padding-left:10px;">
+                <p style="font-size:8pt;"><strong>:</strong></p>
+                <p style="font-size:8pt;"><strong>:</strong></p>
+                <p style="font-size:8pt;"><strong>:</strong></p>
+            </td>
+            <td width="110px" class="line9" style="padding-left:10px;">
+                <p style="font-size:8pt;"><strong><%= I18n.t("date.month_names")[@pendataan.periode_awal.month] %></strong></p>
+                <p style="font-size:8pt"><strong><%= @pendataan.tahun_spt %></strong></p>
+                <p style="font-size:8pt;"><strong><%= @pendataan.no_pendataan %></strong></p>
+            </td>
+        </tr>
+    </table>
+        <!-- Header end -->
+        <!-- content top start -->
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse">
+        <tr>
+            <td width="100%" class="line3" style="padding:10px;" colspan="4">
+                <p style="font-size:12pt; text-align:center;">SPTPD</p>
+                <p style="font-size:11pt; text-align:center;">(SURAT PEMBERITAHUAN PAJAK DAERAH)</p>
+                <p style="font-size:11pt; text-align:center;"><%= @rekening_induk.nama_rekening %></p>
+            </td>
+        </tr>
+        <tr>
+            <td width="18%" class="line13" style="padding:10px;padding-left:40px;">
+                <p style="font-size:10pt;">NPWPD</p>
+                <p style="font-size:10pt;">Nama</p>
+                <p style="font-size:10pt;">Alamat</p>
+                <br>
+                <br>
+            </td>
+            <td width="2%" style="padding-top:10px;padding-bottom:10px;">
+                <p style="font-size:10pt;">:</p>
+                <p style="font-size:10pt;">:</p>
+                <p style="font-size:10pt;">:</p>
+                <br>
+                <br>
+            </td>
+            <td width="40%" style="padding:10px;padding-left:0px;">
+                <p style="font-size:10pt;"><%= @pendataan.pendaftaran.npwpd %></p>
+                <p style="font-size:10pt;"><%= @pendataan.pendaftaran.nama_usaha %></p>
+                <p style="font-size:10pt;"><%= @pendataan.pendaftaran.alamat_usaha %></p>
+                <br>
+                <br>
+            </td>
+            <td width="40%" class="line12" style="padding:10px;">
+                <p style="font-size:10pt;">Kepada Yth.</p>
+                <p style="font-size:10pt;">Kepala <%= @wilayah.singkatan + ' ' + @wilayah.jenis_wilayah[0..2].capitalize + '. ' + @wilayah.nama_wilayah.capitalize %></p>
+                <br>
+                <br>
+                <p style="font-size:10pt;">Di <%= @wilayah.ibu_kota.capitalize %></p>
+            </td>
+        </tr>
+    </table>
+    <!-- content top <end></end> -->
+    <!-- content top start -->
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse">
+        <tr>
+            <td width="100%" class="line14" style="padding:10px;padding-bottom:0px;" colspan="4">
+                <p style="font-size:11pt;"><u>PERHATIAN</u></p>
+            </td>
+        </tr>
+        <tr>
+            <td width="1%" class="line13 baseline" style="padding-left:10px;padding-right:10px;">
+                <p style="font-size:10pt;">1.</p>
+            </td>
+            <td width="99%" class="line12 baseline" style="padding-left:10px;padding-right:10px;" colspan="3">
+                <p style="font-size:10pt;">Harap diisi dalam rangkap dua (2) ditulis dengan huruf CETAK.</p>
+            </td>
+        </tr>
+        <tr>
+            <td width="1%" class="line13 baseline" style="padding-left:10px;padding-right:10px;">
+                <p style="font-size:10pt;">2.</p>
+            </td>
+            <td width="99%" class="line12 baseline" style="padding-left:10px;padding-right:10px;" colspan="3">
+                <p style="font-size:10pt;">Setelah diisi dan ditandatangani, harap diserahkan kembali kepada <%= @wilayah.singkatan.upcase %> paling lambat tanggal 15 bulan berikutnya (Self Assesment).</p>
+            </td>
+        </tr>
+        <tr>
+            <td width="1%" class="line13 baseline" style="padding-left:10px;padding-right:10px;">
+                <p style="font-size:10pt;">3.</p>
+            </td>
+            <td width="99%" class="line12 baseline" style="padding-left:10px;padding-right:10px;padding-bottom:10px;" colspan="3">
+                <p style="font-size:10pt;">Keterlambatan penyerahan tanggal tersebut diatas akan dilakukan penetapan secara Jabatan untuk WP yang berdasarkan Official Assesment dan Denda untuk WP yang berdasarkan Self Assesment.</p>
+            </td>
+        </tr>
+        <tr>
+            <td width="100%" class="line14 baseline" style="padding:10px;" colspan="4">
+                <p style="font-size:10pt;">Jenis <%= @rekening_induk.nama_rekening.split.map(&:capitalize).join(' ') %> yang diselenggarakan : <%= @pendataan.rekening.nama_rekening.split.map(&:capitalize).join(' ') %></p>
+            </td>
+        </tr>
+        <tr>
+            <td width="100%" class="line14 baseline" style="padding:10px;" colspan="4">
+                <p style="font-size:12pt; text-align:center;">DATA PAJAK YANG HARUS DIBAYAR OLEH WAJIB PAJAK</p>
+            </td>
+        </tr>
+        <tr>
+            <td width="100%" class="line14 baseline" style="padding:10px;" colspan="4">
+                <p style="font-size:10pt;">Pajak Terhutang untuk Masa pajak sebelumnya:</p>
+            </td>
+        </tr>
+        <%
+            array_alfabet = ['a','b','c','d','e','f']
+            count_tr = 0
+        %>
+        <tr>
+            <td width="1%" class="line13" style="padding-left:10px;padding-right:10px;">
+                <p style="font-size:10pt;"><%= array_alfabet[count_tr] %></p>
+            </td>
+            <td width="38%" style="padding-left:10px;padding-right:10px;">
+                <p style="font-size:10pt;">Masa Pajak</p>
+            </td>
+            <td width="1%" style="padding-left:10px;padding-right:10px;">
+                <p style="font-size:10pt;">:</p>
+            </td>
+            <td width="60%" class="line12" style="padding-left:10px;padding-right:10px;">
+                <p style="font-size:10pt;">
+                <% if @pendataan_sebelumnya.present? %>
+                    <%= I18n.l(@pendataan_sebelumnya.periode_awal, format:'%d %B %Y') + ' s/d ' + I18n.l(@pendataan_sebelumnya.periode_akhir, format:'%d %B %Y')  %>
+                <% end %>
+                </p>
+            </td>
+        </tr>
+        <% count_tr = count_tr+(1) %>
+        <% if @rekening_induk.kode != '1105' and @rekening_induk.kode != '1111' %>
+            <tr>
+                <td width="1%" class="line13" style="padding-left:10px;padding-right:10px;">
+                    <p style="font-size:10pt;"><%= array_alfabet[count_tr] %></p>
+                </td>
+                <td width="38%" style="padding-left:10px;padding-right:10px;">
+                    <p style="font-size:10pt;">Dasar Pengenaan (Omzet Pajak)</p>
+                </td>
+                <td width="1%" style="padding-left:10px;padding-right:10px;">
+                    <p style="font-size:10pt;">:</p>
+                </td>
+                <td width="60%" class="line12" style="padding-left:10px;padding-right:10px;">
+                    <% if @pendataan_sebelumnya.present? %>
+                        <p style="font-size:10pt;">Rp. <%= humanized_money @pendataan_sebelumnya.try(:omzet) %></p>
+                    <% end %>
+                </td>
+            </tr>
+            <% count_tr = count_tr+(1) %>
+        <% else %>
+            <% if @rekening_induk.kode == '1105' %>
+                <tr>
+                    <td width="1%" class="line13" style="padding-left:10px;padding-right:10px;">
+                        <p style="font-size:10pt;"><%= array_alfabet[count_tr] %></p>
+                    </td>
+                    <td width="38%" style="padding-left:10px;padding-right:10px;">
+                        <p style="font-size:10pt;">Pemakaian Daya</p>
+                    </td>
+                    <td width="1%" style="padding-left:10px;padding-right:10px;">
+                        <p style="font-size:10pt;">:</p>
+                    </td>
+                    <td width="60%" class="line12" style="padding-left:10px;padding-right:10px;">
+                        <% if @pendataan_sebelumnya.present? %>
+                            <p style="font-size:10pt;"><%= humanized_money @pendataan_sebelumnya.try(:pemakaian_daya) %> KVA</p>
+                        <% end %>
+                    </td>
+                </tr>
+                <% count_tr = count_tr+(1) %>
+                <tr>
+                    <td width="1%" class="line13" style="padding-left:10px;padding-right:10px;">
+                        <p style="font-size:10pt;"><%= array_alfabet[count_tr] %></p>
+                    </td>
+                    <td width="38%" style="padding-left:10px;padding-right:10px;">
+                        <p style="font-size:10pt;">Volume Pemakaian</p>
+                    </td>
+                    <td width="1%" style="padding-left:10px;padding-right:10px;">
+                        <p style="font-size:10pt;">:</p>
+                    </td>
+                    <td width="60%" class="line12" style="padding-left:10px;padding-right:10px;">
+                        <% if @pendataan_sebelumnya.present? %>
+                            <p style="font-size:10pt;"><%= humanized_money @pendataan_sebelumnya.try(:volume_pemakaian) %> KVA</p>
+                        <% end %>
+                    </td>
+                </tr>
+                <% count_tr = count_tr+(1) %>
+            <% elsif  @rekening_induk.kode == '1111' %>
+                <tr>
+                    <td width="1%" class="line13" style="padding-left:10px;padding-right:10px;">
+                        <p style="font-size:10pt;"><%= array_alfabet[count_tr] %></p>
+                    </td>
+                    <td width="38%" style="padding-left:10px;padding-right:10px;">
+                        <p style="font-size:10pt;">Jumlah Volume</p>
+                    </td>
+                    <td width="1%" style="padding-left:10px;padding-right:10px;">
+                        <p style="font-size:10pt;">:</p>
+                    </td>
+                    <td width="60%" class="line12" style="padding-left:10px;padding-right:10px;">
+                        <% if @pendataan_sebelumnya.present? %>
+                            <p style="font-size:10pt;">Rp. <%= humanized_money @pendataan_sebelumnya.try(:jumlah_volume) %></p>
+                        <% end %>
+                    </td>
+                </tr>
+                <% count_tr = count_tr+(1) %>
+            <% end %>
+            <tr>
+                <td width="1%" class="line13" style="padding-left:10px;padding-right:10px;">
+                    <p style="font-size:10pt;"><%= array_alfabet[count_tr] %></p>
+                </td>
+                <td width="38%" style="padding-left:10px;padding-right:10px;">
+                    <p style="font-size:10pt;">Nilai Pasar</p>
+                </td>
+                <td width="1%" style="padding-left:10px;padding-right:10px;">
+                    <p style="font-size:10pt;">:</p>
+                </td>
+                <td width="60%" class="line12" style="padding-left:10px;padding-right:10px;">
+                    <% if @pendataan_sebelumnya.present? %>
+                        <p style="font-size:10pt;">Rp. <%= humanized_money @pendataan_sebelumnya.rekening.try(:tarif) %></p>
+                    <% end %>
+                </td>
+            </tr>
+            <% count_tr = count_tr+(1) %>
+        <% end %>
+        <tr>
+            <td width="1%" class="line13" style="padding-left:10px;padding-right:10px;">
+                <p style="font-size:10pt;"><%= array_alfabet[count_tr] %></p>
+            </td>
+            <td width="38%" style="padding-left:10px;padding-right:10px;">
+                <p style="font-size:10pt;">Tarif Pajak (sesuai Perda)</p>
+            </td>
+            <td width="1%" style="padding-left:10px;padding-right:10px;">
+                <p style="font-size:10pt;">:</p>
+            </td>
+            <td width="60%" class="line12" style="padding-left:10px;padding-right:10px;">
+            <% if @pendataan_sebelumnya.present? %>
+                <p style="font-size:10pt;"><%= humanized_money @pendataan_sebelumnya.rekening.try(:persen) %>%</p>
+            <% end %>
+            </td>
+        </tr>
+        <% count_tr = count_tr+(1) %>
+        <tr>
+            <td width="1%" class="line13" style="padding-left:10px;padding-right:10px;">
+                <p style="font-size:10pt;"><%= array_alfabet[count_tr] %></p>
+            </td>
+            <td width="38%" style="padding-left:10px;padding-right:10px;">
+                <p style="font-size:10pt;">Pajak Terhutang</p>
+            </td>
+            <td width="1%" style="padding-left:10px;padding-right:10px;">
+                <p style="font-size:10pt;">:</p>
+            </td>
+            <td width="60%" class="line12" style="padding-left:10px;padding-right:10px;">
+                <% if @pendataan_sebelumnya.present? %>
+                    <p style="font-size:10pt;">Rp. <%= humanized_money @pendataan_sebelumnya.try(:jumlah_pajak) %></p>
+                <% end %>
+            </td>
+        </tr>
+        <tr>
+            <td width="100%" class="line3" style="padding:10px;" colspan="4">
+                <p style="font-size:10pt;">Jumlah Omzet (hanya untuk pajak yang menggunakna omzet) dan Pajak Terhutang untuk Masa Pajak sekarang (Lampirkan Foto Kopi Dokumen):</p>
+            </td>
+        </tr>
+        <% count_tr = 0 %>
+        <tr>
+            <td width="1%" class="line13" style="padding-left:10px;padding-right:10px;">
+                <p style="font-size:10pt;"><%= array_alfabet[count_tr] %></p>
+            </td>
+            <td width="38%" style="padding-left:10px;padding-right:10px;">
+                <p style="font-size:10pt;">Masa Pajak</p>
+            </td>
+            <td width="1%" style="padding-left:10px;padding-right:10px;">
+                <p style="font-size:10pt;">:</p>
+            </td>
+            <td width="60%" class="line12" style="padding-left:10px;padding-right:10px;">
+                <p style="font-size:10pt;">
+                <%= I18n.l(@pendataan.periode_awal, format:'%d %B %Y') + ' s/d ' + I18n.l(@pendataan.periode_akhir, format:'%d %B %Y')  %>
+                </p>
+            </td>
+        </tr>
+        <% count_tr = count_tr+(1) %>
+        <% if @rekening_induk.kode != '1105' and @rekening_induk.kode != '1111' %>
+            <tr>
+                <td width="1%" class="line13" style="padding-left:10px;padding-right:10px;">
+                    <p style="font-size:10pt;"><%= array_alfabet[count_tr] %></p>
+                </td>
+                <td width="38%" style="padding-left:10px;padding-right:10px;">
+                    <p style="font-size:10pt;">Dasar Pengenaan (Omzet Pajak)</p>
+                </td>
+                <td width="1%" style="padding-left:10px;padding-right:10px;">
+                    <p style="font-size:10pt;">:</p>
+                </td>
+                <td width="60%" class="line12" style="padding-left:10px;padding-right:10px;">
+                    <% if @pendataan.present? %>
+                        <p style="font-size:10pt;">Rp. <%= humanized_money @pendataan.try(:omzet) %></p>
+                    <% end %>
+                </td>
+            </tr>
+            <% count_tr = count_tr+(1) %>
+        <% else %>
+            <% if @rekening_induk.kode == '1105' %>
+                <tr>
+                    <td width="1%" class="line13" style="padding-left:10px;padding-right:10px;">
+                        <p style="font-size:10pt;"><%= array_alfabet[count_tr] %></p>
+                    </td>
+                    <td width="38%" style="padding-left:10px;padding-right:10px;">
+                        <p style="font-size:10pt;">Pemakaian Daya</p>
+                    </td>
+                    <td width="1%" style="padding-left:10px;padding-right:10px;">
+                        <p style="font-size:10pt;">:</p>
+                    </td>
+                    <td width="60%" class="line12" style="padding-left:10px;padding-right:10px;">
+                        <% if @pendataan.present? %>
+                            <p style="font-size:10pt;"><%= humanized_money @pendataan.try(:pemakaian_daya) %> KVA</p>
+                        <% end %>
+                    </td>
+                </tr>
+                <% count_tr = count_tr+(1) %>
+                <tr>
+                    <td width="1%" class="line13" style="padding-left:10px;padding-right:10px;">
+                        <p style="font-size:10pt;"><%= array_alfabet[count_tr] %></p>
+                    </td>
+                    <td width="38%" style="padding-left:10px;padding-right:10px;">
+                        <p style="font-size:10pt;">Volume Pemakaian</p>
+                    </td>
+                    <td width="1%" style="padding-left:10px;padding-right:10px;">
+                        <p style="font-size:10pt;">:</p>
+                    </td>
+                    <td width="60%" class="line12" style="padding-left:10px;padding-right:10px;">
+                        <% if @pendataan.present? %>
+                            <p style="font-size:10pt;"><%= humanized_money @pendataan.try(:volume_pemakaian) %> KVA</p>
+                        <% end %>
+                    </td>
+                </tr>
+                <% count_tr = count_tr+(1) %>
+                <tr>
+                    <td width="1%" class="line13" style="padding-left:10px;padding-right:10px;">
+                        <p style="font-size:10pt;"><%= array_alfabet[count_tr] %></p>
+                    </td>
+                    <td width="38%" style="padding-left:10px;padding-right:10px;">
+                        <p style="font-size:10pt;">Nilai Pasar</p>
+                    </td>
+                    <td width="1%" style="padding-left:10px;padding-right:10px;">
+                        <p style="font-size:10pt;">:</p>
+                    </td>
+                    <td width="60%" class="line12" style="padding-left:10px;padding-right:10px;">
+                        <% if @pendataan.present? %>
+                            <p style="font-size:10pt;">Rp. <%= humanized_money @pendataan.rekening.try(:tarif) %></p>
+                        <% end %>
+                    </td>
+                </tr>
+                <% count_tr = count_tr+(1) %>
+            <% elsif  @rekening_induk.kode == '1111' %>
+                <tr>
+                    <td width="1%" class="line13" style="padding-left:10px;padding-right:10px;">
+                        <p style="font-size:10pt;"><%= array_alfabet[count_tr] %></p>
+                    </td>
+                    <td width="38%" style="padding-left:10px;padding-right:10px;">
+                        <p style="font-size:10pt;">Jumlah Volume</p>
+                    </td>
+                    <td width="1%" style="padding-left:10px;padding-right:10px;">
+                        <p style="font-size:10pt;">:</p>
+                    </td>
+                    <td width="60%" class="line12" style="padding-left:10px;padding-right:10px;">
+                        <% if @pendataan.present? %>
+                            <p style="font-size:10pt;">Rp. <%= humanized_money @pendataan.try(:jumlah_volume) %></p>
+                        <% end %>
+                    </td>
+                </tr>
+                <% count_tr = count_tr+(1) %>
+            <% end %>
+            <tr>
+                <td width="1%" class="line13" style="padding-left:10px;padding-right:10px;">
+                    <p style="font-size:10pt;"><%= array_alfabet[count_tr] %></p>
+                </td>
+                <td width="38%" style="padding-left:10px;padding-right:10px;">
+                    <p style="font-size:10pt;">Nilai Pasar</p>
+                </td>
+                <td width="1%" style="padding-left:10px;padding-right:10px;">
+                    <p style="font-size:10pt;">:</p>
+                </td>
+                <td width="60%" class="line12" style="padding-left:10px;padding-right:10px;">
+                    <% if @pendataan.present? %>
+                        <p style="font-size:10pt;">Rp. <%= humanized_money @pendataan.rekening.try(:tarif) %></p>
+                    <% end %>
+                </td>
+            </tr>
+            <% count_tr = count_tr+(1) %>
+        <% end %>
+        <tr>
+            <td width="1%" class="line13" style="padding-left:10px;padding-right:10px;">
+                <p style="font-size:10pt;"><%= array_alfabet[count_tr] %></p>
+            </td>
+            <td width="38%" style="padding-left:10px;padding-right:10px;">
+                <p style="font-size:10pt;">Tarif Pajak (sesuai Perda)</p>
+            </td>
+            <td width="1%" style="padding-left:10px;padding-right:10px;">
+                <p style="font-size:10pt;">:</p>
+            </td>
+            <td width="60%" class="line12" style="padding-left:10px;padding-right:10px;">
+                <p style="font-size:10pt;"><%= humanized_money @pendataan.rekening.try(:persen) %>%</p>
+            </td>
+        </tr>
+        <tr>
+            <td width="1%" class="line13" style="padding-left:10px;padding-right:10px;padding-bottom:10px;">
+                <p style="font-size:10pt;"><%= array_alfabet[count_tr] %></p>
+            </td>
+            <td width="38%" style="padding-left:10px;padding-right:10px;padding-bottom:10px;">
+                <p style="font-size:10pt;">Pajak Terhutang</p>
+            </td>
+            <td width="1%" style="padding-left:10px;padding-right:10px;padding-bottom:10px;">
+                <p style="font-size:10pt;">:</p>
+            </td>
+            <td width="60%" class="line12" style="padding-left:10px;padding-right:10px;padding-bottom:10px;">
+                <p style="font-size:10pt;">Rp. <%= humanized_money @pendataan.try(:jumlah_pajak) %></p>
+            </td>
+        </tr>
+        <tr>
+            <td width="100%" class="line14" style="padding:10px;" colspan="4">
+                <p style="font-size:12pt; text-align:center;">PERNYATAAN</p>
+            </td>
+        </tr>
+        <tr>
+            <td width="100%" class="line2" style="padding:10px;border-bottom:none;" colspan="4">
+                <p style="font-size:10pt;">Dengan menyadari sepenuhnya akan segala akibat termasuk sanksi-sanksi sesuai dengan ketentuan
+                    perundang-undangan yang berlaku, saya atau yang saya beri kuasa menyatakan bahwa apa yang telah kami
+                    beritahukan tersebut diatas beserta lampiran-lampirannya dalah benar, lengkap dan jelas.</p>
+            </td>
+        </tr>
+        <tr>
+            <td width="100%" class="line11" style="padding:10px;padding-left:65%;text-align:center;" colspan="4">
+                <p style="font-size:10pt;">Wajib Pajak</p>
+                <br>
+                <br>
+                <br>
+                <p style="font-size:10pt;"><strong><u><%= @pendataan.pendaftaran.nama_usaha %></u></strong></p>
+            </td>
+        </tr>
+    </table>
+    <!-- content top <end></end> -->
+  </body>
+</html>

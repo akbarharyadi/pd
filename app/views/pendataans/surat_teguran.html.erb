@@ -1,0 +1,74 @@
+<div class="page-header">
+    <h1>Pendaftaran
+        <small>
+            <i class="ace-icon fa fa-angle-double-right"></i>
+            Cetak Surat Teguran
+        </small>
+    </h1>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <%= smart_listing_controls_for(:tegurans, {class:"form-vertical", :role => "form"}) do %>
+            <div class="col-xs-12">
+                <div class="col-md-2">
+                    <div class="field">
+                        <div class="form-group">
+                            <%= label_tag :tanggal_cetak %>
+                            <div class='input-group'>
+                                <%= text_field_tag :tgl_data, @current_date, {class: "form-control date-picker", 'data-date-format'=>"dd-mm-yyyy"} %>
+                                <span class="input-group-addon">
+                                    <i class="fa fa-calendar bigger-110"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="field">
+                        <div class="form-group">
+                            <%= label_tag :jenis_surat %>
+                            <%= select_tag(:jenis_surat, options_for_select([['Teguran I', 1],['Teguran II', 2],['Teguran III',3]]), {class: "chosen-select  form-control"}) %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="col-md-2">
+                    <div class="field">
+                        <div class="form-group">
+                            <%= label_tag :tahun_spt %>
+                            <%= select_tag(:filter_tahun_rekening, options_from_collection_for_select(Rekening.select(:tahun).distinct, :tahun, :tahun), {prompt: ' -- Tahun Pajak -- ', class: "chosen-select  form-control"}) %>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="field">
+                        <div class="form-group">
+                            <%= label_tag :Rekening %>
+                            <%= select_tag(:filter_induk_rekening, options_from_collection_for_select(Rekening.where("jenis_kode='000' and turunan_kode='000'"), :id, :nama_rekening), {prompt: ' -- Pilih induk Rekening -- ', class: "chosen-select  form-control"}) %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="col-xs-12">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="widget-box">
+                        <div class="widget-header widget-header-flat">
+                            <div class="widget-toolbar">
+                                <%= link_to(raw('<i class="ace-icon fa fa-search"> Refresh</i>'), 'javascript:void(0)', onclick:"$('.smart-listing-controls').submit();") %> |
+                                <%= link_to(raw('<i class="ace-icon fa fa-print"> Cetak Semua</i>'), cetak_sptpd_pendataans_path(id: 1, format: 'pdf')) %>
+                            </div>
+                        </div>
+                        <div class="widget-body">
+                            <div class="widget-main">
+                                <% end %>
+                                <%= smart_listing_render(:tegurans) %>
+                             </div>
+                        </div>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
