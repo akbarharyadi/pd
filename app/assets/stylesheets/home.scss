@@ -19,6 +19,25 @@
     overflow-x: auto;
     margin: 0 0 1em;
   }
+.money-left
+{
+    text-align: right;
+  }
+  .chosen-single div b {
+    background: 0 0!important;
+    text-align: center;
+}
+.chosen-container .chosen-results {
+    color: #444;
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin: 0 4px 4px 0;
+    padding: 0 0 0 4px;
+    max-height: 240px;
+    text-align: left;
+    -webkit-overflow-scrolling: touch;
+}
 // .table-container
 //   table
 //     {
