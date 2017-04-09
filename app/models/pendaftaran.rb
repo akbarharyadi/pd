@@ -4,6 +4,7 @@ class Pendaftaran < ApplicationRecord
     belongs_to :kecamatan
     belongs_to :kelurahan
     belongs_to :usaha
+    has_many :pendataan
     #Validasi
     validates :nama_usaha, :alamat_usaha, :kecamatan_id, :kelurahan_id, :nama_pemilik, :alamat_pemilik, :npwpd, :tgl_npwpd, :usaha_id, :no_reg_pendaftaran, :tgl_npwpd, :tgl_daftar, presence: true
     validates :npwpd, :no_pendaftaran, :no_reg_pendaftaran, uniqueness: true
@@ -20,5 +21,8 @@ class Pendaftaran < ApplicationRecord
     # before_create do
     #     self.tgl_daftar = Date.today unless self.day
     # end
+    def npwpd_nama_usaha
+        "#{npwpd} - #{nama_usaha}"
+    end
 
 end

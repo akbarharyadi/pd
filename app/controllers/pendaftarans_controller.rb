@@ -3,7 +3,7 @@ class PendaftaransController < ApplicationController
   include SmartListing::Helper::ControllerExtensions
   helper  SmartListing::Helper
   add_breadcrumb '<i class="ace-icon fa fa-home home-icon"></i> Home'.html_safe, :root_path
-  add_breadcrumb ' Tambah Pendaftaran'.html_safe, :pendaftarans_path
+  add_breadcrumb 'Pendaftaran'.html_safe, :pendaftarans_path
   include ApplicationHelper
 
   # GET /pendaftarans
@@ -43,7 +43,11 @@ class PendaftaransController < ApplicationController
   # POST /pendaftarans.json
   def create
     @pendaftaran = Pendaftaran.new(pendaftaran_params)
-
+    no_pendaftaran = generate_no_pendaftaran
+    npwpd = @pendaftaran.npwpd
+    @pendaftaran.no_pendaftaran = no_pendaftaran
+    @pendaftaran.no_reg_pendaftaran = no_pendaftaran + '/' + Date.today.year.to_s
+    @pendaftaran.npwpd = npwpd[0..3] + no_pendaftaran + '.' + Kecamatan.find(@pendaftaran.kecamatan_id).kode + '.' + Kelurahan.find(@pendaftaran.kelurahan_id).kode
     respond_to do |format|
       if @pendaftaran.save
         format.html { redirect_to @pendaftaran, notice: 'Pendaftaran berhasil tersimpan' }
@@ -82,11 +86,15 @@ class PendaftaransController < ApplicationController
   def daftar_wajib_pajak
     add_breadcrumb 'Cetak Daftar Wajib Pajak'
     pendaftaran_scope = Pendaftaran.all
+    judul = "Daftar Wajib Pajak "
     if params[:filter_date] != '' and params[:filter_date] != nil
+      judul += params[:filter_date]
       date = params[:filter_date].split('s/d')
       pendaftaran_scope = pendaftaran_scope.where("tgl_daftar between '" + DateTime.parse(date[0]).strftime("%Y/%m/%d") + "' and '" + DateTime.parse(date[1]).strftime("%Y/%m/%d") + "'")
-    else
-      params[:filter_date] = ""
+    end
+    if params[:filter_kecamatan] != '' and params[:filter_kecamatan] != nil
+      judul += Kecamatan.find(params[:filter_kecamatan]).nama
+      pendaftaran_scope = pendaftaran_scope.where("id_kecamatan= " + params[:filter_kecamatan])
     end
     @pendaftaran = pendaftaran_scope
     @wilayah = Wilayah.first
@@ -94,10 +102,10 @@ class PendaftaransController < ApplicationController
     respond_to do |format|
         format.html
         format.pdf do
-          render pdf: "Daftar Wajib Pajak " + params[:filter_date],
+          render pdf: judul,
                   disposition: 'attachment'
         end
-end
+    end
   end
 
   private
@@ -108,6 +116,6 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def pendaftaran_params
-      params.require(:pendaftaran).permit(:no_pendaftaran, :nama_usaha, :alamat_usaha, :kecamatan_id, :kelurahan_id, :no_telp_usaha, :nama_pemilik, :alamat_pemilik, :no_telp_pemilik, :npwpd, :tgl_npwpd, :usaha_id, :filter, :no_reg_pendaftaran, :tgl_daftar, :filter_date, :filter)
+      params.require(:pendaftaran).permit(:no_pendaftaran, :nama_usaha, :alamat_usaha, :kecamatan_id, :kelurahan_id, :no_telp_usaha, :nama_pemilik, :alamat_pemilik, :no_telp_pemilik, :npwpd, :tgl_npwpd, :usaha_id, :filter, :no_reg_pendaftaran, :tgl_daftar, :filter_date, :filter, :filter_kecamatan)
     end
 end

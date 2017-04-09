@@ -11,6 +11,14 @@
 		<%= form_tag daftar_wajib_pajak_pendaftarans_path(:format => 'pdf'), :method => :get, :class => "form-horizontal", :role => "form" do %>
 			<div class="field">
         <div class="form-group">
+          <%= label_tag :kecamatan, nil, class: "col-sm-2 control-label no-padding-right" %>
+          <div class="col-sm-4">
+            <%= select_tag(:filter_kecamatan, options_from_collection_for_select(Kecamatan.all, :id, :kode_dan_kecamatan), {prompt: ' -- Pilih Kecamatan -- ', class: "chosen-select  form-control"}) %>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <div class="form-group">
           <%= label_tag :tanggal_daftar, nil, class: "col-sm-2 control-label no-padding-right" %>
           <div class="col-sm-4">
             <div class='input-group'>
