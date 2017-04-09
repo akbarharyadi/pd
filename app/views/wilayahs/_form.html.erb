@@ -34,16 +34,8 @@
 
 
 <div class="row">
-<div class="col-md-4">
-  <div class="field">
-  <div class="form-group">
-    <%= f.label :ibu_kota %>
-    <%= f.text_field :ibu_kota, class: "form-control", validate: true %>
-     </div>
-  </div>
-  </div>
 
-<div class="col-md-4">
+<div class="col-md-8">
   <div class="field">
   <div class="form-group">
     <%= f.label :nama_badan %>
@@ -55,11 +47,40 @@
 <div class="col-md-4">
   <div class="field">
   <div class="form-group">
+    <%= f.label :singkatan %>
+    <%= f.text_field :singkatan, class: "form-control", validate: true %>
+     </div>
+  </div>
+ </div>
+   </div>
+
+   <div class="row">
+
+<div class="col-md-4">
+  <div class="field">
+  <div class="form-group">
+    <%= f.label :ibu_kota %>
+    <%= f.text_field :ibu_kota, class: "form-control", validate: true %>
+     </div>
+  </div>
+  </div>
+<div class="col-md-4">
+  <div class="field">
+  <div class="form-group">
     <%= f.label :telp_badan %>
     <%= f.text_field :telp_badan, class: "form-control", validate: true %>
      </div>
   </div>
- </div>
+  </div>
+
+<div class="col-md-4">
+  <div class="field">
+  <div class="form-group">
+    <%= f.label :fax %>
+    <%= f.text_field :fax, class: "form-control", validate: true %>
+     </div>
+  </div>
+</div>
    </div>
 
 <div class="row">
@@ -71,6 +92,14 @@
      </div>
   </div>
    </div>
+   <div class="col-md-4">
+  <div class="field">
+  <div class="form-group">
+    <%= f.label :kode_pos %>
+    <%= f.text_field :kode_pos, class: "form-control", validate: true %>
+     </div>
+  </div>
+ </div>
   </div>
 
  <div class="clearfix form-actions">

@@ -73,6 +73,6 @@ class WilayahsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def wilayah_params
-      params.require(:wilayah).permit(:nama_wilayah, :jenis_wilayah, :pemimpin, :ibu_kota, :nama_badan, :alamat_badan, :telp_badan)
+      params.require(:wilayah).permit(:nama_wilayah, :jenis_wilayah, :pemimpin, :ibu_kota, :nama_badan, :alamat_badan, :telp_badan, :fax, :singkatan, :kode_pos)
     end
 end
