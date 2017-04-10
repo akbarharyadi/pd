@@ -544,5 +544,5 @@ list_jabatan = [
 ]
 
 list_jabatan.each do |b|
-    Seksi.create(kode_jabatan:b[0], nama_jabatan:b[1], singkatan:b[2])
+    Jabatan.create(kode_jabatan:b[0], nama_jabatan:b[1], singkatan:b[2])
 end
