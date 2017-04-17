@@ -53,12 +53,12 @@ class PenetapanController < ApplicationController
         @pendataan = Pendataan.find(params[:id])
         @rekening_induk = Rekening.where("jenis_kode = '00' and turunan_kode = '00' and kode= '" + @pendataan.rekening.kode + "' and tahun = " + @pendataan.rekening.tahun.to_s).first
         @ttd = Ttd.find(3)
-        if()
         @pendataan.denda = @pendataan.hitung_denda(@pendataan.tgl_tetap) if !@pendataan.tgl_setor.present?
         @pendataan.tgl_cetak_skp = tgl_cetak.strftime('%Y-%m-%d') if !@pendataan.tgl_cetak_skp.present?
         judul = 'SKPD_'
         judul += 'NIHIL_' if @pendataan.tgl_setor.present?
         judul += 'No_' + @pendataan.no_kohir.to_s + Time.now.to_s
+        @pendataan.save
         respond_to do |format|
             # format.html
             format.pdf do
