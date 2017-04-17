@@ -4,7 +4,9 @@
       <div class="widget-header widget-header-flat">
         <h4 class="widget-title smaller">Detail Pendataan</h4>
         <div class="widget-toolbar">
-          <%= link_to(raw('<i class="ace-icon fa fa-print"> Cetak SPTPD</i>'), cetak_sptpd_pendataans_path(id: @pendataan.id, format: 'pdf')) %> |
+          <% if @pendataan.rekening.kode != '1104' %>
+            <%= link_to(raw('<i class="ace-icon fa fa-print"> Cetak SPTPD</i>'), cetak_sptpd_pendataans_path(id: @pendataan.id, format: 'pdf')) %> | 
+          <% end %>
           <%= link_to(raw('<i class="ace-icon fa fa-pencil align-center"></i> Edit'), edit_pendataan_path(@pendataan)) %> | 
           <%= link_to(raw('<i class="ace-icon fa fa-undo icon-only"></i> Kembali'), pendataans_path) %> |
           <%= link_to(raw('<i class="ace-icon fa fa-trash icon-only"></i> Hapus'), @pendataan, method: :delete, data: { confirm: 'Ada yakin ingin menghapus data ini?' }) %>
@@ -98,7 +100,12 @@
               <div class="profile-info-name"> <strong>Tanggal Jatuh Tempo</strong> 
               </div>
               <div class="profile-info-value">
-                <span class="editable editable-click"><%= I18n.l((@pendataan.periode_awal + 14.days + 1.months), format:'%d %B %Y') %></span>
+                <span class="editable editable-click">
+                <% if @pendataan.jatuh_tempo == '-' %>
+                  <%= @pendataan.jatuh_tempo %>
+                <% else %>
+                  <%= I18n.l((@pendataan.jatuh_tempo), format:'%d %B %Y') %>
+                <% end %></span>
               </div>
             </div>
 					</div>
@@ -129,7 +136,7 @@
               </div>
             </div>
 					</div>
-          <% if @pendataan.rekening.kode != '1111' and @pendataan.rekening.kode != '1105' %>
+          <% if @pendataan.rekening.kode != '1111' and @pendataan.rekening.kode != '1105' and @pendataan.rekening.kode != '1104' %>
             <div class="profile-user-info profile-user-info-striped">
               <div class="profile-info-row">
                 <div class="profile-info-name"> <strong>omzet</strong> 
@@ -175,6 +182,26 @@
                   </div>
                   <div class="profile-info-value">
                     <span class="editable editable-click"><%= humanized_money @pendataan.jumlah_volume %> M<sup>3</sup></span>
+                  </div>
+                </div>
+              </div>
+            <% elsif @pendataan.rekening.kode == '1104' %>
+              <div class="profile-user-info profile-user-info-striped">
+                <div class="profile-info-row">
+                  <div class="profile-info-name"> <strong>Nilai Reklame</strong> 
+                  </div>
+                  <div class="profile-info-value">
+                    <span class="editable editable-click">Rp. <%= humanized_money @pendataan.nilai_reklame %></span>
+                  </div>
+                </div>
+              </div>
+              <% elsif @pendataan.rekening.kode == '1108' %>
+              <div class="profile-user-info profile-user-info-striped">
+                <div class="profile-info-row">
+                  <div class="profile-info-name"> <strong>NPA</strong> 
+                  </div>
+                  <div class="profile-info-value">
+                    <span class="editable editable-click">Rp. <%= humanized_money @pendataan.npa %></span>
                   </div>
                 </div>
               </div>

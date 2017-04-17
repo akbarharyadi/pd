@@ -10,6 +10,8 @@
         <th class="sorting">NPWPD</th>
         <th class="sorting">Nama Usaha</th>
         <th class="sorting">Periode</th>
+        <th class="sorting">Jatuh Tempo</th>
+        <th class="sorting">Status</th>
         <th></th>
       </tr>
     </thead>
@@ -30,9 +32,17 @@
           <td><%= pendataan.pendaftaran.npwpd %></td>
           <td><%= pendataan.pendaftaran.nama_usaha %></td>
           <td><%= I18n.l(pendataan.periode_awal, format:'%d %B %Y') + ' s/d ' + I18n.l(pendataan.periode_akhir, format:'%d %B %Y') %></td>
+          <td><% if pendataan.jatuh_tempo == '-' %>
+            <%= pendataan.jatuh_tempo %>
+          <% else %>
+            <%= I18n.l(pendataan.jatuh_tempo, format:'%d %B %Y')  %>
+          <% end %></td>
+          <td><%= pendataan.status_pendataan %></td>
           <td>
               <div class="action-buttons">
-                  <%= link_to(raw('<i class="ace-icon fa fa-print bigger-130"></i>'), cetak_sptpd_pendataans_path(id: pendataan.id, format: 'pdf')) %>
+                  <% if pendataan.rekening.kode != '1104' %>
+                    <%= link_to(raw('<i class="ace-icon fa fa-print bigger-130"></i>'), cetak_sptpd_pendataans_path(id: pendataan.id, format: 'pdf')) %>
+                  <% end %>
                   <%= link_to(raw('<i class="ace-icon fa fa-search-plus bigger-130"></i>'), pendataan, class:"blue") %>
                   <%= link_to(raw('<i class="ace-icon fa fa-pencil bigger-130"></i>'), edit_pendataan_path(pendataan), class:"green") %>
                   <%= link_to(raw('<i class="ace-icon fa fa-trash-o bigger-130"></i>'), pendataan, method: :delete, data: { confirm: 'Anda yakin?' }, class:"red") %>

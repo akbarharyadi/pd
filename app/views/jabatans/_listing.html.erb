@@ -1,0 +1,43 @@
+
+<% unless smart_listing.empty? %>
+<div class="table-container">
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr role="row">
+        <th class="sorting"><%= smart_listing.sortable "Kode Jabatan", :kode_jabatan %></th>
+        <th class="sorting"><%= smart_listing.sortable "Nama Jabatan", :nama_jabatan %></th>
+        <th class="sorting"><%= smart_listing.sortable "Nama Singkatan", :singkatan %></th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% 
+          counting = 1
+      %>
+      <% smart_listing.collection.each do |jabatan| %>
+              <% if counting.odd? %>
+                  <tr role="row" class="odd">
+              <% else %>
+                <tr role="row" class="even">
+              <% end %>
+          <td><%= jabatan.kode_jabatan %></td>
+          <td><%= jabatan.nama_jabatan %></td>
+          <td><%= jabatan.singkatan %></td>
+          <td>
+              <div class="action-buttons">
+                  <%= link_to(raw('<i class="ace-icon fa fa-search-plus bigger-130"></i>'), jabatan, class:"blue") %>
+                  <%= link_to(raw('<i class="ace-icon fa fa-pencil bigger-130"></i>'), edit_jabatan_path(jabatan), class:"green") %>
+                  <%= link_to(raw('<i class="ace-icon fa fa-trash-o bigger-130"></i>'), jabatan, method: :delete, data: { confirm: 'Anda yakin?' }, class:"red") %>
+              </div>
+          </td>
+        </tr>
+        <% counting += 1 %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%= smart_listing.paginate  %>
+<% else %>
+<p> Data tidak ditemukan </p>
+<% end %>

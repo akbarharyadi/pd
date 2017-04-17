@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170409135728) do
+ActiveRecord::Schema.define(version: 20170415134648) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,20 @@ ActiveRecord::Schema.define(version: 20170409135728) do
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", using: :btree
     t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
+  end
+
+  create_table "golongans", force: :cascade do |t|
+    t.string   "nama_pangkat"
+    t.string   "golongan"
+    t.string   "ruang"
+    t.datetime "deleted_at"
+    t.string   "slug"
+    t.integer  "created_by"
+    t.integer  "updated_by"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["deleted_at"], name: "index_golongans_on_deleted_at", using: :btree
+    t.index ["slug"], name: "index_golongans_on_slug", using: :btree
   end
 
   create_table "jabatans", force: :cascade do |t|
@@ -81,6 +95,23 @@ ActiveRecord::Schema.define(version: 20170409135728) do
     t.index ["slug"], name: "index_kelurahans_on_slug", using: :btree
   end
 
+  create_table "pegawais", force: :cascade do |t|
+    t.string   "nama_pegawai"
+    t.string   "nip"
+    t.integer  "bidang_id"
+    t.integer  "seksi_id"
+    t.integer  "jabatan_id"
+    t.integer  "golongan_id"
+    t.datetime "deleted_at"
+    t.string   "slug"
+    t.integer  "created_by"
+    t.integer  "updated_by"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["deleted_at"], name: "index_pegawais_on_deleted_at", using: :btree
+    t.index ["slug"], name: "index_pegawais_on_slug", using: :btree
+  end
+
   create_table "pendaftarans", force: :cascade do |t|
     t.string   "no_pendaftaran"
     t.string   "nama_usaha"
@@ -102,6 +133,7 @@ ActiveRecord::Schema.define(version: 20170409135728) do
     t.integer  "updated_by"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.integer  "status"
     t.index ["deleted_at"], name: "index_pendaftarans_on_deleted_at", using: :btree
     t.index ["slug"], name: "index_pendaftarans_on_slug", using: :btree
   end
@@ -129,6 +161,12 @@ ActiveRecord::Schema.define(version: 20170409135728) do
     t.float    "pemakaian_daya"
     t.float    "volume_pemakaian"
     t.float    "jumlah_volume"
+    t.integer  "status"
+    t.integer  "pajak_rokok"
+    t.float    "nilai_reklame"
+    t.float    "denda"
+    t.date     "tgl_cetak_skp"
+    t.float    "npa"
     t.index ["deleted_at"], name: "index_pendataans_on_deleted_at", using: :btree
     t.index ["slug"], name: "index_pendataans_on_slug", using: :btree
   end
@@ -177,6 +215,7 @@ ActiveRecord::Schema.define(version: 20170409135728) do
     t.integer  "updated_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "nama_surat"
     t.index ["deleted_at"], name: "index_ttds_on_deleted_at", using: :btree
     t.index ["slug"], name: "index_ttds_on_slug", using: :btree
   end

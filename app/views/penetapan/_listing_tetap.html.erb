@@ -1,0 +1,51 @@
+
+<% unless smart_listing.empty? %>
+<div class="table-container">
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr role="row">
+        <th class="sorting">Nomor Kohir</th>
+        <th class="sorting">No Pendataan</th>
+        <th class="sorting">Rekening</th>
+        <th class="sorting">NPWPD</th>
+        <th class="sorting">Nama Usaha</th>
+        <th class="sorting">Periode</th>
+        <th class="sorting">Tanggal Tetap</th>
+        <th>Status</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% 
+          counting = 1
+      %>
+      <% smart_listing.collection.each do |pendataan| %>
+              <% if counting.odd? %>
+                  <tr role="row" class="odd">
+              <% else %>
+                <tr role="row" class="even">
+              <% end %>
+          <td><%= pendataan.no_kohir %></td>
+          <td><%= pendataan.no_pendataan %></td>
+          <td><%= pendataan.rekening.nama_rekening %></td>
+          <td><%= pendataan.pendaftaran.npwpd %></td>
+          <td><%= pendataan.pendaftaran.nama_usaha %></td>
+          <td><%= I18n.l(pendataan.periode_awal, format:'%d %B %Y') + ' s/d ' + I18n.l(pendataan.periode_akhir, format:'%d %B %Y') %></td>
+          <td><%= I18n.l(pendataan.tgl_tetap, format:'%d %B %Y') if pendataan.tgl_tetap.present? %></td>
+          <td><%= pendataan.status_pendataan %></td>
+          <td>
+              <div class="action-buttons">
+                <%= link_to(raw('<i class="ace-icon fa fa-print bigger-130"></i> SKPD/N'), penetapan_cetak_skp_path(id: pendataan.id, tanggal:@current_date, format: 'pdf')) %>
+              </div>
+          </td>
+        </tr>
+        <% counting += 1 %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%= smart_listing.paginate  %>
+<% else %>
+<p> Data tidak ditemukan </p>
+<% end %>

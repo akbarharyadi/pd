@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
+  resources :pegawais
+  resources :golongans
   resources :jabatans
-  resources :seksis
+  resources :seksis do
+    collection do
+      get 'update_seksi'
+    end
+  end
   resources :bidangs
   resources :ttds
   resources :pendataans do
@@ -30,6 +36,13 @@ Rails.application.routes.draw do
   end
   resources :kecamatans
   get 'home/index'
+  get 'penyetoran/index'
+  get 'penyetoran/proses'
+  get 'penyetoran/list'
+  get 'penetapan/index'
+  get 'penetapan/proses'
+  get 'penetapan/list'
+  get 'penetapan/cetak_skp'
   root 'home#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -24,6 +24,7 @@
         <th class="sorting">Tgl. Daftar</th>
         <th class="sorting">Nama Usaha</th>
         <th class="sorting">Nama Pemilik</th>
+        <th class="sorting">Status</th>
       </tr>
     </thead>
 
@@ -43,6 +44,7 @@
           <td style="text-align:center; padding:5px;"><%= pendaftaran.tgl_daftar.strftime('%d-%m-%Y') %></td>
           <td style="padding:5px;"><%= pendaftaran.nama_usaha %></td>
           <td style="padding:5px;"><%= pendaftaran.nama_pemilik %></td>
+          <td style="padding:5px;"><%= pendaftaran.status %></td>
         </tr>
         <% counting += 1 %>
       <% end %>

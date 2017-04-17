@@ -1,0 +1,70 @@
+<div class="row">
+  <div class="col-xs-12">
+    <h3 class="header smaller lighter blue">List Penetapan</h3>
+    <div class="clearfix"></div>
+    <%= smart_listing_controls_for(:pendataans, {class:"form-vertical", :role => "form"}) do %>
+        <div class="col-xs-12">
+            <div class="col-md-2">
+                <div class="field">
+                    <div class="form-group">
+                        <%= label_tag :tanggal %>
+                        <div class='input-group'>
+                            <%= text_field_tag :tanggal, @current_date, {class: "form-control date-picker", 'data-date-format'=>"dd-mm-yyyy", onchange:"$('.smart-listing-controls').submit();"} %>
+                            <span class="input-group-addon">
+                                <i class="fa fa-calendar bigger-110"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="col-md-2">
+                <div class="field">
+                    <div class="form-group">
+                        <%= label_tag :tahun_spt %>
+                        <%= select_tag(:filter_tahun_rekening, options_from_collection_for_select(Rekening.select(:tahun).distinct, :tahun, :tahun), {prompt: ' -- Tahun Pajak -- ', class: "chosen-select  form-control"}) %>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="field">
+                    <div class="form-group">
+                        <%= label_tag :Rekening %>
+                        <%= select_tag(:filter_induk_rekening, options_from_collection_for_select(Rekening.where("jenis_kode='000' and turunan_kode='000'"), :id, :nama_rekening), {prompt: ' -- Pilih induk Rekening -- ', class: "chosen-select  form-control"}) %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="col-md-6">
+                <div class="field">
+                    <div class="form-group">
+                         <%= text_field_tag :filter, '', {class: "form-control", placeholder: "Cari berdasarkan no pendataan, npwpd atau nama usaha..."} %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% end %>
+    <div class="clearfix"></div>
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="widget-box">
+                    <div class="widget-header widget-header-flat">
+                        <h5 class="smaller blue" style="float: left;">List pendataan yang sudah dibayar</h5>
+                        <div class="widget-toolbar">
+                            <%= link_to(raw('<i class="ace-icon fa fa-search"> Refresh</i>'), 'javascript:void(0)', onclick:"$('.smart-listing-controls').submit();") %>
+                        </div>
+                    </div>
+                    <div class="widget-body">
+                        <div class="widget-main">
+					        <%= smart_listing_render(:pendataans) %>
+                        </div>
+                    </div>
+                </div>
+			</div>
+		</div>
+	</div>
+  </div>
+</div>

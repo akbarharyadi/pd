@@ -55,11 +55,14 @@ $ ->
   $(document).on 'change', '#pendataan_periode_awal', (e) ->
      parts = $(this).val().split('-')
      now = new Date(parts[2], parts[1] - 1, parts[0])
-     lastDayOfTheMonth = new Date(1900 + now.getYear(), now.getMonth() + 1, 0)
+     lastDayOfTheMonth = new Date()
+     if $("#pendataan_kode_rekening").val() == '1104' or $("#pendataan_kode_rekening").val() == '1108'
+      lastDayOfTheMonth = new Date(1900 + now.getYear() + 1, now.getMonth() + 1, 0)
+     else
+      lastDayOfTheMonth = new Date(1900 + now.getYear(), now.getMonth() + 1, 0)
+     # $("#pendataan_periode_akhir").val(("0" + lastDayOfTheMonth.getDate()).slice(-2) + '-' + ("0" + (lastDayOfTheMonth.getMonth() + 1)).slice(-2) + '-' + (1900 + lastDayOfTheMonth.getYear()))
      if $(this).val() != ''
-      $("#pendataan_periode_akhir").val(("0" + lastDayOfTheMonth.getDate()).slice(-2) + '-' + ("0" + (lastDayOfTheMonth.getMonth() + 1)).slice(-2) + '-' + (1900 + lastDayOfTheMonth.getYear()))
-
-     if $(this).val() != ''
+      $("#pendataan_periode_akhir").datepicker('setDate', lastDayOfTheMonth);
       $("#tgl_jth_tempo").val(("0" + (15)).slice(-2) + '-' + ("0" + (lastDayOfTheMonth.getMonth() + 2)).slice(-2) + '-' + (1900 + lastDayOfTheMonth.getYear()))
 
   $(document).on 'change', '#pendataan_tahun_spt', (evt) ->
@@ -93,6 +96,7 @@ $ ->
     $('#pendataan_volume_pemakaian').val('')
     $('#pendataan_omzet').val('')
     $('#pendataan_jumlah_volume').val('')
+    $('#pendataan_nilai_reklame').val('')
 
   $(document).on 'change', '#pendataan_omzet', (evt) ->
     omzet = $(this).val().replace(/\./g, '').replace(/\,/g, '.');
@@ -130,5 +134,42 @@ $ ->
       rupiah = 0
     $('#pendataan_jumlah_pajak').autoNumeric('set', volume*rupiah*(persen/100))
 
-    
-      
+  $(document).on 'change', '#pegawai_bidang_id', (evt) ->
+    $.ajax '/seksis/update_seksi',
+      type: 'GET'
+      dataType: 'json'
+      data: {
+        bidang_id: $("#pegawai_bidang_id option:selected").val()
+      }
+      error: (jqXHR, textStatus, errorThrown) ->
+        console.log("AJAX Error: #{textStatus}")
+      success: (data, textStatus, jqXHR) ->
+        $("#pegawai_seksi_id").html('')
+        $("#pegawai_seksi_id").append('<option value=""> -- Pilih Seksi -- </option>')
+        for key, element of data
+            $("#pegawai_seksi_id").append('<option value="'+ element.id+'">' + element.kode_seksi + ' - ' + element.nama_seksi+ '</option>')
+        $('.chosen-select').trigger('chosen:updated')
+  
+  $(document).on 'change', '#pendataan_nilai_reklame', (evt) ->
+    nilai = $('#pendataan_nilai_reklame').val().replace(/\./g, '').replace(/\,/g, '.');
+    persen = $('#pendataan_tarif_persen').val();
+    rupiah = $('#pendataan_tarif_rupiah').val().replace(/\./g, '').replace(/\,/g, '.');
+    if nilai == ''
+      nilai = 1
+    if persen == ''
+      persen = 0
+    if rupiah == ''
+      rupiah = 0
+    $('#pendataan_jumlah_pajak').autoNumeric('set', nilai*(persen/100))
+  
+  $(document).on 'change', '#pendataan_npa', (evt) ->
+    nilai = $('#pendataan_npa').val().replace(/\./g, '').replace(/\,/g, '.');
+    persen = $('#pendataan_tarif_persen').val();
+    rupiah = $('#pendataan_tarif_rupiah').val().replace(/\./g, '').replace(/\,/g, '.');
+    if nilai == ''
+      nilai = 1
+    if persen == ''
+      persen = 0
+    if rupiah == ''
+      rupiah = 0
+    $('#pendataan_jumlah_pajak').autoNumeric('set', nilai*(persen/100))

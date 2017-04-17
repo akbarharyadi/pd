@@ -256,7 +256,7 @@ p{ margin:0px;}
                     </td>
                     <td width="60%" class="line12" style="padding-left:10px;padding-right:10px;">
                         <% if @pendataan_sebelumnya.present? %>
-                            <p style="font-size:10pt;"><%= humanized_money @pendataan_sebelumnya.try(:volume_pemakaian) %> KVA</p>
+                            <p style="font-size:10pt;"><%= humanized_money @pendataan_sebelumnya.try(:volume_pemakaian) %></p>
                         <% end %>
                     </td>
                 </tr>
@@ -403,24 +403,7 @@ p{ margin:0px;}
                     </td>
                     <td width="60%" class="line12" style="padding-left:10px;padding-right:10px;">
                         <% if @pendataan.present? %>
-                            <p style="font-size:10pt;"><%= humanized_money @pendataan.try(:volume_pemakaian) %> KVA</p>
-                        <% end %>
-                    </td>
-                </tr>
-                <% count_tr = count_tr+(1) %>
-                <tr>
-                    <td width="1%" class="line13" style="padding-left:10px;padding-right:10px;">
-                        <p style="font-size:10pt;"><%= array_alfabet[count_tr] %></p>
-                    </td>
-                    <td width="38%" style="padding-left:10px;padding-right:10px;">
-                        <p style="font-size:10pt;">Nilai Pasar</p>
-                    </td>
-                    <td width="1%" style="padding-left:10px;padding-right:10px;">
-                        <p style="font-size:10pt;">:</p>
-                    </td>
-                    <td width="60%" class="line12" style="padding-left:10px;padding-right:10px;">
-                        <% if @pendataan.present? %>
-                            <p style="font-size:10pt;">Rp. <%= humanized_money @pendataan.rekening.try(:tarif) %></p>
+                            <p style="font-size:10pt;"><%= humanized_money @pendataan.try(:volume_pemakaian) %></p>
                         <% end %>
                     </td>
                 </tr>

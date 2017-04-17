@@ -1,0 +1,46 @@
+
+<% unless smart_listing.empty? %>
+<div class="table-container">
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr role="row">
+        <th class="sorting"><%= smart_listing.sortable "Nama Surat", :nama_surat %></th>
+        <th class="sorting"><%= smart_listing.sortable "Baris 1", :baris1 %></th>
+        <th class="sorting"><%= smart_listing.sortable "Baris 2", :baris2 %></th>
+        <th class="sorting"><%= smart_listing.sortable "Baris 3", :baris3 %></th>
+        <th class="sorting"><%= smart_listing.sortable "Pegawai", :pegawai_id %></th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% 
+          counting = 1
+      %>
+      <% smart_listing.collection.each do |ttd| %>
+              <% if counting.odd? %>
+                  <tr role="row" class="odd">
+              <% else %>
+                <tr role="row" class="even">
+              <% end %>
+          <td><%= ttd.nama_surat %></td>
+          <td><%= ttd.baris1 %></td>
+          <td><%= ttd.baris2 %></td>
+          <td><%= ttd.baris3 %></td>
+          <td><%= ttd.pegawai.try(:nama_pegawai) %></td>
+          <td>
+              <div class="action-buttons">
+                  <%= link_to(raw('<i class="ace-icon fa fa-search-plus bigger-130"></i>'), ttd, class:"blue") %>
+                  <%= link_to(raw('<i class="ace-icon fa fa-pencil bigger-130"></i>'), edit_ttd_path(ttd), class:"green") %>
+              </div>
+          </td>
+        </tr>
+        <% counting += 1 %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%= smart_listing.paginate  %>
+<% else %>
+<p> Data tidak ditemukan </p>
+<% end %>

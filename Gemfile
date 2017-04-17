@@ -41,6 +41,7 @@ gem 'devise-i18n'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'money-rails', '~>1'
+gem "terbilang"
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

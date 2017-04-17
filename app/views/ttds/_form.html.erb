@@ -1,37 +1,56 @@
-<%= form_for(ttd) do |f| %>
-  <% if ttd.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(ttd.errors.count, "error") %> prohibited this ttd from being saved:</h2>
-
-      <ul>
-      <% ttd.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :baris1 %>
-    <%= f.text_field :baris1 %>
+<div class="row">
+  <div class="col-xs-12">
+    <%= form_for(ttd, :html => {:class => "form-horizontal" , :role => "form"}) do |f| %>
+      <%= render 'shared/error', error_form: ttd %>
+      <div class="field">
+        <div class="form-group">
+          <%= f.label :nama_surat, class: "col-sm-2 control-label no-padding-right" %>
+          <div class="col-sm-6">
+            <%= f.text_field :nama_surat, class: "form-control", validate: true, readonly:(!ttd.new_record?) %>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <div class="form-group">
+          <%= f.label :baris1, class: "col-sm-2 control-label no-padding-right" %>
+          <div class="col-sm-6">
+            <%= f.text_field :baris1, class: "form-control", validate: true %>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <div class="form-group">
+          <%= f.label :baris_2, class: "col-sm-2 control-label no-padding-right" %>
+          <div class="col-sm-6">
+            <%= f.text_field :baris2, class: "form-control", validate: true %>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <div class="form-group">
+          <%= f.label :baris_3, class: "col-sm-2 control-label no-padding-right" %>
+          <div class="col-sm-6">
+            <%= f.text_field :baris3, class: "form-control", validate: true %>
+          </div>
+        </div>
+      </div>
+       <div class="field">
+        <div class="form-group">
+          <%= f.label :pegawai_id, class: "col-sm-2 control-label no-padding-right" %>
+          <div class="col-sm-6">
+          <%= f.collection_select(:pegawai_id, Pegawai.all, :id, :nip_dan_nama, {prompt: ' -- Pilih Kecamatan -- '}, {class: "chosen-select  form-control"}) %>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix form-actions">
+        <div class="col-md-offset-3 col-md-9">
+        <%= button_tag(type: 'submit', class: "btn btn-info") do %>
+          <i class="ace-icon fa fa-check bigger-110"></i> Simpan
+        <% end %>
+        &nbsp; &nbsp; &nbsp;
+        <%= link_to(raw('<i class="ace-icon fa fa-undo bigger-110"></i> kembali'), ttds_path, class: "btn") %>
+      </div>
+       </div>
+    <% end %>
   </div>
-
-  <div class="field">
-    <%= f.label :baris2 %>
-    <%= f.text_field :baris2 %>
-  </div>
-
-  <div class="field">
-    <%= f.label :baris3 %>
-    <%= f.text_field :baris3 %>
-  </div>
-
-  <div class="field">
-    <%= f.label :pegawai_id %>
-    <%= f.text_field :pegawai_id %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>

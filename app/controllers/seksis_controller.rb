@@ -70,6 +70,17 @@ class SeksisController < ApplicationController
     end
   end
 
+  def update_seksi
+    id = ''
+    if params[:bidang_id] != ''
+      id = params[:bidang_id]
+    else
+      id = 0
+    end
+    @seksi = Seksi.where("bidang_id = ?", id)
+    render json: @seksi
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_seksi

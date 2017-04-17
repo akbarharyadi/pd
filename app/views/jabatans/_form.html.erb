@@ -1,32 +1,41 @@
-<%= form_for(jabatan) do |f| %>
-  <% if jabatan.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(jabatan.errors.count, "error") %> prohibited this jabatan from being saved:</h2>
-
-      <ul>
-      <% jabatan.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :kode_jabatan %>
-    <%= f.text_field :kode_jabatan %>
+<div class="row">
+  <div class="col-xs-12">
+    <%= form_for(jabatan, :html => {:class => "form-horizontal" , :role => "form"}) do |f| %>
+      <%= render 'shared/error', error_form: jabatan %>
+      <div class="field">
+        <div class="form-group">
+          <%= f.label :kode_jabatan, class: "col-sm-2 control-label no-padding-right" %>
+          <div class="col-sm-1">
+            <%= f.text_field :kode_jabatan, class: "form-control", validate: true, :maxlength => 2,  onkeypress: 'return event.charCode >= 48 && event.charCode <= 57' %>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <div class="form-group">
+          <%= f.label :nama_jabatan, class: "col-sm-2 control-label no-padding-right" %>
+          <div class="col-sm-6">
+            <%= f.text_field :nama_jabatan, class: "form-control", validate: true %>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <div class="form-group">
+          <%= f.label :singkatan, class: "col-sm-2 control-label no-padding-right" %>
+          <div class="col-sm-3">
+            <%= f.text_field :singkatan, class: "form-control", validate: true %>
+          </div>
+        </div>
+      </div>
+      
+      <div class="clearfix form-actions">
+        <div class="col-md-offset-3 col-md-9">
+        <%= button_tag(type: 'submit', class: "btn btn-info") do %>
+          <i class="ace-icon fa fa-check bigger-110"></i> Simpan
+        <% end %>
+        &nbsp; &nbsp; &nbsp;
+        <%= link_to(raw('<i class="ace-icon fa fa-undo bigger-110"></i> kembali'), jabatans_path, class: "btn") %>
+      </div>
+       </div>
+    <% end %>
   </div>
-
-  <div class="field">
-    <%= f.label :nama_jabatan %>
-    <%= f.text_field :nama_jabatan %>
-  </div>
-
-  <div class="field">
-    <%= f.label :singkatan %>
-    <%= f.text_field :singkatan %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>

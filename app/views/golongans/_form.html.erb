@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col-xs-12">
+    <%= form_for(golongan, :html => {:class => "form-horizontal" , :role => "form"}) do |f| %>
+    <%= render 'shared/error', error_form: golongan %>
+    <div class="field">
+      <div class="form-group">
+        <%= f.label :nama_pangkat, class: "col-sm-2 control-label no-padding-right"  %>
+        <div class="col-sm-6">
+          <%= f.text_field :nama_pangkat, class: "form-control", validate: true %>
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="form-group">
+        <%= f.label :golongan, class: "col-sm-2 control-label no-padding-right"  %>
+        <div class="col-sm-1">
+          <%= f.text_field :golongan, class: "form-control", validate: true, :maxlength => 2 %>
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="form-group">
+        <%= f.label :ruang, class: "col-sm-2 control-label no-padding-right"  %>
+        <div class="col-sm-1">
+          <%= f.text_field :ruang, class: "form-control", validate: true, :maxlength => 1 %>
+        </div>
+      </div>
+    </div>
+
+      <div class="clearfix form-actions">
+        <div class="col-md-offset-3 col-md-9">
+        <%= button_tag(type: 'submit', class: "btn btn-info") do %>
+          <i class="ace-icon fa fa-check bigger-110"></i> Simpan
+        <% end %>
+        &nbsp; &nbsp; &nbsp;
+        <%= link_to(raw('<i class="ace-icon fa fa-undo bigger-110"></i> kembali'), golongans_path, class: "btn") %>
+      </div>
+       </div>
+    <% end %>
+  </div>
+</div>

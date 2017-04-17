@@ -2,6 +2,18 @@
   <div class="col-xs-12">
     <%= form_for(pendaftaran) do |f| %>
       <%= render 'shared/error', error_form: pendaftaran %>
+      <% if !pendaftaran.new_record? %>
+        <div class="row">
+          <div class="col-md-1">
+            <div class="field">
+              <div class="form-group">
+                <%= label_tag :status %>
+                <%= f.select(:status, Pendaftaran.statuses.keys.to_a.map { |w| [w.humanize, w] }, {class: "form-control"}) %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
       <div class="row">
         <div class="col-md-1">
           <div class="field">

@@ -1,63 +1,89 @@
-<div class="col-xs-12">
-    <div class="alert alert-block alert-success">
-        <button type="button" class="close" data-dismiss="alert">
-            <i class="ace-icon fa fa-times"></i>
-        </button>
-        <i class="ace-icon fa fa-check green"></i>
-        Selamat Datang di <strong class="green">Pajak Daerah <small>(v1.0)</small></strong>.
-    </div>
+<div class="row">
+    <div class="col-xs-12">
+        <h3 class="header smaller lighter blue">Dashboard SIPD Tahun <%= Time.now.year %></h3>
+        <div class="clearfix"></div>
+	</div>
     <div class="hr hr32 hr-dotted"></div>
+    <div class="col-xs-12">
         <div class="row">
-            <div class="col-sm-12">
-                <div class="widget-box transparent" id="recent-box">
-                    <div class="widget-header">
-                        <h4 class="widget-title lighter smaller">
-                            <i class="ace-icon fa fa-rss orange"></i>RECENT
-                        </h4>
-                        <div class="widget-toolbar no-border">
-                            <ul class="nav nav-tabs" id="recent-tab">
-                                <li class="active">
-                                    <a data-toggle="tab" href="#task-tab">Pendaftaran</a>
-                                </li>
-                                <%#<li>
-                                    <a data-toggle="tab" href="#member-tab">Pendataan</a>
-                                </li>
-                                <li>
-                                    <a data-toggle="tab" href="#comment-tab">Penetapan</a>
-                                </li>%>
-                            </ul>
-                        </div>
+            <div class="vspace-12-sm"></div>
+            <div class="col-sm-5">
+                <div class="widget-box">
+                    <div class="widget-header widget-header-flat widget-header-small">
+                        <h5 class="widget-title">
+                            <i class="ace-icon fa fa-signal"></i>Pedataan Pajak Tahun <%= Time.now.year %>
+                        </h5>
+                    </div>
+                    <div id="1101" class="hidden">
+                        <%= @pendataan.where("rekenings.kode='1101'").count %>
+                    </div>
+                    <div id="1102" class="hidden">
+                        <%= @pendataan.where("rekenings.kode='1102'").count %>
+                    </div>
+                    <div id="1103" class="hidden">
+                        <%= @pendataan.where("rekenings.kode='1103'").count %>
+                    </div>
+                    <div id="1104" class="hidden">
+                        <%= @pendataan.where("rekenings.kode='1104'").count %>
+                    </div>
+                    <div id="1105" class="hidden">
+                        <%= @pendataan.where("rekenings.kode='1105'").count %>
+                    </div>
+                    <div id="1107" class="hidden">
+                        <%= @pendataan.where("rekenings.kode='1107'").count %>
+                    </div>
+                    <div id="1108" class="hidden">
+                        <%= @pendataan.where("rekenings.kode='1108'").count %>
+                    </div>
+                    <div id="1109" class="hidden">
+                        <%= @pendataan.where("rekenings.kode='1109'").count %>
+                    </div>
+                    <div id="1111" class="hidden">
+                        <%= @pendataan.where("rekenings.kode='1111'").count %>
                     </div>
                     <div class="widget-body">
-                        <div class="widget-main padding-4">
-                            <div class="tab-content padding-8">
-                                <div id="task-tab" class="tab-pane active">
-                                    <h4 class="smaller lighter green">
-                                        <i class="ace-icon fa fa-list"></i>
-                                        10 Pendaftaran Terakhir
-                                    </h4>
-                                    <ul id="tasks" class="item-list ui-sortable">
-                                        <% unless @pendaftaran.empty? %>
-                                            <% @pendaftaran.each do |n| %>
-                                                <li class="item-orange clearfix ui-sortable-handle">
-                                                    <label class="inline">
-                                                        <span class="lbl"><%= n.npwpd %> | <%= n.nama_usaha %> | <%= n.tgl_daftar.strftime('%d-%m-%Y') %></span>
-                                                    </label>
-                                                    <div class="pull-right action-buttons">
-                                                        <%= link_to(raw('<i class="ace-icon fa fa-search-plus bigger-130"></i>'), n, class:"blue") %>
-                                                    </div>
-                                                </li>
-                                            <% end %>
-                                        <% else %>
-                                            <p> Data tidak ditemukan </p>
-                                        <% end %>
-                                    </ul>
+                        <div class="widget-main">
+                            <div id="piechart-placeholder"></div>
+                            <div class="hr hr8 hr-double"></div>
+                            <div class="clearfix">
+                                <div class="grid2">
+                                    <span class="grey">
+                                        <i class="ace-icon fa fa-book fa-2x red"></i>
+									    &nbsp; belum setor
+                                    </span>
+                                    <h4 class="bigger pull-right"><%= @pendataan.where("tgl_setor is null").count %></h4>
+								</div>
+                                <div class="grid2">
+                                    <span class="grey">
+                                        <i class="ace-icon fa fa-book fa-2x green"></i>
+										&nbsp; Sudah setor
+									</span>
+                                    <h4 class="bigger pull-right"><%= @pendataan.where("tgl_setor is not null").count %></h4>
                                 </div>
-                            </div><!-- /.widget-main -->
-                        </div><!-- /.widget-body -->
-                    </div><!-- /.widget-box -->
-                </div><!-- /.col -->
-            </div>
-        </div>
+							</div>
+						</div><!-- /.widget-main -->
+					</div><!-- /.widget-body -->
+				</div><!-- /.widget-box -->
+			</div><!-- /.col -->
+            <div class="col-sm-7">
+                <div class="widget-box transparent">
+											<div class="widget-header widget-header-flat">
+												<h4 class="widget-title lighter">
+													<i class="ace-icon fa fa-signal"></i>
+													Penerimaan Per bulan
+												</h4>
+											</div>
+
+											<div class="widget-body">
+												<div class="widget-main padding-4">
+													<div id="sales-charts"></div>
+												</div><!-- /.widget-main -->
+											</div><!-- /.widget-body -->
+										</div><!-- /.widget-box -->
+                                        <div class="hr hr8 hr-double"></div>
+                                        <div class="clearfix" id="legendholder">
+									</div>
+									</div><!-- /.col -->
+		</div><!-- /.row -->		
     </div>
 </div>

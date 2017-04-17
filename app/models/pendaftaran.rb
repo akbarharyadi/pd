@@ -9,6 +9,10 @@ class Pendaftaran < ApplicationRecord
     validates :nama_usaha, :alamat_usaha, :kecamatan_id, :kelurahan_id, :nama_pemilik, :alamat_pemilik, :npwpd, :tgl_npwpd, :usaha_id, :no_reg_pendaftaran, :tgl_npwpd, :tgl_daftar, presence: true
     validates :npwpd, :no_pendaftaran, :no_reg_pendaftaran, uniqueness: true
 
+    enum status: { aktif: 0, tidak_aktif: 1 }
+    
+    before_save :default_values
+
     #slugger
     extend FriendlyId
     friendly_id :nama_usaha, use: :slugged
@@ -23,6 +27,11 @@ class Pendaftaran < ApplicationRecord
     # end
     def npwpd_nama_usaha
         "#{npwpd} - #{nama_usaha}"
+    end
+
+
+    def default_values
+        self.status ||= 0
     end
 
 end

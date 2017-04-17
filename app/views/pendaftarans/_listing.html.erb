@@ -9,6 +9,8 @@
         <th class="sorting"><%= smart_listing.sortable "Tgl. Daftar", :tgl_daftar %></th>
         <th class="sorting"><%= smart_listing.sortable "Nama Usaha", :nama_usaha %></th>
         <th class="sorting"><%= smart_listing.sortable "Nama Pemilik", :nama_pemilik %></th>
+        <th class="sorting"><%= smart_listing.sortable "Kecamatan", :kecamatan_id %></th>
+        <th class="sorting">Status</th>
         <th></th>
       </tr>
     </thead>
@@ -28,6 +30,12 @@
           <td><%= pendaftaran.tgl_daftar.strftime('%d-%m-%Y') %></td>
           <td><%= pendaftaran.nama_usaha %></td>
           <td><%= pendaftaran.nama_pemilik %></td>
+          <td><%= pendaftaran.kecamatan.nama %></td>
+          <% if pendaftaran.aktif? %>
+            <td><span class="label label-sm label-success"><%= pendaftaran.status %></span></td>
+          <% else %>
+            <td><span class="label label-sm label-danger arrowed-in"><%= pendaftaran.status %></span></td>
+          <% end %>
           <td>
               <div class="action-buttons">
                   <%= link_to(raw('<i class="ace-icon fa fa-search-plus bigger-130"></i>'), pendaftaran, class:"blue") %>

@@ -9,7 +9,17 @@
 <div class="row">
   <div class="col-xs-12">
 		<%= form_tag daftar_wajib_pajak_pendaftarans_path(:format => 'pdf'), :method => :get, :class => "form-horizontal", :role => "form" do %>
-			<div class="field">
+      <div class="field">
+        <div class="field">
+          <div class="form-group">
+            <%= label_tag :status, nil, class: "col-sm-2 control-label no-padding-right" %>
+              <div class="col-md-2">
+                <%= select_tag(:status, options_for_select(Pendaftaran.statuses.keys.to_a.map { |w| [w.humanize, w] }), {prompt: ' -- Semua -- ', class: "form-control"}) %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <div class="field">
         <div class="form-group">
           <%= label_tag :kecamatan, nil, class: "col-sm-2 control-label no-padding-right" %>
           <div class="col-sm-4">

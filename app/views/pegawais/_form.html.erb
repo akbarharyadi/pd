@@ -1,0 +1,74 @@
+<div class="row">
+  <div class="col-xs-12">
+    <%= form_for(pegawai, :html => {:class => "form-horizontal" , :role => "form"}) do |f| %>
+      <%= render 'shared/error', error_form: pegawai %>
+        <div class="field">
+          <div class="form-group">
+          <%= f.label :nip, class: "col-sm-2 control-label no-padding-right" %>
+            <div class="col-sm-3">
+          <%= f.text_field :nip, class: "form-control", validate: true, :maxlength => 18,  onkeypress: 'return event.charCode >= 48 && event.charCode <= 57' %>
+        </div>
+        </div>
+      </div>
+        <div class="field">
+          <div class="form-group">
+          <%= f.label :nama_pegawai, class: "col-sm-2 control-label no-padding-right" %>
+            <div class="col-sm-6">
+          <%= f.text_field :nama_pegawai, class: "form-control", validate: true %>
+        </div>
+        </div>
+      </div>
+
+
+        <div class="field">
+          <div class="form-group">
+          <%= f.label :bidang_id, class: "col-sm-2 control-label no-padding-right" %>
+            <div class="col-sm-5">
+            <%= collection_select(:pegawai, :bidang_id, Bidang.all, :id, :kode_dan_bidang,
+                 {:prompt => ' -- Pilih Bidang -- '}, {class: "chosen-select form-control", 'data-placeholder'=>" -- Pilih Bidang -- "}) %>
+          </div>
+        </div>
+      </div>
+
+        <div class="field">
+          <div class="form-group">
+          <%= f.label :seksi_id, class: "col-sm-2 control-label no-padding-right" %>
+            <div class="col-sm-5">
+            <%= collection_select(:pegawai, :seksi_id, Seksi.where(bidang_id:pegawai.bidang_id), :id, :kode_dan_seksi,
+                 {:prompt => ' -- Pilih Seksi -- '}, {class: "chosen-select form-control", 'data-placeholder'=>" -- Pilih Seksi -- ", selected: pegawai.seksi_id}) %>
+        </div>
+        </div>
+      </div>
+
+        <div class="field">
+          <div class="form-group">
+          <%= f.label :jabatan_id, class: "col-sm-2 control-label no-padding-right" %>
+            <div class="col-sm-5">
+          <%= collection_select(:pegawai, :jabatan_id, Jabatan.all, :id, :kode_dan_jabatan,
+                 {:prompt => ' -- Pilih Jabatan -- '}, {class: "chosen-select form-control", 'data-placeholder'=>" -- Pilih Jabatan -- "}) %>
+        </div>
+        </div>
+      </div>
+
+        <div class="field">
+          <div class="form-group">
+          <%= f.label :golongan_id, class: "col-sm-2 control-label no-padding-right" %>
+            <div class="col-sm-3">
+          <%= collection_select(:pegawai, :golongan_id, Golongan.all, :id, :kode_dan_golongan,
+                 {:prompt => ' -- Pilih Golongan -- '}, {class: "chosen-select form-control", 'data-placeholder'=>" -- Pilih Golongan -- "}) %>
+        </div>
+        </div>
+      </div>
+
+<div class="clearfix form-actions">
+        <div class="col-md-offset-3 col-md-9">
+        <%= button_tag(type: 'submit', class: "btn btn-info") do %>
+          <i class="ace-icon fa fa-check bigger-110"></i> Simpan
+        <% end %>
+        &nbsp; &nbsp; &nbsp;
+        <%= link_to(raw('<i class="ace-icon fa fa-undo bigger-110"></i> kembali'), pegawais_path, class: "btn") %>
+      </div>
+       </div>
+    <% end %>
+  </div>
+</div>

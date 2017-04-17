@@ -1,6 +1,7 @@
 class Bidang < ApplicationRecord
     include Auditable
     has_many :seksi
+    has_many :pegawai
     
     #Validasi kode
     validates :kode_bidang, :nama_bidang, presence: true

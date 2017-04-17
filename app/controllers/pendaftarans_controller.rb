@@ -10,10 +10,11 @@ class PendaftaransController < ApplicationController
   # GET /pendaftarans.json
   def index
     pendaftaran_scope = Pendaftaran.all
-    if params[:filter_date] != '' and params[:filter_date] != nil
+    if params[:filter_date].present?
       date = params[:filter_date].split('s/d')
       pendaftaran_scope = pendaftaran_scope.where("tgl_daftar between '" + DateTime.parse(date[0]).strftime("%Y/%m/%d") + "' and '" + DateTime.parse(date[1]).strftime("%Y/%m/%d") + "'")
     end
+    pendaftaran_scope = pendaftaran_scope.where("kecamatan_id= " + params[:filter_kecamatan]) if params[:filter_kecamatan].present?
     pendaftaran_scope = pendaftaran_scope.like(params[:filter]) if params[:filter] != ''
     @pendaftaran = smart_listing_create(:pendaftarans, pendaftaran_scope, partial: "pendaftarans/listing", default_sort: {created_at: "desc"})
   end
@@ -87,15 +88,16 @@ class PendaftaransController < ApplicationController
     add_breadcrumb 'Cetak Daftar Wajib Pajak'
     pendaftaran_scope = Pendaftaran.all
     judul = "Daftar Wajib Pajak "
-    if params[:filter_date] != '' and params[:filter_date] != nil
+    if params[:filter_date].present?
       judul += params[:filter_date]
       date = params[:filter_date].split('s/d')
       pendaftaran_scope = pendaftaran_scope.where("tgl_daftar between '" + DateTime.parse(date[0]).strftime("%Y/%m/%d") + "' and '" + DateTime.parse(date[1]).strftime("%Y/%m/%d") + "'")
     end
-    if params[:filter_kecamatan] != '' and params[:filter_kecamatan] != nil
-      judul += Kecamatan.find(params[:filter_kecamatan]).nama
-      pendaftaran_scope = pendaftaran_scope.where("id_kecamatan= " + params[:filter_kecamatan])
+    if params[:filter_kecamatan].present?
+      judul += ' ' + Kecamatan.find(params[:filter_kecamatan]).nama
+      pendaftaran_scope = pendaftaran_scope.where("kecamatan_id= " + params[:filter_kecamatan])
     end
+    pendaftaran_scope = pendaftaran_scope.where("status= ?", Pendaftaran.statuses[params[:status]]) if params[:status].present?
     @pendaftaran = pendaftaran_scope
     @wilayah = Wilayah.first
     @tanggal = params[:filter_date]
@@ -116,6 +118,6 @@ class PendaftaransController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def pendaftaran_params
-      params.require(:pendaftaran).permit(:no_pendaftaran, :nama_usaha, :alamat_usaha, :kecamatan_id, :kelurahan_id, :no_telp_usaha, :nama_pemilik, :alamat_pemilik, :no_telp_pemilik, :npwpd, :tgl_npwpd, :usaha_id, :filter, :no_reg_pendaftaran, :tgl_daftar, :filter_date, :filter, :filter_kecamatan)
+      params.require(:pendaftaran).permit(:no_pendaftaran, :nama_usaha, :alamat_usaha, :kecamatan_id, :kelurahan_id, :no_telp_usaha, :nama_pemilik, :alamat_pemilik, :no_telp_pemilik, :npwpd, :tgl_npwpd, :usaha_id, :filter, :no_reg_pendaftaran, :tgl_daftar, :filter_date, :filter, :filter_kecamatan, :status)
     end
 end

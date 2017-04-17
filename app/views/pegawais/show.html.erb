@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-xs-12">
+    <div class="widget-box">
+      <div class="widget-header widget-header-flat">
+        <h4 class="widget-title smaller">Detail Pegawai</h4>
+        <div class="widget-toolbar">
+          <%= link_to(raw('<i class="ace-icon fa fa-pencil align-center"></i> Edit'), edit_pegawai_path(@pegawai)) %> | 
+          <%= link_to(raw('<i class="ace-icon fa fa-undo icon-only"></i> kembali'), pegawais_path) %> |
+          <%= link_to(raw('<i class="ace-icon fa fa-trash icon-only"></i> Hapus'), @pegawai, method: :delete, data: { confirm: 'Ada yakin ingin menghapus data ini?' }) %>
+        </div>
+      </div>
+      <div class="widget-body">
+        <div class="widget-main">
+          <dl id="dt-list-1" class="">
+            <dt><strong>NIP :</strong></dt>
+            <dd><%= @pegawai.nip %></dd>
+            <dt><strong>Nama Pegawai:</strong></dt>
+            <dd><%= @pegawai.nama_pegawai %></dd>
+            <dt><strong>Bidang :</strong></dt>
+            <dd><%= @pegawai.bidang.try(:nama_bidang) %></dd>
+            <dt><strong>Seksi :</strong></dt>
+            <dd><%= @pegawai.seksi.try(:nama_seksi) %></dd>
+            <dt><strong>Jabatan :</strong></dt>
+            <dd><%= @pegawai.jabatan.try(:nama_jabatan) %></dd>
+            <dt><strong>Golongan :</strong></dt>
+            <dd><%= @pegawai.golongan.try(:kode_dan_golongan) %></dd>
+					</dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

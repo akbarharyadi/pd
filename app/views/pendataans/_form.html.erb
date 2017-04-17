@@ -54,7 +54,7 @@
                 <span class="input-group-addon" style="background-color:white;">
                   s/d
                 </span>
-                <%= f.text_field :periode_akhir, class: "form-control", validate: true, 'data-date-format'=>"dd-mm-yyyy", readonly:true %>
+                <%= f.text_field :periode_akhir, class: "form-control date-picker", validate: true, 'data-date-format'=>"dd-mm-yyyy" %>
                 <span class="input-group-addon">
                   <i class="fa fa-calendar bigger-110"></i>
                 </span>
@@ -62,19 +62,21 @@
             </div>
           </div>
         </div>
-        <div class="col-md-3">
-          <div class="field">
-            <div class="form-group">
-              <%= f.label :tgl_jth_tempo, 'Tanggal Jatuh Tempo' %>
-              <div class='input-group'>
-                <%= text_field_tag :tgl_jth_tempo, '', {class: "form-control", readonly:true} %>
-                <span class="input-group-addon">
-                  <i class="fa fa-calendar bigger-110"></i>
-                </span>
+        <% if rekening.kode != '1104' and rekening.kode != '1108' %>
+          <div class="col-md-3">
+            <div class="field">
+              <div class="form-group">
+                <%= f.label :tgl_jth_tempo, 'Tanggal Jatuh Tempo' %>
+                <div class='input-group'>
+                  <%= text_field_tag :tgl_jth_tempo, '', {class: "form-control", readonly:true} %>
+                  <span class="input-group-addon">
+                    <i class="fa fa-calendar bigger-110"></i>
+                  </span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        <% end %>
       </div>
       <div class="row">
         <div class="col-md-5">
@@ -91,7 +93,7 @@
           </div>
         </div>
         
-        <% if rekening.kode != '1105' and rekening.kode != '1111' %>
+        <% if rekening.kode != '1105' and rekening.kode != '1111' and rekening.kode != '1104' and rekening.kode != '1108' %>
           <div class="col-md-3">
             <div class="field">
               <div class="form-group">
@@ -121,6 +123,28 @@
             </div>
           </div>    
         <% end %>
+
+      <% if rekening.kode == '1104' %>
+        <div class="col-md-3">
+            <div class="field">
+              <div class="form-group">
+                <%= f.label :nilai_reklame %>
+                <%= f.text_field :nilai_reklame, class: "form-control money-left", data: { role: 'money' }, validate: true %>
+              </div>
+            </div>
+          </div>   
+      <% end %>
+
+      <% if rekening.kode == '1108' %>
+        <div class="col-md-3">
+            <div class="field">
+              <div class="form-group">
+                <%= f.label :npa %>
+                <%= f.text_field :npa, class: "form-control money-left", data: { role: 'money' }, validate: true %>
+              </div>
+            </div>
+          </div>   
+      <% end %>
         
       </div>
       
@@ -154,7 +178,7 @@
         <div class="col-md-2">
           <div class="field">
             <div class="form-group">
-              <%= f.label :tarif_persen, 'Tarif Persen' %>
+              <%= f.label :tarif_persen, 'Tarif' %>
               <div class='input-group'>
                 <%= f.text_field :tarif_persen, class: "form-control money-left", readonly:true %>
                 <span class="input-group-addon">
@@ -167,7 +191,7 @@
         <div class="col-md-3">
           <div class="field">
             <div class="form-group">
-              <%= f.label :tarif_rupiah, 'Tarif Rupiah' %>
+              <%= f.label :tarif_rupiah, 'Nilai Pasar' %>
               <div class='input-group'>
                 <span class="input-group-addon">
                   Rp.

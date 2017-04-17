@@ -18,17 +18,17 @@
 				<div class="col-md-12">
 					<div class="form-group">
 						<div class="col-sm-12">
-							<%= select_tag(:filter_tahun_rekening, options_from_collection_for_select(Rekening.select(:tahun).distinct, :tahun, :tahun), {prompt: ' -- Pilih Tahun Pajak -- ', class: "chosen-select  form-control"}) %>
+							<%= select_tag(:filter_tahun_rekening, options_from_collection_for_select(Rekening.select(:tahun).distinct, :tahun, :tahun), {prompt: ' -- Pilih Tahun Pajak -- ', class: "chosen-select  form-control", onchange:"$('.smart-listing-controls').submit();"}) %>
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="col-sm-12">
-						<%= select_tag(:filter_induk_rekening, options_from_collection_for_select(Rekening.where("jenis_kode='000' and turunan_kode='000'"), :id, :nama_rekening), {prompt: ' -- Pilih induk Rekening -- ', class: "chosen-select  form-control"}) %>
+						<%= select_tag(:filter_induk_rekening, options_from_collection_for_select(Rekening.where("jenis_kode='000' and turunan_kode='000'"), :id, :nama_rekening), {prompt: ' -- Pilih induk Rekening -- ', class: "chosen-select  form-control", onchange:"$('.smart-listing-controls').submit();"}) %>
 					</div>
 					</div>
 					<div class="form-group">
 						<div class="input-group">
-							<%= text_field_tag :filter, '', class: "search form-control", placeholder: "Cari berdasarkan nama...", autocomplete: :on %>
+							<%= text_field_tag :filter, '', class: "search form-control", placeholder: "Cari berdasarkan nama...", autocomplete: :on, onchange:"$('.smart-listing-controls').submit();" %>
 							<div class="input-group-btn">
 								<button class="btn btn-primary no-border btn-sm" type="submit">
 									<i class="ace-icon fa fa-search icon-on-right bigger-110"></i>

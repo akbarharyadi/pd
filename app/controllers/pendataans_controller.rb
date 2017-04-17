@@ -11,6 +11,10 @@ class PendataansController < ApplicationController
   def index
     pendataans_scope = Pendataan.joins(:rekening, pendaftaran: [:kecamatan, :kelurahan]).where('rekenings.kode= ?', @rekening.kode)
     pendataans_scope = pendataans_scope.like(params[:filter]) if params[:filter].present?
+    if params[:filter_date].present?
+      date = params[:filter_date].split('s/d')
+      pendataans_scope = pendataans_scope.where("tgl_data between '" + DateTime.parse(date[0]).strftime("%Y/%m/%d") + "' and '" + DateTime.parse(date[1]).strftime("%Y/%m/%d") + "'")
+    end
     @pendaftaran = smart_listing_create(:pendataans, pendataans_scope, partial: "pendataans/listing", default_sort: {created_at: "desc"})
   end
 
@@ -29,6 +33,7 @@ class PendataansController < ApplicationController
 
   # GET /pendataans/1/edit
   def edit
+    redirect_to @pendataan if @pendataan.no_setor.present?
     add_breadcrumb 'Edit : ' + @pendataan.no_pendataan
     @pendataan.tgl_data = @pendataan.tgl_data.strftime('%d-%m-%Y')
     @pendataan.periode_awal = @pendataan.periode_awal.strftime('%d-%m-%Y')
@@ -99,39 +104,42 @@ class PendataansController < ApplicationController
   end
 
   def surat_teguran
+    add_breadcrumb '<i class="ace-icon fa fa-home home-icon"></i> Home'.html_safe, :root_path
     add_breadcrumb 'Cetak Surat Teguran'
-    @current_date = Time.now.strftime('%d-%m-%Y')
+    if params[:tgl_data].present?
+      @current_date = params[:tgl_data]
+    else
+      @current_date = Time.now.strftime('%d-%m-%Y')
+    end
     teguran_scope = Pendataan.joins(:rekening, pendaftaran: [:kecamatan, :kelurahan]).all
     session[:kode_rekening] = nil
-    if params[:tgl_cetak].present?
-       teguran_scope = teguran_scope.where("((periode_awal + interval '1' month) + interval '14' day) < to_date('" + params[:tgl_data] + "', 'DD/MM/YYYY')")
-    else
-       teguran_scope = teguran_scope.where("((periode_awal + interval '1' month) + interval '14' day) < '" + Time.now.strftime('%d-%m-%Y') + "'::date")
-    end
+    teguran_scope = teguran_scope.where("extract(year from ((periode_awal + interval '1' month) + interval '14' day)) = extract(year from to_date('" + @current_date + "', 'DD/MM/YYYY')) and extract(month from ((periode_awal + interval '1' month) + interval '14' day)) = extract(month from to_date('" + @current_date + "', 'DD/MM/YYYY'))")
+    teguran_scope = teguran_scope.where("pendataans.tgl_setor is null and pendataans.tgl_tetap is null")
     teguran_scope = teguran_scope.where("tahun_spt = ?", params[:filter_tahun_rekening]) if params[:filter_tahun_rekening].present?
+    teguran_scope = teguran_scope.where("case when rekenings.kode = '1104' or rekenings.kode = '1108' then tgl_tetap is not null else 1=1 end")
     teguran_scope = teguran_scope.where("rekenings.kode = ?", params[:filter_induk_rekening]) if params[:filter_induk_rekening].present?
     @pendaftaran = smart_listing_create(:tegurans, teguran_scope, partial: "pendataans/listing_teguran", default_sort: {created_at: "desc"})
   end
 
   def cetak_surat_teguran
-    @pendataan = Pendataan.find(1)
+    @pendataan = Pendataan.find(params[:id])
     @wilayah = Wilayah.first
-    @tgl_cetak = Time.now.to_s #@params[:tgl_cetak]
+    @tgl_cetak = params[:tgl_cetak]
     @perihal = 'Teguran I'
     @jml_hari = ((@pendataan.periode_awal + 13.days + 1.month) - DateTime.parse(@tgl_cetak)).to_i
     @rekening_induk = Rekening.where("tahun=" + @pendataan.rekening.tahun.to_s + " and kode='" + @pendataan.rekening.kode + "' and jenis_kode='00' and turunan_kode='00'").first
-
+    @ttd = Ttd.find(1)
     respond_to do |format|
         # format.html
         format.pdf do
-          render pdf: 'Surat Teguran ',
+          render pdf: 'Surat_Teguran_' + @pendataan.no_pendataan.to_s + '_' + @tgl_cetak,
                  margin:  {
                    top: 10,
                    bottom: 10,
                    left: 10,
                    right: 10
-                  }
-                # disposition: 'attachment'
+                  },
+               disposition: 'attachment'
         end
     end
   end
@@ -139,7 +147,7 @@ class PendataansController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_pendataan
-      @pendataan = Pendataan.find(params[:id])
+      @pendataan = Pendataan.friendly.find(params[:id])
       session[:kode_rekening] = Rekening.find(@pendataan.rekening_id).kode
     end
 
@@ -169,10 +177,12 @@ class PendataansController < ApplicationController
       params[:pendataan][:volume_pemakaian] = params[:pendataan][:volume_pemakaian].gsub('.', '').gsub(',', '.') if params[:pendataan][:volume_pemakaian].present?
       params[:pendataan][:jumlah_pajak] = params[:pendataan][:jumlah_pajak].gsub('.', '').gsub(',', '.')
       params[:pendataan][:jumlah_volume] = params[:pendataan][:jumlah_volume].gsub('.', '').gsub(',', '.') if params[:pendataan][:jumlah_volume].present?
+      params[:pendataan][:nilai_reklame] = params[:pendataan][:nilai_reklame].gsub('.', '').gsub(',', '.') if params[:pendataan][:nilai_reklame].present?
+      params[:pendataan][:npa] = params[:pendataan][:npa].gsub('.', '').gsub(',', '.') if params[:pendataan][:npa].present?
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def pendataan_params
-      params.require(:pendataan).permit(:tgl_data, :tahun_spt, :pendaftaran_id, :rekening_id, :periode_awal, :periode_akhir, :omzet, :jumlah_pajak, :kode_rekening, :tarif_rupiah, :tarif_persen, :filter, :pemakaian_daya, :volume_pemakaian, :jumlah_volume, :filter_tahun_rekening, :filter_induk_rekening, :jenis_surat, :tgl_cetak)
+      params.require(:pendataan).permit(:tgl_data, :tahun_spt, :pendaftaran_id, :rekening_id, :periode_awal, :periode_akhir, :omzet, :jumlah_pajak, :kode_rekening, :tarif_rupiah, :tarif_persen, :filter, :pemakaian_daya, :volume_pemakaian, :jumlah_volume, :filter_tahun_rekening, :filter_induk_rekening, :jenis_surat, :tgl_cetak, :filter_date, :nilai_reklame, :pajak_rokok, :npa)
     end
 end

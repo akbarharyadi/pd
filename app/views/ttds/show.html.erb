@@ -1,24 +1,31 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="widget-box">
+      <div class="widget-header widget-header-flat">
+        <h4 class="widget-title smaller">Detail Tanda Tangan</h4>
+        <div class="widget-toolbar">
+          <%= link_to(raw('<i class="ace-icon fa fa-pencil align-center"></i> Edit'), edit_ttd_path(@ttd)) %> | 
+        </div>
+      </div>
+      <div class="widget-body">
+        <div class="widget-main">
+          <dl id="dt-list-1" class="">
+            <dt><strong>Nama Surat:</strong></dt>
+            <dd><%= @ttd.nama_surat %></dd>
+            <dt><strong>Baris 1 :</strong></dt>
+            <dd><%= @ttd.baris1 %></dd>
+            <dt><strong>Baris 2 :</strong></dt>
+            <dd><%= @ttd.baris2 %></dd>
+            <dt><strong>Baris 3 :</strong></dt>
+            <dd><%= @ttd.baris3 %></dd>
+            <dt><strong>Pegawai :</strong></dt>
+            <dd><%= @ttd.pegawai.try(:nama_pegawai) %></dd>
+					</dl>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-<p>
-  <strong>Baris1:</strong>
-  <%= @ttd.baris1 %>
-</p>
 
-<p>
-  <strong>Baris2:</strong>
-  <%= @ttd.baris2 %>
-</p>
 
-<p>
-  <strong>Baris3:</strong>
-  <%= @ttd.baris3 %>
-</p>
-
-<p>
-  <strong>Pegawai:</strong>
-  <%= @ttd.pegawai_id %>
-</p>
-
-<%= link_to 'Edit', edit_ttd_path(@ttd) %> |
-<%= link_to 'Back', ttds_path %>

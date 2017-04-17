@@ -1,7 +1,7 @@
 class Seksi < ApplicationRecord
     include Auditable
     belongs_to :bidang
-    
+    has_many :pegawai
     #Validasi kode
     validates :kode_seksi, :nama_seksi, :bidang_id, presence: true
     validates :kode_seksi, uniqueness: true

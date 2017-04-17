@@ -1,0 +1,348 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset='utf-8' />
+    <style>
+td{
+	text-align:left;
+	vertical-align:middle;
+}
+.line1{
+	border:#000000 1px solid;
+	border-right:none;
+}
+.line2{
+	border:#000000 1px solid;
+}
+.line3{
+	border-left:#000000 1px solid;
+	border-right:#000000 1px solid;
+}
+.line4{
+	border-bottom:#000000 1px solid;
+	vertical-align:bottom;
+}
+.line5{
+	border-bottom:#000000 1px solid;
+}
+.line6{
+	border-bottom:#000000 1px solid;
+	border-right:#000000 1px solid;
+}
+.line9{
+	border:#000000 1px solid;
+	border-left:none;
+}
+.line10{
+	border:#000000 1px solid;
+	border-left:none;
+	border-right:none;
+}
+.line11{
+	border:#000000 1px solid;
+	border-top:none;
+}
+.line12{
+	border-right:#000000 1px solid;
+}
+.line13{
+	border-left:#000000 1px solid;
+}
+.line14{
+	border-top:#000000 1px solid;
+	border-right:#000000 1px solid;
+	border-left:#000000 1px solid;
+}
+.line15{
+	border-bottom:#000000 1px solid;
+	border-left:#000000 1px solid;
+}
+
+hr {
+	color:#000000;
+	margin:0px;
+	padding:0px;
+}
+p{ margin:0px;}
+.baseline {
+  vertical-align: baseline;
+}
+html {
+  height: 100%;
+}
+body {
+  min-height: 100%;
+}
+</style>
+  </head>
+  <body style='font-family:"Times New Roman", Georgia, Serif;'>
+    <table width="100%"  border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse">
+        <tr>
+            <!-- Header start -->
+	        <td width="8%" class="line1" style="text-align:center">
+                <%= wicked_pdf_image_tag 'logo.png',  width:"90", height:"90", style:"padding:5px;" %>
+            </td>
+            <td width="50%" class="line10 baseline" style="padding-top:10px;">
+                <p style="font-size:12pt;"><strong>PEMERINTAH <%= @wilayah.jenis_wilayah.upcase + ' ' + @wilayah.nama_wilayah.upcase %></strong></p>
+                <p style="font-size:8pt"><strong><%= @wilayah.nama_badan.upcase %></strong></p>
+                <p style="font-size:8pt;"><%= @wilayah.alamat_badan + ' Kode Pos. ' + @wilayah.kode_pos %></p>
+                <p style="font-size:8pt;"><%= 'Telp. ' + @wilayah.telp_badan + ', Fax. ' + @wilayah.fax %></p>
+            </td>
+            <td width="32%" class="line1 baseline" style="padding-top:10px;">
+                <p style="font-size:8pt;text-align:center;"><strong>SURAT KETETAPAN PAJAK DAERAH <%= 'NIHIL' if @pendataan.tgl_setor.present? %></strong></p>
+                <p style="font-size:8pt;text-align:center;"><strong>(SKP-DAERAH <%= 'NIHIL' if @pendataan.tgl_setor.present? %>)</strong></p>
+                <p style="font-size:8pt;text-align:center;"><%= @rekening_induk.nama_rekening %></p>
+                <p style="font-size:8pt;text-align:center;">Masa Pajak : <%= I18n.l(@pendataan.periode_awal, format:'%B %Y') %></p>
+            </td>
+            <td width="10%" class="line2 baseline" style="padding-left:10px;">
+                <p style="font-size:8pt;text-align:center;"><strong>No. Urut:</strong></p>
+                <p style="font-size:8pt;text-align:center;"><strong>&emsp; &emsp;</strong></p>
+                <p style="font-size:8pt;text-align:center;"><strong><%= @pendataan.no_kohir %></strong></p>
+            </td>
+        </tr>
+    </table>
+    <table width="100%"  border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse">
+        <tr>
+            <!-- Header start -->
+	        <td width="25%" class="line13 baseline" style="padding-top:30px;padding-left:40px">
+                <p style="font-size:9pt;">Nama</p>
+            </td>
+            <td width="2%" class="baseline" style="padding-top:30px;">
+                <p style="font-size:9pt;">:</p>
+            </td>
+            <td width="73%" class="line12 baseline" style="padding-top:30px;">
+                <p style="font-size:9pt;"><%= @pendataan.pendaftaran.nama_usaha %></p>
+            </td>
+        </tr>
+        <tr>
+            <!-- Header start -->
+	        <td class="line13 baseline" style="padding-top:5px;padding-left:40px">
+                <p style="font-size:9pt;">Alamat</p>
+            </td>
+            <td class="baseline" style="padding-top:5px;">
+                <p style="font-size:9pt;">:</p>
+            </td>
+            <td  class="line12 baseline" style="padding-top:5px;">
+                <p style="font-size:9pt;"><%= @pendataan.pendaftaran.alamat_usaha %></p>
+            </td>
+        </tr>
+        <tr>
+            <!-- Header start -->
+	        <td class="line13 baseline" style="padding-top:5px;padding-left:40px">
+                <p style="font-size:9pt;">NPWPD</p>
+            </td>
+            <td class="baseline" style="padding-top:5px;">
+                <p style="font-size:9pt;">:</p>
+            </td>
+            <td class="line12 baseline" style="padding-top:5px;">
+                <p style="font-size:9pt;"><%= @pendataan.pendaftaran.npwpd %></p>
+            </td>
+        </tr>
+        <tr>
+            <!-- Header start -->
+	        <td class="line13 baseline" style="padding-top:5px;padding-left:40px;">
+                <p style="font-size:9pt;">No Pendataan</p>
+            </td>
+            <td class="baseline" style="padding-top:5px;">
+                <p style="font-size:9pt;">:</p>
+            </td>
+            <td class="line12 baseline" style="padding-top:5px;">
+                <p style="font-size:9pt;"><%= @pendataan.no_pendataan %></p>
+            </td>
+        </tr>
+        <tr>
+            <!-- Header start -->
+	        <td class="line13 baseline" style="padding-top:5px;padding-left:40px;padding-bottom:30px;">
+                <p style="font-size:9pt;">Tanggal jatuh tempo</p>
+            </td>
+            <td class="baseline" style="padding-top:5px;padding-bottom:30px;">
+                <p style="font-size:9pt;">:</p>
+            </td>
+            <td class="line12 baseline" style="padding-top:5px;padding-bottom:30px;">
+                <p style="font-size:9pt;"><%= I18n.l(@pendataan.jatuh_tempo, format:'%d %B %Y') %></p>
+            </td>
+            <% if @pendataan.tgl_setor.present? %><tr>
+                </tr>
+                    <td class="line14 baseline" style="padding:5px;text-align:right;" colspan="3">
+                        <p style="font-size:9pt;"><i>Sudah melakukan setoran pada tanggal <%= I18n.l(@pendataan.tgl_setor, format:'%d %B %Y') %></i></p>
+                    </td>
+                </tr>
+            <% end %>
+    </table>
+    <table width="100%"  border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+        <tr>
+            <!-- Header start -->
+            <td width="5%" class="line14 baseline" style="padding:5px;">
+                <p style="font-size:9pt;text-align:center;">No.</p>
+            </td>
+	        <td width="20%" class="line14 baseline" style="padding:5px;">
+                <p style="font-size:9pt;text-align:center;">Kode Rekening</p>
+            </td>
+            <td width="50%" class="line14 baseline" style="padding:5px;">
+                <p style="font-size:9pt;text-align:center;">Jenis Pajak Daerah</p>
+            </td>
+            <td width="25%" class="line14 baseline" style="padding:5px;">
+                <p style="font-size:9pt;text-align:right;">Jumlah</p>
+            </td>
+        </tr>
+        <tr height="300px">
+            <!-- Header start -->
+            <td width="5%" class="line14 baseline" style="padding:5px;">
+                <p style="font-size:9pt;text-align:center;">1</p>
+            </td>
+	        <td width="20%" class="line14 baseline" style="padding:5px;">
+                <p style="font-size:9pt;text-align:center;"><%= @pendataan.rekening.rekenig_lengkap %></p>
+            </td>
+            <td width="50%" class="line14 baseline" style="padding:5px;">
+                <p style="font-size:9pt;text-align:left;padding-top:5px;"><%= @pendataan.rekening.nama_rekening %></p>
+                <p style="font-size:9pt;text-align:left;padding-top:5px;">Periode : <%= I18n.l(@pendataan.periode_awal, format:'%d %B %Y') + ' s/d ' + I18n.l(@pendataan.periode_akhir, format:'%d %B %Y')  %></p>
+                <p style="font-size:9pt;text-align:left;padding-top:5px;"><u>Rincian :</u></p>
+                <% if @rekening_induk.kode != '1105' and @rekening_induk.kode != '1111' and @rekening_induk.kode != '1104' %>
+                    <p style="font-size:9pt;text-align:left;padding-top:5px;">Dasar Pengenaan (Omzet Pajak) : <%= humanized_money @pendataan.try(:omzet) %></p>
+                <% else %>
+                    <% if  @rekening_induk.kode == '1104' %>
+                        <p style="font-size:9pt;text-align:left;padding-top:5px;">Nilai Reklame : <%= humanized_money @pendataan.try(:nilai_reklame) %></p>   
+                    <% else %>
+                        <% if @rekening_induk.kode == '1105' %>
+                            <p style="font-size:9pt;text-align:left;padding-top:5px;">Pemakaian Daya : <%= humanized_money @pendataan.try(:pemakaian_daya) %> KVA</p>
+                            <p style="font-size:9pt;text-align:left;padding-top:5px;">Volume Pemakaian : <%= humanized_money @pendataan.try(:volume_pemakaian) %></p>
+                        <% elsif  @rekening_induk.kode == '1111' %>
+                            <p style="font-size:9pt;text-align:left;padding-top:5px;">Jumlah Volume : <%= humanized_money @pendataan.try(:jumlah_volume) %></p>  
+                        <% end %>
+                        <p style="font-size:9pt;text-align:left;padding-top:5px;">Nilai Pasar : <%= humanized_money @pendataan.rekening.try(:tarif) %></p>
+                    <% end %>
+                <% end %>
+                <p style="font-size:9pt;text-align:left;padding-top:5px;">Tarif Pajak (sesuai Perda) : <%= humanized_money @pendataan.rekening.try(:persen) %>%</p>   
+            </td>
+            <td width="25%" class="line14 baseline" style="padding:5px;">
+                <p style="font-size:9pt;text-align:right;"><%= humanized_money @pendataan.jumlah_pajak %></p>
+            </td>
+        </tr>
+    </table>
+    <table width="100%"  border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+        <tr>
+            <!-- Header start -->
+            <td width="5%" class="line14 baseline" style="padding:5px;">
+                <p style="font-size:9pt;text-align:center;"></p>
+            </td>
+	        <td width="20%" class="line14 baseline" style="padding:5px;">
+                <p style="font-size:9pt;text-align:center;"></p>
+            </td>
+            <td width="50%" class="line14 baseline" style="padding:5px;">
+                <p style="font-size:9pt;text-align:left;">Jumlah Ketetapan Pokok Pajak</p>
+            </td>
+            <td width="25%" class="line14 baseline" style="padding:5px;">
+                <p style="font-size:9pt;text-align:right;"><%= humanized_money @pendataan.jumlah_pajak %></p>
+            </td>
+        </tr>
+        <tr>
+            <!-- Header start -->
+            <td width="5%" class="line3 baseline" style="padding:5px;padding-top:0px;">
+                <p style="font-size:9pt;text-align:center;"></p>
+            </td>
+	        <td width="20%" class="line3 baseline" style="padding:5px;padding-top:0px;">
+                <p style="font-size:9pt;text-align:center;"></p>
+            </td>
+            <td width="50%" class="line3 baseline" style="padding:5px;padding-top:0px;">
+                <p style="font-size:9pt;text-align:left;">Jumlah Sanksi :  &emsp; a. Bunga</p>
+            </td>
+            <td width="25%" class="line3 baseline" style="padding:5px;padding-top:0px;">
+                <p style="font-size:9pt;text-align:right;">
+                  <%= humanized_money @pendataan.denda %>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <!-- Header start -->
+            <td width="5%" class="line3 baseline" style="padding:5px;padding-top:0px;">
+                <p style="font-size:9pt;text-align:center;"></p>
+            </td>
+	        <td width="20%" class="line3 baseline" style="padding:5px;padding-top:0px;">
+                <p style="font-size:9pt;text-align:center;"></p>
+            </td>
+            <td width="50%" class="line3 baseline" style="padding:5px;padding-top:0px;">
+                <p style="font-size:9pt;text-align:left;">&emsp; &emsp; &emsp; &emsp;&emsp; &emsp; &emsp; b. Kenaikan</p>
+            </td>
+            <td width="25%" class="line3 baseline" style="padding:5px;padding-top:0px;">
+                <p style="font-size:9pt;text-align:right;">-</p>
+            </td>
+        </tr>
+        <tr>
+            <!-- Header start -->
+            <td width="5%" class="line14 baseline" style="padding:5px;padding-top:0px;">
+                <p style="font-size:9pt;text-align:center;"></p>
+            </td>
+	        <td width="20%" class="line14 baseline" style="padding:5px;padding-top:0px;">
+                <p style="font-size:9pt;text-align:center;"></p>
+            </td>
+            <td width="50%" class="line14 baseline" style="padding:5px;padding-top:0px;">
+                <p style="font-size:9pt;text-align:left;">Jumlah</p>
+            </td>
+            <td width="25%" class="line14 baseline" style="padding:5px;padding-top:10px;">
+                <% if @pendataan.tgl_setor.present? %>
+                    <% jumlah_denda = 0 %>
+                <% else %>
+                    <% jumlah_denda = @pendataan.denda+@pendataan.jumlah_pajak %>
+                <% end %>
+                <p style="font-size:9pt;text-align:right;"><%= humanized_money jumlah_denda %></p>
+            </td>
+        </tr>
+        <tr>
+            <!-- Header start -->
+            <td width="5%" class="line14 baseline" style="padding:10px;padding-left:30px;" colspan="4">
+                <p style="font-size:9pt;text-align:left;">(Dengan huruf : <strong>
+                <% if @pendataan.tgl_setor.present? %>
+                    NIHIL
+                <% else %>
+                    <%= Terbilang.convert(jumlah_denda).capitalize  %> 
+                <% end %>
+                rupiah</strong>)</p>
+            </td>
+        </tr>
+    </table>
+    <table width="100%"  border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse">
+         <tr>
+            <!-- Header start -->
+            <td width="5%" class="line14 baseline" style="padding:5px;padding-left:10px;" colspan="2">
+                <p style="font-size:9pt;text-align:left;"><strong>P E R H A T I A N</strong></p>
+            </td>
+        </tr>
+        <tr>
+            <!-- Header start -->
+            <td width="5%" class="line13 baseline" style="padding:5px;padding-left:30px;padding-top:0px;">
+                <p style="font-size:9pt;text-align:left;">1.</p>
+            </td>
+            <td width="95%" class="line12 baseline" style="padding:5px;padding-left:0px;padding-top:0px;">
+                <p style="font-size:9pt;text-align:left;">Harap penyetoran dilakukan pada Kas Daerah atau tempat yang lain ditunjuk (BKP, PBKP, BANK) dengan menggunakan Surat Setoran Pajak Daerah ( SSPD ) dan Surat Ketetapan Pajak Daerah ini harus dibawa.</p>
+            </td>
+        </tr>
+        <tr>
+            <!-- Header start -->
+            <td width="5%" class="line13 baseline" style="padding:5px;padding-left:30px;padding-top:0px;border-bottom:#000000 1px solid;">
+                <p style="font-size:9pt;text-align:left;">2.</p>
+            </td>
+            <td width="95%" class="line12 baseline" style="padding:5px;padding-left:0px;padding-top:0px;border-bottom:#000000 1px solid;">
+                <p style="font-size:9pt;text-align:left;">Apabila SKPD ini tidak atau kurang dibayar lewat waktu paling lama 15 hari setelah SKPD ditetapkan / diterbitkan atau tanggal jatuh tempo dikenakan sanksi Administrasi berupa bunga sebesar 2 % per bulan.</p>
+            </td>
+        </tr>
+    </table>
+    <table width="100%"  border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse">
+        <tr>
+            <td width="50%" class="line13" style="padding:10px;text-align:center;border-bottom:#000000 1px solid;">
+            
+            </td>
+            <td width="50%" class="line12" style="padding:10px;text-align:center;padding-top:40px;border-bottom:#000000 1px solid;">
+                <p style="font-size:10pt;text-align:center;"><%= @wilayah.nama_wilayah.capitalize + ', ' + I18n.l(@pendataan.tgl_cetak_skp, format:'%d %B %Y') %>&emsp;</p>
+                <p style="font-size:10pt;text-align:center;"><%= @ttd.try(:baris1) %>&emsp;</p>
+                <p style="font-size:10pt;text-align:center;"><strong><%= @ttd.try(:baris2) %></strong>&emsp;</p>
+                <p style="font-size:10pt;text-align:center;"><strong><%= @ttd.try(:baris3) %></strong>&emsp;</p>
+                <p style="font-size:10pt;text-align:center;">&emsp;</p>
+                <p style="font-size:10pt;text-align:center;">&emsp;</p>
+                <p style="font-size:10pt;text-align:center;"><strong><u><%= @ttd.pegawai.try(:nama_pegawai) %></u></strong></p>
+                <p style="font-size:8pt;text-align:center;"><%= @ttd.pegawai.golongan.try(:nama_pangkat) if @ttd.pegawai.try(:nama_pegawai).present? %></p>
+                <p style="font-size:8pt;text-align:center;"><strong>NIP. <%= @ttd.pegawai.try(:nip) %></strong></p>
+            </td>
+        </tr>
+    </table>
+  </body>
+</html>

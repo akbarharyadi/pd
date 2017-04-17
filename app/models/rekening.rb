@@ -10,4 +10,8 @@ class Rekening < ApplicationRecord
     def kode_dan_nama_rekening
         "#{kode} - #{nama_rekening}"
     end
+
+    def rekenig_lengkap
+        "4.#{kode}.#{jenis_kode}.#{turunan_kode}"
+    end
 end

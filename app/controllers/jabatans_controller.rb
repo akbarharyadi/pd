@@ -1,24 +1,33 @@
 class JabatansController < ApplicationController
   before_action :set_jabatan, only: [:show, :edit, :update, :destroy]
+  include SmartListing::Helper::ControllerExtensions
+  helper  SmartListing::Helper
+  add_breadcrumb '<i class="ace-icon fa fa-home home-icon"></i> Home'.html_safe, :root_path
+  add_breadcrumb ' Index Jabatan'.html_safe, :jabatans_path
 
   # GET /jabatans
   # GET /jabatans.json
   def index
-    @jabatans = Jabatan.all
+    jabatans_scope = Jabatan.all
+    jabatans_scope = jabatans_scope.like(params[:filter]) if params[:filter]
+    @bidangs = smart_listing_create(:jabatans, jabatans_scope, partial: "jabatans/listing", default_sort: {kode_jabatan: "asc"})
   end
 
   # GET /jabatans/1
   # GET /jabatans/1.json
   def show
+    add_breadcrumb @jabatan.nama_jabatan.capitalize
   end
 
   # GET /jabatans/new
   def new
+    add_breadcrumb 'Buat Baru'
     @jabatan = Jabatan.new
   end
 
   # GET /jabatans/1/edit
   def edit
+    add_breadcrumb 'Edit: ' + @jabatan.nama_jabatan.capitalize
   end
 
   # POST /jabatans
@@ -28,7 +37,7 @@ class JabatansController < ApplicationController
 
     respond_to do |format|
       if @jabatan.save
-        format.html { redirect_to @jabatan, notice: 'Jabatan was successfully created.' }
+        format.html { redirect_to @jabatan, notice: 'Jabatan berhasil tersimpan.' }
         format.json { render :show, status: :created, location: @jabatan }
       else
         format.html { render :new }
@@ -42,7 +51,7 @@ class JabatansController < ApplicationController
   def update
     respond_to do |format|
       if @jabatan.update(jabatan_params)
-        format.html { redirect_to @jabatan, notice: 'Jabatan was successfully updated.' }
+        format.html { redirect_to @jabatan, notice: 'Jabatan berhasil tersimpan.' }
         format.json { render :show, status: :ok, location: @jabatan }
       else
         format.html { render :edit }
@@ -56,7 +65,7 @@ class JabatansController < ApplicationController
   def destroy
     @jabatan.destroy
     respond_to do |format|
-      format.html { redirect_to jabatans_url, notice: 'Jabatan was successfully destroyed.' }
+      format.html { redirect_to jabatans_url, notice: 'Jabatan berhasil terhapus.' }
       format.json { head :no_content }
     end
   end
@@ -64,7 +73,7 @@ class JabatansController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_jabatan
-      @jabatan = Jabatan.find(params[:id])
+      @jabatan = Jabatan.friendly.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
