@@ -17,7 +17,7 @@
 				<%= smart_listing_controls_for(:pendaftarans, {class: "form-inline text-right"}) do %>
 				<div class="col-xs-12 col-sm-12 col-md-12">
 					<div class='input-group'>
-						<%= select_tag(:filter_kecamatan, options_from_collection_for_select(Kecamatan.all, :id, :kode_dan_kecamatan), {prompt: ' -- Pilih Kecamatan -- ', class: "chosen-select  form-control", onchange:"$('.smart-listing-controls').submit();}) %>
+						<%= select_tag(:filter_kecamatan, options_from_collection_for_select(Kecamatan.all, :id, :kode_dan_kecamatan), {prompt: ' -- Pilih Kecamatan -- ', class: "chosen-select  form-control", onchange:"$('.smart-listing-controls').submit();"}) %>
 					</div>
 						<div class='input-group'>
 						<%= text_field_tag :filter_date, '', class: "search form-control range-picker", placeholder: "Search by date...", autocomplete: :on %>
