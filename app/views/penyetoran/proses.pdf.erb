@@ -147,17 +147,38 @@ p{ margin:0px;}
             </tr>
         </thead>
         <tbody>
-            <td class="sorting baseline" style="padding:10px;border:#000000 1px solid;"><p style="font-size:10pt;text-align:center;"><%= @pendataan.rekening.rekenig_lengkap %></p></td>
-            <td class="sorting baseline" style="padding:10px;border:#000000 1px solid;"><p style="font-size:10pt;">
-                <%= @pendataan.rekening.nama_rekening %><br>
-                <% if @pendataan.rekening.kode == '1105' %>
-                    Pemakaian (KVA) x Volume Pemakaian x Nilai Pasar x Tarif<br>
-                    <%= humanized_money @pendataan.pemakaian_daya %> x <%= humanized_money @pendataan.volume_pemakaian %> x <%= humanized_money @pendataan.rekening.tarif %> x <%= humanized_money @pendataan.rekening.persen %>%<br>
-                <% else %>
-                  
-                <% end %>
-            </p></td>
-            <td class="sorting baseline" style="padding:10px;border:#000000 1px solid;"><p style="font-size:10pt;text-align:right;">Rp. <%= humanized_money @pendataan.jumlah_pajak %></p></td>
+            <tr>
+                <td class="sorting baseline" style="padding:10px;border:#000000 1px solid;"><p style="font-size:10pt;text-align:center;"><%= @pendataan.rekening.rekenig_lengkap %></p></td>
+                <td class="sorting baseline" style="padding:10px;border:#000000 1px solid;"><p style="font-size:10pt;">
+                    <%= @pendataan.rekening.nama_rekening %><br>
+                    <% if @pendataan.rekening.kode == '1105' %>
+                        Pemakaian (KVA) x Volume Pemakaian x Nilai Pasar x Tarif<br>
+                        <%= humanized_money @pendataan.pemakaian_daya %> x <%= humanized_money @pendataan.volume_pemakaian %> x <%= humanized_money @pendataan.rekening.tarif %> x <%= humanized_money @pendataan.rekening.persen %>%<br>
+                    <% else %>
+                    
+                    <% end %>
+                </p></td>
+                <td class="sorting baseline" style="padding:10px;border:#000000 1px solid;"><p style="font-size:10pt;text-align:right;">Rp. <%= humanized_money @pendataan.jumlah_pajak %></p></td>
+            </tr>
+            
+            <% if @pendataan.denda.present? %>
+                <tr>
+                    <td class="sorting baseline" style="padding:10px;border:#000000 1px solid;"><p style="font-size:10pt;text-align:center;">Denda</p></td>
+                    <td class="sorting baseline" style="padding:10px;border:#000000 1px solid;"><p style="font-size:10pt;">
+                        
+                    </p></td>
+                    <td class="sorting baseline" style="padding:10px;border:#000000 1px solid;"><p style="font-size:10pt;text-align:right;">Rp. <%= humanized_money @pendataan.denda %></p></td>
+                </tr>
+            <% else %>
+                @pendataan.denda = 0
+            <% end %>
+                <tr>
+                    <td class="sorting baseline" style="padding:10px;border:#000000 1px solid;"><p style="font-size:10pt;text-align:center;">Total</p></td>
+                    <td class="sorting baseline" style="padding:10px;border:#000000 1px solid;"><p style="font-size:10pt;">
+                        
+                    </p></td>
+                    <td class="sorting baseline" style="padding:10px;border:#000000 1px solid;"><p style="font-size:10pt;text-align:right;">Rp. <%= humanized_money @pendataan.denda+@pendataan.jumlah_pajak %></p></td>
+                </tr>
         </tbody>     
     </table>
     <table width="100%"  border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse">
