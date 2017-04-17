@@ -85,11 +85,14 @@ p{ margin:0px;}
                 <p style="font-size:10pt; text-align:center;"><strong>NO SETOR <%= @pendataan.no_setor %></strong></p>
             </td>
         </tr>
+        <% unless @pendataan.denda.present? %>
+          <% @pendataan.denda = 0 %>%
+        <% end %>
         <tr>
             <td width="100%" class="line3" style="padding:10px;padding-top:20px;" colspan=4>
                 <p style="font-size:10pt;">Bendahara Penerimaan / Bendahara Penerimaan Pembantu <%= @wilayah.singkatan.upcase %> <%= @wilayah.jenis_wilayah.capitalize + ' ' + @wilayah.nama_wilayah.capitalize %></p>
                 <p style="font-size:10pt;">Telah menerima uang sebesar : Rp. <%= humanized_money @pendataan.jumlah_pajak %></p>
-                <p style="font-size:10pt;">(Dengan huruf : <%= Terbilang.convert(@pendataan.jumlah_pajak).capitalize %> rupiah)</p>
+                <p style="font-size:10pt;">(Dengan huruf : <%= Terbilang.convert(@pendataan.jumlah_pajak+@pendataan.denda).capitalize %> rupiah)</p>
                 <p style="font-size:10pt;">dari :</p>
             </td>
         </tr>
@@ -161,7 +164,7 @@ p{ margin:0px;}
                 <td class="sorting baseline" style="padding:10px;border:#000000 1px solid;"><p style="font-size:10pt;text-align:right;">Rp. <%= humanized_money @pendataan.jumlah_pajak %></p></td>
             </tr>
             
-            <% if @pendataan.denda.present? %>
+            <% unless @pendataan.denda.present? %>
                 <tr>
                     <td class="sorting baseline" style="padding:10px;border:#000000 1px solid;"><p style="font-size:10pt;text-align:center;">Denda</p></td>
                     <td class="sorting baseline" style="padding:10px;border:#000000 1px solid;"><p style="font-size:10pt;">
@@ -169,8 +172,6 @@ p{ margin:0px;}
                     </p></td>
                     <td class="sorting baseline" style="padding:10px;border:#000000 1px solid;"><p style="font-size:10pt;text-align:right;">Rp. <%= humanized_money @pendataan.denda %></p></td>
                 </tr>
-            <% else %>
-                @pendataan.denda = 0
             <% end %>
                 <tr>
                     <td class="sorting baseline" style="padding:10px;border:#000000 1px solid;"><p style="font-size:10pt;text-align:center;">Total</p></td>
