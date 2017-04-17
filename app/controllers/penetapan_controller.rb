@@ -24,6 +24,7 @@ class PenetapanController < ApplicationController
         @pendataan.tgl_tetap = DateTime.parse(params[:tanggal]).strftime('%Y-%m-%d')
         @pendataan.no_kohir = generate_no_kohir
         @pendataan.kode_rekening = @pendataan.rekening.kode
+        @pendataan.denda = @pendataan.hitung_denda(@pendataan.tgl_tetap) if !@pendataan.tgl_setor.present?
         respond_to do |format|
             if @pendataan.save
                 format.html { redirect_to penetapan_index_path, notice: 'Data dengan no pendataan : ' + @pendataan.no_pendataan + ' berhasil ditetapkan.' }

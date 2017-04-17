@@ -164,7 +164,7 @@ p{ margin:0px;}
                 <td class="sorting baseline" style="padding:10px;border:#000000 1px solid;"><p style="font-size:10pt;text-align:right;">Rp. <%= humanized_money @pendataan.jumlah_pajak %></p></td>
             </tr>
             
-            <% unless @pendataan.denda.present? %>
+            <% if @pendataan.denda.present? %>
                 <tr>
                     <td class="sorting baseline" style="padding:10px;border:#000000 1px solid;"><p style="font-size:10pt;text-align:center;">Denda</p></td>
                     <td class="sorting baseline" style="padding:10px;border:#000000 1px solid;"><p style="font-size:10pt;">

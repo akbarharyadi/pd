@@ -22,9 +22,10 @@ class PenyetoranController < ApplicationController
     def proses
         @pendataan = Pendataan.find(params[:id])
         if params[:tanggal].present? and !@pendataan.tgl_setor.present?
-            @pendataan.tgl_setor = DateTime.parse(params[:tanggal]).strftime('%Y-%m-%d')
             @pendataan.no_setor = generate_no_setor
             @pendataan.kode_rekening = @pendataan.rekening.kode
+            @pendataan.denda = @pendataan.hitung_denda(@pendataan.tgl_tetap) if !@pendataan.tgl_setor.present?
+            @pendataan.tgl_setor = DateTime.parse(params[:tanggal]).strftime('%Y-%m-%d')
             @pendataan.save!
         end
         @wilayah = Wilayah.first
