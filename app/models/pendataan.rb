@@ -87,8 +87,8 @@ class Pendataan < ApplicationRecord
         end
     end
 
-    def hitung_denda(tgl_tetap)
-        if self.jatuh_tempo <= tgl_tetap
+    def hitung_denda(tgl_cetak)
+        if self.jatuh_tempo <= tgl_cetak
             (((tgl_cetak.year - self.jatuh_tempo.year) * 12) + tgl_cetak.month - self.jatuh_tempo.month + (tgl_cetak.day < self.jatuh_tempo.day ? 0 : 1)) * 0.02 * self.jumlah_pajak
         else
             0
