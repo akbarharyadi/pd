@@ -164,7 +164,7 @@ p{ margin:0px;}
                 <td class="sorting baseline" style="padding:10px;border:#000000 1px solid;"><p style="font-size:10pt;text-align:right;">Rp. <%= humanized_money @pendataan.jumlah_pajak %></p></td>
             </tr>
             
-            <% if @pendataan.denda.present? %>
+            <% if @pendataan.denda > 0 %>
                 <tr>
                     <td class="sorting baseline" style="padding:10px;border:#000000 1px solid;"><p style="font-size:10pt;text-align:center;">Denda</p></td>
                     <td class="sorting baseline" style="padding:10px;border:#000000 1px solid;"><p style="font-size:10pt;">
@@ -198,7 +198,7 @@ p{ margin:0px;}
                 <p style="font-size:10pt;text-align:center;">&emsp;</p>
                 <p style="font-size:10pt;text-align:center;">&emsp;</p>
                 <p style="font-size:10pt;text-align:center;"><strong><u><%= @ttd.pegawai.try(:nama_pegawai) %></u></strong></p>
-                <p style="font-size:10pt;text-align:center;"><strong>NIP. <%= @ttd.pegawai.try(:nip) %></strong></p>
+                <p style="font-size:10pt;text-align:center;"><strong><%= 'NIP.' if  @ttd.pegawai.try(:nip).present? %> <%= @ttd.pegawai.try(:nip) %></strong></p>
             </td>
             <td width="50%" class="line6" style="padding:10px;text-align:center;">
                 <p style="font-size:10pt;"><strong>Penyetor</strong></p>

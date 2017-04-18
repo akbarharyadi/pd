@@ -35,14 +35,19 @@ Rails.application.routes.draw do
     end 
   end
   resources :kecamatans
+
   get 'home/index'
+
   get 'penyetoran/index'
   get 'penyetoran/proses'
   get 'penyetoran/list'
+  get 'penyetoran/cetak_sts'
+
   get 'penetapan/index'
   get 'penetapan/proses'
   get 'penetapan/list'
   get 'penetapan/cetak_skp'
+  
   root 'home#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

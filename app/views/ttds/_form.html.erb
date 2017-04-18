@@ -38,7 +38,7 @@
         <div class="form-group">
           <%= f.label :pegawai_id, class: "col-sm-2 control-label no-padding-right" %>
           <div class="col-sm-6">
-          <%= f.collection_select(:pegawai_id, Pegawai.all, :id, :nip_dan_nama, {prompt: ' -- Pilih Kecamatan -- '}, {class: "chosen-select  form-control"}) %>
+          <%= f.collection_select(:pegawai_id, Pegawai.all, :id, :nip_dan_nama, {prompt: ' -- Pilih Pegawai -- '}, {class: "chosen-select  form-control"}) %>
           </div>
         </div>
       </div>

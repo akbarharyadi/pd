@@ -1,0 +1,186 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset='utf-8' />
+    <style>
+td{
+	text-align:left;
+	vertical-align:middle;
+}
+.line1{
+	border:#000000 1px solid;
+	border-right:none;
+}
+.line2{
+	border:#000000 1px solid;
+}
+.line3{
+	border-left:#000000 1px solid;
+	border-right:#000000 1px solid;
+}
+.line4{
+	border-bottom:#000000 1px solid;
+	vertical-align:bottom;
+}
+.line5{
+	border-bottom:#000000 1px solid;
+}
+.line6{
+	border-bottom:#000000 1px solid;
+	border-right:#000000 1px solid;
+}
+.line9{
+	border:#000000 1px solid;
+	border-left:none;
+}
+.line10{
+	border:#000000 1px solid;
+	border-left:none;
+	border-right:none;
+}
+.line11{
+	border:#000000 1px solid;
+	border-top:none;
+}
+.line12{
+	border-right:#000000 1px solid;
+}
+.line13{
+	border-left:#000000 1px solid;
+}
+.line14{
+	border-top:#000000 1px solid;
+	border-right:#000000 1px solid;
+	border-left:#000000 1px solid;
+}
+.line15{
+	border-bottom:#000000 1px solid;
+	border-left:#000000 1px solid;
+}
+
+hr {
+	color:#000000;
+	margin:0px;
+	padding:0px;
+}
+p{ margin:0px;}
+.baseline {
+  vertical-align: baseline;
+}
+</style>
+  </head>
+  <body style='font-family:"Times New Roman", Georgia, Serif;'>
+    <table width="100%"  border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse">
+        <tr>
+            <!-- Header start -->
+            <td width="8%" class="line1" style="text-align:center">
+                <%= wicked_pdf_image_tag 'logo.png',  width:"90", height:"90", style:"padding:5px;" %>
+            </td>
+            <td width="82%" class="line9" style="padding:20px;text-align:center;" colspan=3>
+                <p style="font-size:12pt;margin-left:-8%"><strong>PEMERINTAH <%= @wilayah.jenis_wilayah.upcase + ' ' + @wilayah.nama_wilayah.upcase %></strong></p>
+                <p style="font-size:10pt;margin-left:-8%"><strong><%= @wilayah.nama_badan.upcase %> (<%= @wilayah.singkatan.upcase %>)</strong></p>
+                <p style="font-size:9pt;margin-left:-8%;"><%= @wilayah.alamat_badan + ' Kode Pos. ' + @wilayah.kode_pos %> <%= 'Telp. ' + @wilayah.telp_badan + ', Fax. ' + @wilayah.fax %></p>
+            </td>
+        </tr>
+    </table>
+    <table width="100%"  border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse">
+        <tr>
+            <td width="30%" class="line13 baseline" style="padding:10px;">
+                <p style="font-size:10pt; text-align:left;">Setoran Seperti ini yang ke .... </p>
+                <p style="font-size:10pt; text-align:left;">Dalam Tahun ......... </p>
+            </td>
+            <td width="40%" class="line3 baseline" style="padding:10px;">
+                <p style="font-size:12pt; text-align:center;"><strong>STS</strong></p>
+                <p style="font-size:12pt; text-align:center;">(SURAT TANDA SETORAN)</p>
+                <p style="font-size:10pt; text-align:left;">Nomor : </p>
+            </td>
+            <td width="30%" class="line12 baseline" style="padding:10px;">
+                <p style="font-size:10pt; text-align:left;">Setoran seperti yg dilakukan pada tanggal :</p>
+                <p style="font-size:10pt; text-align:left;">No. BKU :</p>
+                <p style="font-size:10pt; text-align:left;">No. Bukti : <%= @pendataan.no_setor %></p>
+            </td>
+        </tr>
+    </table>
+    <table width="100%"  border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse">
+        <tr>
+            <td width="30%" class="line14 baseline" style="padding:10px;padding-top:10px;padding-bottom:0px;" colspan=3>
+                <p style="font-size:10pt; text-align:left;">BPD KALBAR</p>
+            </td>
+        </tr>
+        <tr>
+            <td width="30%" class="line13 baseline" style="padding:10px;padding-top:5px;padding-bottom:0px;">
+                <p style="font-size:10pt; text-align:left;">Diharapkan menerima uang sejumlah</p>
+            </td>
+            <td width="2%" class="baseline" style="padding-top:5px;padding-bottom:0px;">
+                <p style="font-size:10pt; text-align:center;">:</p>
+            </td>
+            <td width="68%" class="line12 baseline" style="padding:10px;padding-top:5px;padding-bottom:0px;">
+                <p style="font-size:10pt; text-align:left;">Rp. <%= humanized_money @pendataan.jumlah_pajak %></p>
+            </td>
+        </tr>
+        <tr>
+            <td width="30%" class="line13 baseline" style="padding:10px;padding-top:5px;padding-bottom:0px;">
+                <p style="font-size:10pt; text-align:left;">Dengan Huruf</p>
+            </td>
+            <td width="2%" class="baseline" style="padding-top:5px;padding-bottom:0px;">
+                <p style="font-size:10pt; text-align:center;">:</p>
+            </td>
+            <td width="68%" class="line12 baseline" style="padding:10px;padding-top:5px;padding-bottom:0px;">
+                <p style="font-size:10pt; text-align:left;"><i><%= Terbilang.convert(@pendataan.jumlah_pajak).upcase %> RUPIAH</i>)</p>
+            </td>
+        </tr>
+        <tr>
+            <td width="30%" class="line13 baseline" style="padding:10px;padding-top:5px;padding-bottom:0px;">
+                <p style="font-size:10pt; text-align:left;">Untuk disetorkan ke Rekening</p>
+            </td>
+            <td width="2%" class="baseline" style="padding-top:5px;padding-bottom:0px;">
+                <p style="font-size:10pt; text-align:center;">:</p>
+            </td>
+            <td width="68%" class="line12 baseline" style="padding:10px;padding-top:5px;padding-bottom:0px;">
+                <p style="font-size:10pt; text-align:left;">KAS DAERAH <%= @wilayah.jenis_wilayah.upcase[0..2] + '. ' + @wilayah.nama_wilayah.upcase %> NO.P.0041 (8501000417)</p>
+            </td>
+        </tr>
+        <tr>
+            <td width="30%" class="line13 baseline" style="padding:10px;padding-top:5px;padding-bottom:0px;">
+                <p style="font-size:10pt; text-align:left;">Yaitu Pembayaran</p>
+            </td>
+            <td width="2%" class="baseline" style="padding-top:5px;padding-bottom:0px;">
+                <p style="font-size:10pt; text-align:center;">:</p>
+            </td>
+            <td width="68%" class="line12 baseline" style="padding:10px;padding-top:5px;padding-bottom:50px;">
+                <p style="font-size:10pt; text-align:left;">Pembayaran Pokok <%= @rekening_induk.nama_rekening.split.map(&:capitalize).join(' ') %></p>
+                <p style="font-size:10pt; text-align:left;">Oleh <%= @pendataan.pendaftaran.nama_usaha %></p>
+                <p style="font-size:10pt; text-align:left;">Periode <%= I18n.l(@pendataan.periode_awal, format:'%B %Y') %></p>
+            </td>
+        </tr>
+    </table>
+    <table width="100%"  border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse">
+        <tr>
+            <td width="30%" class="line1 baseline" style="padding:10px;">
+                <p style="font-size:10pt; text-align:left;">Telah Diterima</p>
+                <p style="font-size:10pt; text-align:left;">Uang Sejumlah : Rp. <%= humanized_money @pendataan.jumlah_pajak %></p>
+                <p style="font-size:10pt; text-align:left;"><%= @wilayah.nama_wilayah.capitalize %>, ..................</p>
+                <p style="font-size:10pt; text-align:center;">Pemegang Kas Daerah</p>
+            </td>
+            <td width="40%" class="baseline" style="padding:10px;border:#000000 1px solid;">
+                <p style="font-size:10pt; text-align:left;">Telah Terima uang Sejumlah</p>
+                <p style="font-size:10pt; text-align:left;">BPD : Rp. <%= humanized_money @pendataan.jumlah_pajak %></p>
+                <p style="font-size:10pt; text-align:left;">Cabang <%= @wilayah.nama_wilayah.capitalize %></p>
+                <p style="font-size:10pt; text-align:center;">Petugas</p>
+            </td>
+            <td width="30%" class="line9 baseline" style="padding:10px;">
+                <p style="font-size:10pt; text-align:center;"><%= @wilayah.nama_wilayah.capitalize %>, <%= I18n.l(@pendataan.tgl_setor, format:'%B %Y') %></p>
+                <p style="font-size:10pt; text-align:center;">&emsp; &emsp;</p>
+                <p style="font-size:10pt; text-align:center;">&emsp; &emsp;</p>
+                <p style="font-size:10pt; text-align:center;"><%= @ttd.try(:baris1) %></p>
+                <p style="font-size:10pt;text-align:center;">&emsp;</p>
+                <p style="font-size:10pt;text-align:center;">&emsp;</p>
+                <p style="font-size:10pt;text-align:center;">&emsp;</p>
+                <p style="font-size:10pt;text-align:center;">&emsp;</p>
+                <p style="font-size:9pt;text-align:center;"><strong><u><%= @ttd.pegawai.try(:nama_pegawai) %></u>&emsp;</strong></p>
+                <p style="font-size:8pt;text-align:center;"><strong><%= 'NIP.' if  @ttd.pegawai.try(:nip).present? %> <%= @ttd.pegawai.try(:nip) %></strong>&emsp;</p>
+            </td>
+        </tr>
+    </table>
+  </body>
+</html>

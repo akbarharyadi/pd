@@ -125,6 +125,20 @@
                 <%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> List Penyetoran </span>'), penyetoran_list_path) %>
                 <b class="arrow"></b>
 			</li>
+			<li class="<%= 'active open' if params[:controller] == 'penyetoran' and params[:action] == 'cetak_sts' %>">
+				<a href="#" class="dropdown-toggle">
+					<i class="menu-icon fa fa-caret-right"></i>
+					Cetak
+					<b class="arrow fa fa-angle-down"></b>
+				</a>
+				<b class="arrow"></b>
+				<ul class="submenu">
+					<li class="<%= 'active' if params[:controller] == 'penyetoran' and params[:action] == 'cetak_sts' %>">
+						<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Cetak STS </span>'), penyetoran_cetak_sts_path()) %>
+						<b class="arrow"></b>
+					</li>
+				</ul>
+			</li>
 		</ul>
 	</li>
 	<li class="<%= 'active open' if params[:controller] == 'kecamatans' or params[:controller] == 'kelurahans' or params[:controller] == 'wilayahs' or params[:controller] == 'usahas' or params[:controller] == 'rekenings' or params[:controller] == 'bidangs' or params[:controller] == 'seksis' or params[:controller] == 'jabatans' or params[:controller] == 'golongans' or params[:controller] == 'pegawais' or params[:controller] == 'ttds' %>">

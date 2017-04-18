@@ -340,7 +340,7 @@ body {
                 <p style="font-size:10pt;text-align:center;">&emsp;</p>
                 <p style="font-size:10pt;text-align:center;"><strong><u><%= @ttd.pegawai.try(:nama_pegawai) %></u></strong></p>
                 <p style="font-size:8pt;text-align:center;"><%= @ttd.pegawai.golongan.try(:nama_pangkat) if @ttd.pegawai.try(:nama_pegawai).present? %></p>
-                <p style="font-size:8pt;text-align:center;"><strong>NIP. <%= @ttd.pegawai.try(:nip) %></strong></p>
+                <p style="font-size:8pt;text-align:center;"><strong><%= 'NIP.' if  @ttd.pegawai.try(:nip).present? %> <%= @ttd.pegawai.try(:nip) %></strong></p>
             </td>
         </tr>
     </table>
