@@ -24,7 +24,7 @@ class PenyetoranController < ApplicationController
         if params[:tanggal].present? and !@pendataan.tgl_setor.present?
             @pendataan.no_setor = generate_no_setor
             @pendataan.kode_rekening = @pendataan.rekening.kode
-            @pendataan.denda = @pendataan.hitung_denda(@pendataan.tgl_tetap) if !@pendataan.tgl_setor.present?
+            @pendataan.denda = @pendataan.hitung_denda(DateTime.parse(params[:tanggal]))
             @pendataan.tgl_setor = DateTime.parse(params[:tanggal]).strftime('%Y-%m-%d')
             @pendataan.save!
         end

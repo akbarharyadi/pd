@@ -24,7 +24,7 @@ class PenetapanController < ApplicationController
         @pendataan.tgl_tetap = DateTime.parse(params[:tanggal]).strftime('%Y-%m-%d')
         @pendataan.no_kohir = generate_no_kohir
         @pendataan.kode_rekening = @pendataan.rekening.kode
-        @pendataan.denda = @pendataan.hitung_denda(@pendataan.tgl_tetap) if !@pendataan.tgl_setor.present?
+        @pendataan.denda = @pendataan.hitung_denda(@pendataan.tgl_tetap) unless @pendataan.tgl_setor.present?
         respond_to do |format|
             if @pendataan.save
                 format.html { redirect_to penetapan_index_path, notice: 'Data dengan no pendataan : ' + @pendataan.no_pendataan + ' berhasil ditetapkan.' }
@@ -54,8 +54,8 @@ class PenetapanController < ApplicationController
         @pendataan = Pendataan.find(params[:id])
         @rekening_induk = Rekening.where("jenis_kode = '00' and turunan_kode = '00' and kode= '" + @pendataan.rekening.kode + "' and tahun = " + @pendataan.rekening.tahun.to_s).first
         @ttd = Ttd.find(3)
-        @pendataan.denda = @pendataan.hitung_denda(@pendataan.tgl_tetap) if !@pendataan.tgl_setor.present?
-        @pendataan.tgl_cetak_skp = tgl_cetak.strftime('%Y-%m-%d') if !@pendataan.tgl_cetak_skp.present?
+        @pendataan.denda = @pendataan.hitung_denda(tgl_cetak) unless @pendataan.tgl_setor.present?
+        @pendataan.tgl_cetak_skp = tgl_cetak.strftime('%Y-%m-%d') unless @pendataan.tgl_setor.present?
         judul = 'SKPD_'
         judul += 'NIHIL_' if @pendataan.tgl_setor.present?
         judul += 'No_' + @pendataan.no_kohir.to_s + Time.now.to_s
