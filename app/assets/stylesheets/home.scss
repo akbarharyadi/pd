@@ -39,9 +39,9 @@
     -webkit-overflow-scrolling: touch;
 }
 
-html.turbolinks-progress-bar::before {
-  background-color: red !important;
-  height: 5px !important;
+.turbolinks-progress-bar {
+  height: 5px;
+  background-color: red;
 }
 // .table-container
 //   table
