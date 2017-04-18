@@ -384,5 +384,6 @@ end
 Ttd.create!([
     {nama_surat:"Surat Teguran", baris1:"An. Kepala Badan Pendapatan Daerah", baris2:"Kepala Bidang Pendapatan I"},
     {nama_surat:"Tanda Bukti Penyetoran", baris1:"Mengetahui,", baris2:"Bendahara Penerimaan / Bendahara Penerimaan Pembantu"},
-    {nama_surat:"SKP", baris1:"KEPALA BADAN PENDAPATAN DAERAH"}
+    {nama_surat:"SKP", baris1:"KEPALA BADAN PENDAPATAN DAERAH"},
+    {nama_surat:"STS", baris1:"Penyetor"}
 ])

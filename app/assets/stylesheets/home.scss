@@ -38,6 +38,11 @@
     text-align: left;
     -webkit-overflow-scrolling: touch;
 }
+
+html.turbolinks-progress-bar::before {
+  background-color: red !important;
+  height: 5px !important;
+}
 // .table-container
 //   table
 //     {
