@@ -265,3 +265,11 @@ $ ->
 # padding string with zero leading
   window.padstring = (pad, str) ->
     return pad.substring(0, pad.length - str.length) + str
+  
+  # change value using function padstring
+  $(document).on 'change', '#no_pendaftaran, #no_pendaftaran2', (evt) ->
+    $(this).val(padstring('0000000', $(this).val()))
+  
+  # field only allow number
+  $(document).on 'keypress', '.only_allow_number', (evt) -> 
+    return evt.charCode >= 48 && evt.charCode <= 57
