@@ -261,3 +261,7 @@ $ ->
       skp = 'SKPDN'
     $('#selisih').autoNumeric('set', selisih)
     $('#hasil_penetapan').val(skp)
+
+# padding string with zero leading
+  window.padstring = (pad, str) ->
+    return pad.substring(0, pad.length - str.length) + str
