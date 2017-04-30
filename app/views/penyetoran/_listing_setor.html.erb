@@ -19,22 +19,22 @@
       <% 
           counting = 1
       %>
-      <% smart_listing.collection.each do |pendataan| %>
+      <% smart_listing.collection.each do |penetapan| %>
               <% if counting.odd? %>
                   <tr role="row" class="odd">
               <% else %>
                 <tr role="row" class="even">
               <% end %>
-          <td><%= pendataan.no_setor %></td>
-          <td><%= pendataan.no_pendataan %></td>
-          <td><%= pendataan.rekening.nama_rekening %></td>
-          <td><%= pendataan.pendaftaran.npwpd %></td>
-          <td><%= pendataan.pendaftaran.nama_usaha %></td>
-          <td><%= I18n.l(pendataan.periode_awal, format:'%d %B %Y') + ' s/d ' + I18n.l(pendataan.periode_akhir, format:'%d %B %Y') %></td>
-          <td><%= I18n.l(pendataan.tgl_setor, format:'%d %B %Y') %></td>
+          <td><%= penetapan.try(:no_setor) %></td>
+          <td><%= penetapan.pendataan.no_pendataan %></td>
+          <td><%= penetapan.pendataan.rekening.nama_rekening %></td>
+          <td><%= penetapan.pendataan.pendaftaran.npwpd %></td>
+          <td><%= penetapan.pendataan.pendaftaran.nama_usaha %></td>
+          <td><%= I18n.l(penetapan.pendataan.periode_awal, format:'%d %B %Y') + ' s/d ' + I18n.l(penetapan.pendataan.periode_akhir, format:'%d %B %Y') %></td>
+          <td><%= I18n.l(penetapan.tgl_setor, format:'%d %B %Y') if penetapan.try(:no_setor).present? %></td>
           <td>
               <div class="action-buttons">
-                <%= link_to(raw('<i class="ace-icon fa fa-print bigger-130"></i>'), penyetoran_proses_path(id: pendataan.id, tanggal:nil, format: 'pdf')) %>
+                <%= link_to(raw('<i class="ace-icon fa fa-print bigger-130"></i>'), penyetoran_proses_path(id: penetapan.id, tanggal:nil, format: 'pdf')) %>
               </div>
           </td>
         </tr>

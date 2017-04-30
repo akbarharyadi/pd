@@ -51,7 +51,7 @@
 				<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Pajak Hiburan </span>'), pendataans_path(kode_rekening: '1103')) %>
 				<b class="arrow"></b>
 			</li>
-			<li class="<%= 'active' if params[:controller] == 'pendataans' and (params[:kode_rekening] == '1103' or session[:kode_rekening] == '1104') %>">
+			<li class="<%= 'active' if params[:controller] == 'pendataans' and (params[:kode_rekening] == '1104' or session[:kode_rekening] == '1104') %>">
 				<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Pajak Reklame </span>'), pendataans_path(kode_rekening: '1104')) %>
 				<b class="arrow"></b>
 			</li>

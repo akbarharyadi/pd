@@ -37,7 +37,7 @@
           <% else %>
             <%= I18n.l(pendataan.jatuh_tempo, format:'%d %B %Y')  %>
           <% end %></td>
-          <td><%= pendataan.status_pendataan %></td>
+          <td><%= pendataan.status %></td>
           <td>
               <div class="action-buttons">
                   <% if pendataan.rekening.kode != '1104' %>

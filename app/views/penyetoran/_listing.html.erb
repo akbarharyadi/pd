@@ -33,11 +33,11 @@
           <td><%= pendataan.pendaftaran.nama_usaha %></td>
           <td><%= I18n.l(pendataan.periode_awal, format:'%d %B %Y') + ' s/d ' + I18n.l(pendataan.periode_akhir, format:'%d %B %Y') %></td>
           <td><%= I18n.l(pendataan.jatuh_tempo, format:'%d %B %Y') %></td>
-          <td><%= pendataan.status_penyetoran_dari %></td>
+          <td><%= pendataan.status %></td>
           <td>
               <div class="action-buttons">
                 
-                <% unless pendataan.jatuh_tempo < Date.parse(@current_date) and !pendataan.no_kohir.present? %>
+                <% unless pendataan.jatuh_tempo < Date.parse(@current_date) %>
                   <%= link_to(raw('<i class="ace-icon fa fa-check bigger-130"></i> Proses'), penyetoran_proses_path(id: pendataan.id, tanggal:@current_date, format: 'pdf'), onclick:"setTimeout(function(){ $('.smart-listing-controls').submit(); }, 3000);") %>
                 <% else %>
                   Belum ditetapkan

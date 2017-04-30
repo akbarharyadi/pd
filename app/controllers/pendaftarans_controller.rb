@@ -9,7 +9,7 @@ class PendaftaransController < ApplicationController
   # GET /pendaftarans
   # GET /pendaftarans.json
   def index
-    pendaftaran_scope = Pendaftaran.all
+    pendaftaran_scope = Pendaftaran.includes(:kecamatan, :kelurahan).all
     if params[:filter_date].present?
       date = params[:filter_date].split('s/d')
       pendaftaran_scope = pendaftaran_scope.where("tgl_daftar between '" + DateTime.parse(date[0]).strftime("%Y/%m/%d") + "' and '" + DateTime.parse(date[1]).strftime("%Y/%m/%d") + "'")
@@ -105,7 +105,35 @@ class PendaftaransController < ApplicationController
         format.html
         format.pdf do
           render pdf: judul,
-                  disposition: 'attachment'
+                  disposition: 'attachment',
+                  page_size: 'Legal'
+        end
+    end
+  end
+
+  def cetak_npwpd
+    add_breadcrumb 'Cetak Kartu NPWPD'
+    pendaftaran_scope = Pendaftaran.all
+    judul = "NPWPD "
+    if params[:filter_date].present?
+      judul += params[:filter_date]
+      date = params[:filter_date].split('s/d')
+      pendaftaran_scope = pendaftaran_scope.where("tgl_daftar between '" + DateTime.parse(date[0]).strftime("%Y/%m/%d") + "' and '" + DateTime.parse(date[1]).strftime("%Y/%m/%d") + "'")
+    end
+    if params[:filter_kecamatan].present?
+      judul += ' ' + Kecamatan.find(params[:filter_kecamatan]).nama
+      pendaftaran_scope = pendaftaran_scope.where("kecamatan_id= " + params[:filter_kecamatan])
+    end
+    pendaftaran_scope = pendaftaran_scope.where("status= ?", Pendaftaran.statuses[params[:status]]) if params[:status].present?
+    @pendaftaran = pendaftaran_scope
+    @wilayah = Wilayah.first
+    @tanggal = params[:filter_date]
+    respond_to do |format|
+        format.html
+        format.pdf do
+          render pdf: judul,
+                  disposition: 'attachment',
+                  page_size: 'Legal'
         end
     end
   end

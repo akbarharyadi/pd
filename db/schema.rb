@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170415134648) do
+ActiveRecord::Schema.define(version: 20170422112542) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -148,10 +148,6 @@ ActiveRecord::Schema.define(version: 20170415134648) do
     t.float    "omzet"
     t.float    "jumlah_pajak"
     t.string   "no_pendataan"
-    t.date     "tgl_setor"
-    t.date     "tgl_tetap"
-    t.integer  "no_setor"
-    t.integer  "no_kohir"
     t.datetime "deleted_at"
     t.string   "slug"
     t.integer  "created_by"
@@ -164,11 +160,28 @@ ActiveRecord::Schema.define(version: 20170415134648) do
     t.integer  "status"
     t.integer  "pajak_rokok"
     t.float    "nilai_reklame"
-    t.float    "denda"
-    t.date     "tgl_cetak_skp"
     t.float    "npa"
     t.index ["deleted_at"], name: "index_pendataans_on_deleted_at", using: :btree
     t.index ["slug"], name: "index_pendataans_on_slug", using: :btree
+  end
+
+  create_table "penetapans", force: :cascade do |t|
+    t.integer  "no_tetap"
+    t.date     "tgl_tetap"
+    t.integer  "no_setor"
+    t.integer  "pendataan_id"
+    t.float    "pemakaian_daya_teliti"
+    t.float    "volume_pemakaian_teliti"
+    t.float    "jumlah_volume_teliti"
+    t.integer  "pajak_rokok_teliti"
+    t.float    "nilai_reklame_teliti"
+    t.float    "npa_teliti"
+    t.float    "omzet_teliti"
+    t.float    "jumlah_pajak_teliti"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.float    "denda"
+    t.date     "tgl_setor"
   end
 
   create_table "rekenings", force: :cascade do |t|

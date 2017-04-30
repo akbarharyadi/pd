@@ -9,13 +9,13 @@ class PendataansController < ApplicationController
   # GET /pendataans
   # GET /pendataans.json
   def index
-    pendataans_scope = Pendataan.joins(:rekening, pendaftaran: [:kecamatan, :kelurahan]).where('rekenings.kode= ?', @rekening.kode)
+    pendataans_scope = Pendataan.includes(:rekening, pendaftaran: [:kecamatan, :kelurahan]).joins(:rekening, pendaftaran: [:kecamatan, :kelurahan]).where('rekenings.kode= ?', @rekening.kode)
     pendataans_scope = pendataans_scope.like(params[:filter]) if params[:filter].present?
     if params[:filter_date].present?
       date = params[:filter_date].split('s/d')
       pendataans_scope = pendataans_scope.where("tgl_data between '" + DateTime.parse(date[0]).strftime("%Y/%m/%d") + "' and '" + DateTime.parse(date[1]).strftime("%Y/%m/%d") + "'")
     end
-    @pendaftaran = smart_listing_create(:pendataans, pendataans_scope, partial: "pendataans/listing", default_sort: {created_at: "desc"})
+    @pendaftaran = smart_listing_create(:pendataans, pendataans_scope, partial: "pendataans/listing", default_sort: {"pendataans.created_at": "desc"})
   end
 
   # GET /pendataans/1
@@ -33,7 +33,7 @@ class PendataansController < ApplicationController
 
   # GET /pendataans/1/edit
   def edit
-    redirect_to @pendataan if @pendataan.no_setor.present?
+    redirect_to @pendataan if @pendataan.penetapan.first.no_setor.present?
     add_breadcrumb 'Edit : ' + @pendataan.no_pendataan
     @pendataan.tgl_data = @pendataan.tgl_data.strftime('%d-%m-%Y')
     @pendataan.periode_awal = @pendataan.periode_awal.strftime('%d-%m-%Y')
@@ -47,8 +47,23 @@ class PendataansController < ApplicationController
   def create
     @pendataan = Pendataan.new(pendataan_params)
     @pendataan.no_pendataan = generate_no_pendataan
+    if @pendataan.kode_rekening == '1104' or @pendataan.kode_rekening == '1108'
+      @pendataan.status = 4
+    else
+      @pendataan.status = 0
+    end
     respond_to do |format|
       if @pendataan.save
+        Penetapan.create!(
+          pendataan_id:@pendataan.id, 
+          pemakaian_daya_teliti:@pendataan.pemakaian_daya,
+          volume_pemakaian_teliti:@pendataan.volume_pemakaian,
+          jumlah_volume_teliti:@pendataan.jumlah_volume,
+          pajak_rokok_teliti:@pendataan.pajak_rokok,
+          nilai_reklame_teliti:@pendataan.nilai_reklame,
+          npa_teliti:@pendataan.npa,
+          omzet_teliti:@pendataan.omzet,
+          jumlah_pajak_teliti:@pendataan.jumlah_pajak)
         format.html { redirect_to @pendataan, notice: 'Pendataan berhasil tersimpan.' }
         format.json { render :show, status: :created, location: @pendataan }
       else

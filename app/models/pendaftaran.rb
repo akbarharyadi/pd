@@ -20,7 +20,7 @@ class Pendaftaran < ApplicationRecord
     #scope untuk filter like
     scope :like, ->(args) { where("trim(upper(no_pendaftaran)) like trim(upper('%#{args}%')) or trim(upper(npwpd)) like trim(upper('%#{args}%')) or trim(upper(nama_usaha)) like trim(upper('%#{args}%')) or trim(upper(nama_pemilik)) like trim(upper('%#{args}%'))")}
 
-    GOLONGAN = [["1 - Pribadi", "1"], ["2 - Badan", "2"]]
+    GOLONGAN = [["1", "1"], ["2", "2"]]
 
     # before_create do
     #     self.tgl_daftar = Date.today unless self.day

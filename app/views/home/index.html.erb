@@ -51,14 +51,14 @@
                                         <i class="ace-icon fa fa-book fa-2x red"></i>
 									    &nbsp; belum setor
                                     </span>
-                                    <h4 class="bigger pull-right"><%= @pendataan.where("tgl_setor is null").count %></h4>
+                                    <h4 class="bigger pull-right"><%= @pendataan.count %></h4>
 								</div>
                                 <div class="grid2">
                                     <span class="grey">
                                         <i class="ace-icon fa fa-book fa-2x green"></i>
 										&nbsp; Sudah setor
 									</span>
-                                    <h4 class="bigger pull-right"><%= @pendataan.where("tgl_setor is not null").count %></h4>
+                                    <h4 class="bigger pull-right"><%= @pendataan.count %></h4>
                                 </div>
 							</div>
 						</div><!-- /.widget-main -->

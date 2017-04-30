@@ -10,10 +10,6 @@ class CreatePendataans < ActiveRecord::Migration[5.0]
       t.float :omzet
       t.float :jumlah_pajak
       t.string :no_pendataan
-      t.date :tgl_setor
-      t.date :tgl_tetap
-      t.integer :no_setor
-      t.integer :no_kohir
       
       t.column :deleted_at, :datetime, index: true
       t.column :slug, :string, index: true, unique: true

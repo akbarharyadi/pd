@@ -1,1 +1,12 @@
-<%= smart_listing_update :pendataans %>
+<% if @pendataan.present? %>
+    $('#form-nested').html("<%= escape_javascript (render partial: 'nested_form') %>");
+<% else %>
+    $('#form-nested').html("");
+<% end %>
+$('input[data-role=money]').autoNumeric('init', {
+        digitGroupSeparator        : '.',
+        decimalCharacter           : ',',
+        roundingMethod             : 'U',
+    });
+$('#penetapan_tgl_tetap').val($('#tanggal').val());
+$('#form-nested').slideDown(2350);

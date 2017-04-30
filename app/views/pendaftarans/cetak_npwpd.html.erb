@@ -1,0 +1,52 @@
+<div class="page-header">
+    <h1>Pendaftaran
+        <small>
+            <i class="ace-icon fa fa-angle-double-right"></i>
+            Cetak daftar wajib pajak
+        </small>
+    </h1>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+		<%= form_tag daftar_wajib_pajak_pendaftarans_path(:format => 'pdf'), :method => :post, :class => "form-horizontal", :role => "form" do %>
+      <div class="field">
+        <div class="field">
+          <div class="form-group">
+            <%= label_tag :status, nil, class: "col-sm-2 control-label no-padding-right" %>
+              <div class="col-md-2">
+                <%= select_tag(:status, options_for_select(Pendaftaran.statuses.keys.to_a.map { |w| [w.humanize, w] }), {prompt: ' -- Semua -- ', class: "form-control"}) %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <div class="field">
+        <div class="form-group">
+          <%= label_tag :kecamatan, nil, class: "col-sm-2 control-label no-padding-right" %>
+          <div class="col-sm-4">
+            <%= select_tag(:filter_kecamatan, options_from_collection_for_select(Kecamatan.all, :id, :kode_dan_kecamatan), {prompt: ' -- Pilih Kecamatan -- ', class: "chosen-select  form-control"}) %>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <div class="form-group">
+          <%= label_tag :tanggal_daftar, nil, class: "col-sm-2 control-label no-padding-right" %>
+          <div class="col-sm-4">
+            <div class='input-group'>
+								<%= text_field_tag :filter_date, '', class: "form-control range-picker", placeholder: "Search by date...", autocomplete: :on %>
+                <span class="input-group-addon">
+																		<i class="fa fa-calendar bigger-110"></i>
+																	</span>
+                </div>
+          </div>
+        </div>
+      </div>
+			<div class="clearfix form-actions">
+        <div class="col-sm-offset-2 col-sm-10">
+          <%= button_tag(type: 'submit', class: "btn btn-info") do %>
+            <i class="ace-icon fa fa-print bigger-110"></i> Cetak
+          <% end %>
+        </div>
+      </div>
+		<% end %>
+	</div>
+</div>

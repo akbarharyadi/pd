@@ -29,8 +29,8 @@
               <% end %>
           <td><%= pendataan.tahun_spt %></td>
           <td><%= pendataan.no_pendataan %></td>
-          <td><%= pendataan.no_setor %></td>
-          <td><%= I18n.l(pendataan.tgl_setor, format:'%d %B %Y') if pendataan.tgl_setor.present? %></td>
+          <td><%= pendataan.penetapan.last.no_setor %></td>
+          <td><%= I18n.l(pendataan.penetapan.last.tgl_setor, format:'%d %B %Y') if pendataan.penetapan.last.tgl_setor.present? %></td>
           <td><%= pendataan.rekening.nama_rekening %></td>
           <td><%= pendataan.pendaftaran.npwpd %></td>
           <td><%= pendataan.pendaftaran.nama_usaha %></td>

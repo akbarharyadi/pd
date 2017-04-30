@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  no_tetap: 1
+  tgl_tetap: 2017-04-20
+  no_setor: 1
+  tgl_tetap: 2017-04-20
+  status: 1
+  pendataan_id: 1
+
+two:
+  no_tetap: 1
+  tgl_tetap: 2017-04-20
+  no_setor: 1
+  tgl_tetap: 2017-04-20
+  status: 1
+  pendataan_id: 1

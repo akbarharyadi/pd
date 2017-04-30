@@ -1,19 +1,22 @@
 class Pendataan < ApplicationRecord
     extend FriendlyId
+
+    enum status: {sptpd:0, skpd:1, skpdkb:2, skpdn:3, belum_penetapan:4}
     
     friendly_id :no_pendataan, use: :slugged
     belongs_to :pendaftaran
     belongs_to :rekening
+    has_many :penetapan
 
     validates :tgl_data, :tahun_spt, :pendaftaran_id, :rekening_id, :periode_awal, :periode_akhir, :jumlah_pajak, :no_pendataan, presence: true
     validates :no_pendataan, uniqueness: true
-    validate :massa_pajak, :on => :create, if: "self.kode_rekening != '1104'" 
-    validate :massa_pajak_update, :on => :update, if: "self.kode_rekening != '1104'" 
-    validates :pemakaian_daya, :volume_pemakaian, presence: true, if: "self.kode_rekening == '1105'"
-    validates :omzet, presence: true, if: "self.kode_rekening != '1105' and self.kode_rekening != '1111' and self.kode_rekening != '1104' and self.kode_rekening != '1108'"
-    validates :jumlah_volume, presence: true, if: "self.kode_rekening == '1111'"
-    validates :nilai_reklame, presence: true, if: "self.kode_rekening == '1104'"
-    validates :npa, presence: true, if: "self.kode_rekening == '1108'"
+    validate :massa_pajak, :on => :create, if: "self.rekening.kode != '1104'" 
+    validate :massa_pajak_update, :on => :update, if: "self.rekening.kode != '1104'" 
+    validates :pemakaian_daya, :volume_pemakaian, presence: true, if: "self.rekening.kode == '1105'"
+    validates :omzet, presence: true, if: "self.rekening.kode != '1105' and self.rekening.kode != '1111' and self.rekening.kode != '1104' and self.rekening.kode != '1108'"
+    validates :jumlah_volume, presence: true, if: "self.rekening.kode == '1111'"
+    validates :nilai_reklame, presence: true, if: "self.rekening.kode == '1104'"
+    validates :npa, presence: true, if: "self.rekening.kode == '1108'"
     acts_as_paranoid
 
     attr_accessor :tarif_persen, :tarif_rupiah, :kode_rekening
@@ -47,8 +50,8 @@ class Pendataan < ApplicationRecord
 
     def jatuh_tempo
         if self.rekening.kode == '1104' or self.rekening.kode == '1108'
-            if self.tgl_tetap.present?
-                self.tgl_tetap + 15.days
+            if self.penetapan.last.tgl_tetap.present?
+                self.penetapan.last.tgl_tetap + 15.days
             else
                 '-'
             end
@@ -58,32 +61,6 @@ class Pendataan < ApplicationRecord
             else
                 self.periode_awal + 14.days + 1.months
             end
-        end
-    end
-
-    def status_pendataan
-        if self.rekening.kode == '1104' and !self.tgl_tetap.present?
-                'Belum Penetapan'
-        else
-            if !self.tgl_setor.present? and self.jatuh_tempo > Time.now
-                'Belum Bayar'
-            elsif self.jatuh_tempo < Time.now and !self.tgl_setor.present? and !self.tgl_tetap.present?
-                'Jatuh Tempo'
-            elsif self.rekening.kode == '1104' and  self.jatuh_tempo < Time.now and !self.tgl_setor.present?
-                'Jatuh Tempo'
-            elsif self.tgl_tetap.present? and !self.tgl_setor.present? 
-                'SKPD (Belum Bayar)'
-            else
-                'Lunas'
-            end
-        end
-    end
-
-    def status_penyetoran_dari
-        if self.tgl_tetap.present?
-            "SKPD"
-        else
-            "SPTPD"
         end
     end
 

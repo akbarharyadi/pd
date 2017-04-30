@@ -43,6 +43,7 @@ Kecamatan.create!([
     {kode:'15', nama:'Sungai Raya.Kepulauan'},
     {kode:'16', nama:'Lembah Bawang'},
     {kode:'17', nama:'Tujuh Belas'},
+    {kode:'00', nama:'Luar Daerah'},
 ])
 
 kelurahan_list = [
@@ -186,6 +187,8 @@ kelurahan_list = [
     ['17', '02', 'Pisak'],
     ['17', '03', 'Kamuh'],
     ['17', '04', 'Sinar Tebudak'],
+
+    ['00', '00', 'Luar Daerah'],
 ]
 
 kelurahan_list.each do |n|

@@ -3,11 +3,14 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $ ->
+  # Inisialisasi field autonumeric
   $('input[data-role=money]').autoNumeric('init', {
         digitGroupSeparator        : '.',
         decimalCharacter           : ',',
         roundingMethod             : 'U',
     });
+  
+  # Dapatkan kelurahan berdasartkan kecamatan
   $(document).on 'change', '#pendaftaran_kecamatan_id', (evt) ->
     $.ajax '/kelurahans/update_kelurahan',
       type: 'GET'
@@ -27,6 +30,7 @@ $ ->
         $('#pendaftaran_npwpd').val($('#pajak').val() + '.' + $('#golongan').val() + '.' + $('#pendaftaran_no_pendaftaran').val() + '.' + $("#pendaftaran_kecamatan_id option:selected").text().substring(0, 3).trim() + '.' + $("#pendaftaran_kelurahan_id option:selected").text().substring(0,3).trim())
         $('.chosen-select').trigger('chosen:updated')
 
+   # copy no_telp usaha ke no_telp pelilik di pendaftaran
   $(document).on 'keyup', '#pendaftaran_no_telp_usaha', (evt) ->
     $('#pendaftaran_no_telp_pemilik').val($(this).val())
 
@@ -173,3 +177,87 @@ $ ->
     if rupiah == ''
       rupiah = 0
     $('#pendataan_jumlah_pajak').autoNumeric('set', nilai*(persen/100))
+  
+  $(document).on 'change', '#tanggal', (evt) ->
+    $('#penetapan_tgl_tetap').val($(this).val())
+    
+  $(document).on 'change', '#no_pendataan_penetapan', (evt) ->
+    $('#form-penetapan').submit();
+
+  $(document).on 'change', '#penetapan_omzet_teliti', (evt) ->
+    omzet = $(this).val().replace(/\./g, '').replace(/\,/g, '.');
+    persen = $('#penetapan_tarif_persen_teliti').val();
+    if omzet == ''
+      omzet = 0
+    if persen == ''
+      persen = 0
+    $('#penetapan_jumlah_pajak_teliti').autoNumeric('set', omzet*(persen/100))
+    $("#penetapan_jumlah_pajak_teliti").trigger("change");
+  
+  $(document).on 'change', '#penetapan_pemakaian_daya_teliti, #penetapan_volume_pemakaian_teliti', (evt) ->
+    pemakaian = $('#penetapan_pemakaian_daya_teliti').val().replace(/\./g, '').replace(/\,/g, '.');
+    volume = $('#penetapan_volume_pemakaian_teliti').val().replace(/\./g, '').replace(/\,/g, '.');
+    persen = $('#penetapan_tarif_persen_teliti').val();
+    rupiah = $('#penetapan_tarif_rupiah_teliti').val().replace(/\./g, '').replace(/\,/g, '.');
+    if pemakaian == ''
+      pemakaian = 1
+    if volume == ''
+      volume = 1
+    if persen == ''
+      persen = 0
+    if rupiah == ''
+      rupiah = 0
+    $('#penetapan_jumlah_pajak_teliti').autoNumeric('set', pemakaian*volume*rupiah*(persen/100))
+    $("#penetapan_jumlah_pajak_teliti").trigger("change");
+  
+  $(document).on 'change', '#penetapan_jumlah_volume_teliti', (evt) ->
+    volume = $('#penetapan_jumlah_volume_teliti').val().replace(/\./g, '').replace(/\,/g, '.');
+    persen = $('#penetapan_tarif_persen_teliti').val();
+    rupiah = $('#penetapan_tarif_rupiah_teliti').val().replace(/\./g, '').replace(/\,/g, '.');
+    if volume == ''
+      volume = 1
+    if persen == ''
+      persen = 0
+    if rupiah == ''
+      rupiah = 0
+    $('#penetapan_jumlah_pajak_teliti').autoNumeric('set', volume*rupiah*(persen/100))
+    $("#penetapan_jumlah_pajak_teliti").trigger("change");
+
+  $(document).on 'change', '#penetapan_nilai_reklame_teliti', (evt) ->
+    nilai = $('#penetapan_nilai_reklame_teliti').val().replace(/\./g, '').replace(/\,/g, '.');
+    persen = $('#penetapan_tarif_persen_teliti').val();
+    rupiah = $('#penetapan_tarif_rupiah_teliti').val().replace(/\./g, '').replace(/\,/g, '.');
+    if nilai == ''
+      nilai = 1
+    if persen == ''
+      persen = 0
+    if rupiah == ''
+      rupiah = 0
+    $('#penetapan_jumlah_pajak_teliti').autoNumeric('set', nilai*(persen/100))
+    $("#penetapan_jumlah_pajak_teliti").trigger("change");
+  
+  $(document).on 'change', '#penetapan_npa_teliti', (evt) ->
+    nilai = $('#penetapan_npa_teliti').val().replace(/\./g, '').replace(/\,/g, '.');
+    persen = $('#penetapan_tarif_persen_teliti').val();
+    rupiah = $('#penetapan_tarif_rupiah_teliti').val().replace(/\./g, '').replace(/\,/g, '.');
+    if nilai == ''
+      nilai = 1
+    if persen == ''
+      persen = 0
+    if rupiah == ''
+      rupiah = 0
+    $('#penetapan_jumlah_pajak_teliti').autoNumeric('set', nilai*(persen/100))
+    $("#penetapan_jumlah_pajak_teliti").trigger("change");
+  
+  $(document).on 'change', '#penetapan_jumlah_pajak_teliti', (evt) ->
+    # console.log($('#pendataan_jumlah_pajak').val())
+    # console.log($(this).val())
+    pendataan = $('#pendataan_jumlah_pajak').val().replace(/\./g, '').replace(/\,/g, '.')
+    penelitian = $(this).val().replace(/\./g, '').replace(/\,/g, '.')
+    selisih = parseFloat(penelitian) - parseFloat(pendataan)
+    skp = 'SKPDKB'
+    if selisih < 0
+      selisih = 0
+      skp = 'SKPDN'
+    $('#selisih').autoNumeric('set', selisih)
+    $('#hasil_penetapan').val(skp)

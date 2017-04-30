@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   resources :pendaftarans do
     collection do
       get 'daftar_wajib_pajak'
+      post 'cetak_npwpd', via: [:get, :post]
     end
   end
   resources :usahas
@@ -43,7 +44,8 @@ Rails.application.routes.draw do
   get 'penyetoran/list'
   get 'penyetoran/cetak_sts'
 
-  get 'penetapan/index'
+  match 'penetapan/index', via: [:get, :post]
+  post 'penetapan/tetapkan'
   get 'penetapan/proses'
   get 'penetapan/list'
   get 'penetapan/cetak_skp'

@@ -1,0 +1,353 @@
+<%= form_for(@pendataan, :url => penetapan_index_path) do |f| %>
+    <h4 class="lighter">
+        <i class="ace-icon fa fa-hand-o-right icon-animated-hand-pointer blue"></i>
+        <a class="pink"> Penelitian
+            <small><i class="ace-icon fa fa-angle-double-right"></i> Info pendataan </small>
+        </a>
+    </h4>
+    <div class="hr hr-18 hr-double dotted"></div>
+    <div class="row">
+        <div class="col-md-2">
+            <div class="field">
+                <div class="form-group">
+                    <%= f.label :hasil_penetapan, 'Hasil Penetapan' %>
+                    <%= text_field_tag :hasil_penetapan, @jenis_skp, {class: "form-control", validate: true, readonly:true} %>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <div class="field">
+                <div class="form-group">
+                    <%= f.label :tahun_spt, 'Tahun SPT' %>
+                    <%= f.text_field :tahun_spt, class: "form-control", validate: true, readonly:true %>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="field">
+                <div class="form-group">
+                    <%= f.label :tgl_data, 'Tanggal Pendataan' %>
+                    <div class='input-group'>
+                        <%= f.text_field :tgl_data, class: "form-control", validate: true, 'data-date-format'=>"dd-mm-yyyy", readonly:true %>
+                        <span class="input-group-addon">
+                            <i class="fa fa-calendar bigger-110"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="field">
+                <div class="form-group">
+                    <%= label_tag :wajib_pajak %>
+                    <%= f.collection_select(:pendaftaran_id, Pendaftaran.where('id=?',@pendataan.pendaftaran_id), :id, :npwpd_nama_usaha, {prompt: ' -- Pilih Wajib Pajak -- '}, {class: "chosen-select form-control", readonly:true, selected: @pendataan.pendaftaran_id}) %>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-5">
+            <div class="field">
+                <div class="form-group">
+                    <%= f.label :periode_awal, 'Periode' %>
+                    <div class='input-group'>
+                        <%= f.text_field :periode_awal, class: "form-control", validate: true, 'data-date-format'=>"dd-mm-yyyy", readonly:true %>
+                        <span class="input-group-addon" style="background-color:white;">
+                            s/d
+                        </span>
+                        <%= f.text_field :periode_akhir, class: "form-control", validate: true, 'data-date-format'=>"dd-mm-yyyy", readonly:true %>
+                        <span class="input-group-addon">
+                            <i class="fa fa-calendar bigger-110"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="field">
+                <div class="form-group">
+                    <%= f.label :rekening_id, 'Rekening' %>
+                    <%= f.collection_select(:rekening_id, Rekening.where("id=?",@pendataan.rekening_id), :id, :kode_dan_nama_rekening, {prompt: ' -- Pilih Rekening -- '}, {class: "chosen-select form-control", selected: @pendataan.rekening_id, readonly:true}) %>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <% if @pendataan.rekening.kode != '1105' and @pendataan.rekening.kode != '1111' and @pendataan.rekening.kode != '1104' %>
+            <div class="col-md-3">
+                <div class="field">
+                    <div class="form-group">
+                        <%= f.label :omzet %>
+                        <div class='input-group'>
+                            <span class="input-group-addon">
+                                Rp.
+                            </span>
+                            <%= f.text_field :omzet, class: "form-control money-left", data: { role: 'money' }, validate: true, readonly:true %>
+                        </div>
+                    </div>
+                </div>
+            </div>          
+        <% end %>
+        <% if @pendataan.rekening.kode != '1105' and @pendataan.rekening.kode == '1111' %>
+            <div class="col-md-3">
+                <div class="field">
+                    <div class="form-group">
+                        <%= f.label :jumlah_volume %>
+                        <div class='input-group'>
+                            <%= f.text_field :jumlah_volume, class: "form-control money-left", data: { role: 'money' }, validate: true, readonly:true %>
+                            <span class="input-group-addon">
+                                m<sup>3</sup>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+        <% end %>
+        <% if @pendataan.rekening.kode == '1104' %>
+            <div class="col-md-3">
+                <div class="field">
+                    <div class="form-group">
+                        <%= f.label :nilai_reklame %>
+                        <%= f.text_field :nilai_reklame, class: "form-control money-left", data: { role: 'money' }, validate: true, readonly:true %>
+                    </div>
+                </div>
+            </div>   
+        <% end %>
+        <% if @pendataan.rekening.kode == '1108' %>
+            <div class="col-md-3">
+                <div class="field">
+                    <div class="form-group">
+                        <%= f.label :npa %>
+                        <%= f.text_field :npa, class: "form-control money-left", data: { role: 'money' }, validate: true, readonly:true %>
+                    </div>
+                </div>
+            </div>   
+        <% end %>
+        <% if @pendataan.rekening.kode == '1105' %>
+            <div class="col-md-2">
+                <div class="field">
+                    <div class="form-group">
+                        <%= f.label :pemakaian_daya %>
+                        <div class='input-group'>
+                            <%= f.text_field :pemakaian_daya, class: "form-control money-left", data: { role: 'money' }, readonly:true %>
+                            <span class="input-group-addon">
+                                KVA
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="field">
+                    <div class="form-group">
+                        <%= f.label :volume_pemakaian %>
+                        <%= f.text_field :volume_pemakaian, class: "form-control money-left", data: { role: 'money' }, readonly:true %>
+                    </div>
+                </div>
+            </div>
+        <% end %>
+    </div>  
+    <div class="row">
+        <div class="col-md-2">
+            <div class="field">
+                <div class="form-group">
+                    <%= f.label :tarif_persen, 'Tarif' %>
+                    <div class='input-group'>
+                        <%= f.text_field :tarif_persen, class: "form-control money-left", readonly:true %>
+                        <span class="input-group-addon">
+                            %
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="field">
+                <div class="form-group">
+                    <%= f.label :tarif_rupiah, 'Nilai Pasar' %>
+                    <div class='input-group'>
+                        <span class="input-group-addon">
+                            Rp.
+                        </span>
+                        <%= f.text_field :tarif_rupiah, class: "form-control money-left", data: { role: 'money' }, readonly:true %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="field">
+                <div class="form-group">
+                    <%= f.label :jumlah_pajak %>
+                    <div class='input-group'>
+                        <span class="input-group-addon">
+                            Rp.
+                        </span>
+                        <%= f.text_field :jumlah_pajak, class: "form-control money-left", data: { role: 'money' }, validate: true, readonly:true %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<% end %>
+<% 
+    penetapan = @pendataan.penetapan.last
+    penetapan.tarif_rupiah_teliti = @pendataan.tarif_rupiah
+    penetapan.tarif_persen_teliti = @pendataan.tarif_persen 
+%>
+<%= form_for(penetapan, :url => penetapan_tetapkan_path, :method => 'post') do |f| %>
+    <%= f.text_field :tgl_tetap, readonly:true, class:"hidden" %>
+    <%= f.text_field :id, readonly:true, class:"hidden" %>
+    <%= text_field_tag :skp, @jenis_skp, {readonly:true, class:"hidden"} %>
+    <% if @jenis_skp != 'SKPD' %>  
+        <div class="hr hr-18 hr-double dotted"></div>
+        <h4 class="lighter">
+            <i class="ace-icon fa fa-hand-o-right icon-animated-hand-pointer blue"></i>
+            <a class="pink"> Penelitian
+                <small><i class="ace-icon fa fa-angle-double-right"></i> Hasil Teliti </small>
+            </a>
+        </h4>
+        <div class="hr hr-18 hr-double dotted"></div>
+        <div class="row">
+            <% if @pendataan.rekening.kode != '1105' and @pendataan.rekening.kode != '1111' and @pendataan.rekening.kode != '1104' %>
+                <div class="col-md-3">
+                    <div class="field">
+                        <div class="form-group">
+                            <%= f.label :omzet %>
+                            <div class='input-group'>
+                                <span class="input-group-addon">
+                                    Rp.
+                                </span>
+                                <%= f.text_field :omzet_teliti, class: "form-control money-left", data: { role: 'money' }, validate: true %>
+                            </div>
+                        </div>
+                    </div>
+                </div>          
+            <% end %>
+            <% if @pendataan.rekening.kode != '1105' and @pendataan.rekening.kode == '1111' %>
+                <div class="col-md-3">
+                    <div class="field">
+                        <div class="form-group">
+                            <%= f.label :jumlah_volume %>
+                            <div class='input-group'>
+                                <%= f.text_field :jumlah_volume_teliti, class: "form-control money-left", data: { role: 'money' }, validate: true %>
+                                <span class="input-group-addon">
+                                    m<sup>3</sup>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            <% end %>
+            <% if @pendataan.rekening.kode == '1104' %>
+                <div class="col-md-3">
+                    <div class="field">
+                        <div class="form-group">
+                            <%= f.label :nilai_reklame %>
+                            <%= f.text_field :nilai_reklame_teliti, class: "form-control money-left", data: { role: 'money' }, validate: true %>
+                        </div>
+                    </div>
+                </div>   
+            <% end %>
+            <% if @pendataan.rekening.kode == '1108' %>
+                <div class="col-md-3">
+                    <div class="field">
+                        <div class="form-group">
+                            <%= f.label :npa %>
+                            <%= f.text_field :npa_teliti, class: "form-control money-left", data: { role: 'money' }, validate: true %>
+                        </div>
+                    </div>
+                </div>   
+            <% end %>
+            <% if @pendataan.rekening.kode == '1105' %>
+                <div class="col-md-2">
+                    <div class="field">
+                        <div class="form-group">
+                            <%= f.label :pemakaian_daya %>
+                            <div class='input-group'>
+                                <%= f.text_field :pemakaian_daya_teliti, class: "form-control money-left", data: { role: 'money' } %>
+                                <span class="input-group-addon">
+                                    KVA
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="field">
+                        <div class="form-group">
+                            <%= f.label :volume_pemakaian %>
+                            <%= f.text_field :volume_pemakaian_teliti, class: "form-control money-left", data: { role: 'money' } %>
+                        </div>
+                    </div>
+                </div>
+            <% end %>
+        </div>  
+        <div class="row">
+            <div class="col-md-2">
+                <div class="field">
+                    <div class="form-group">
+                        <%= f.label :tarif_persen, 'Tarif' %>
+                        <div class='input-group'>
+                            <%= f.text_field :tarif_persen_teliti, class: "form-control money-left", readonly:true %>
+                            <span class="input-group-addon">
+                                %
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="field">
+                    <div class="form-group">
+                        <%= f.label :tarif_rupiah, 'Nilai Pasar' %>
+                        <div class='input-group'>
+                            <span class="input-group-addon">
+                                Rp.
+                            </span>
+                            <%= f.text_field :tarif_rupiah_teliti, class: "form-control money-left", data: { role: 'money' }, readonly:true %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="field">
+                    <div class="form-group">
+                        <%= f.label :jumlah_pajak %>
+                        <div class='input-group'>
+                            <span class="input-group-addon">
+                                Rp.
+                            </span>
+                            <%= f.text_field :jumlah_pajak_teliti, class: "form-control money-left", data: { role: 'money' }, validate: true, readonly:true %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="field">
+                    <div class="form-group">
+                        <%= f.label :selisih %>
+                        <div class='input-group'>
+                            <span class="input-group-addon">
+                                Rp.
+                            </span>
+                            <%= text_field_tag :selisih, '', {class: "form-control money-left", data: { role: 'money' }, validate: true, readonly:true} %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% end %>
+    <div class="clearfix form-actions">
+        <div class="col-md-offset-3 col-md-9">
+            <%= button_tag(type: 'submit', class: "btn btn-info") do %>
+                <i class="ace-icon fa fa-check bigger-110"></i> Tetapkan
+            <% end %>
+        </div>
+    </div>
+<% end %>
+
+            
