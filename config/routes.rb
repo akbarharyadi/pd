@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   resources :pendaftarans do
     collection do
       get 'daftar_wajib_pajak'
-      post 'cetak_npwpd', via: [:get, :post]
+      match 'cetak_npwpd', via: [:get, :post]
     end
   end
   resources :usahas

@@ -11,11 +11,11 @@
 		</a>
 		<b class="arrow"></b>
         <ul class="submenu">
-        	<li class="<%= 'active' if params[:controller] == 'pendaftarans' and params[:action] != 'daftar_wajib_pajak' %>">
+        	<li class="<%= 'active' if params[:controller] == 'pendaftarans' and params[:action] != 'daftar_wajib_pajak' and params[:action] != 'cetak_npwpd' %>">
             	<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Index Pendaftaran </span>'), pendaftarans_path) %>
                 <b class="arrow"></b>
 			</li>
-			<li class="<%= 'active open' if params[:controller] == 'pendaftarans' and params[:action] == 'daftar_wajib_pajak' %>">
+			<li class="<%= 'active open' if params[:controller] == 'pendaftarans' and (params[:action] == 'daftar_wajib_pajak' or params[:action] == 'cetak_npwpd') %>">
 				<a href="#" class="dropdown-toggle">
 					<i class="menu-icon fa fa-caret-right"></i>
 					Cetak
@@ -25,6 +25,10 @@
 				<ul class="submenu">
 					<li class="<%= 'active' if params[:controller] == 'pendaftarans' and params[:action] == 'daftar_wajib_pajak' %>">
 						<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Daftar Wajib Pajak </span>'), daftar_wajib_pajak_pendaftarans_path()) %>
+						<b class="arrow"></b>
+					</li>
+					<li class="<%= 'active' if params[:controller] == 'pendaftarans' and params[:action] == 'cetak_npwpd' %>">
+						<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> Kartu NPWPD </span>'), cetak_npwpd_pendaftarans_path()) %>
 						<b class="arrow"></b>
 					</li>
 				</ul>
