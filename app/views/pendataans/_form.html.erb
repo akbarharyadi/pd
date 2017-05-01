@@ -88,7 +88,7 @@
               <% else %>
                 <% tahun = 0 %>
               <% end %>
-              <%= f.collection_select(:rekening_id, Rekening.where("jenis_kode != '00' and kode= '" + rekening.kode + "' and tahun = " + tahun.to_s), :id, :kode_dan_nama_rekening, {prompt: ' -- Pilih Rekening -- '}, {class: "chosen-select form-control", selected: pendataan.rekening_id}) %>
+              <%= f.select :rekening_id, options_for_select(Rekening.where("jenis_kode != '00' and kode= '" + rekening.kode + "' and tahun = " + tahun.to_s).map{|c|[c.kode_dan_nama_rekening, c.id, {tarif: c.tarif, persen: c.persen}]}, pendataan.rekening_id), {include_blank: ' -- Pilih Rekening -- '}, {class: "chosen-select form-control"} %>
             </div>
           </div>
         </div>

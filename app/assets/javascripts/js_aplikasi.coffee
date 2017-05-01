@@ -96,11 +96,11 @@ $ ->
        tarif = '0'
     $('#pendataan_tarif_persen').val(Math.round(persen*100)/100);
     $('#pendataan_tarif_rupiah').val(tarif);
-    $('#pendataan_pemakaian_daya').val('')
-    $('#pendataan_volume_pemakaian').val('')
-    $('#pendataan_omzet').val('')
-    $('#pendataan_jumlah_volume').val('')
-    $('#pendataan_nilai_reklame').val('')
+    $('#pendataan_pemakaian_daya').trigger("change");
+    $('#pendataan_volume_pemakaian').trigger("change");
+    $('#pendataan_omzet').trigger("change");
+    $('#pendataan_jumlah_volume').trigger("change");
+    $('#pendataan_nilai_reklame').trigger("change");
 
   $(document).on 'change', '#pendataan_omzet', (evt) ->
     omzet = $(this).val().replace(/\./g, '').replace(/\,/g, '.');
