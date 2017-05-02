@@ -29,10 +29,13 @@ class PenetapanController < ApplicationController
     end
 
     def tetapkan
-        penetapan = Penetapan.find(params[:penetapan][:id])
+        if params[:skp] = 'SKPDKB'
+            penetapan = Penetapan.new
+            penetapan = Penetapan.find(params[:penetapan][:id])             
+        end
         params[:penetapan][:no_tetap] = generate_no_kohir
         respond_to do |format|
-            if penetapan.update(penetapan_params)
+            if penetapan.save!(penetapan_params)
                 pendataan = Pendataan.find(penetapan.pendataan_id)
                 pendataan.kode_rekening = pendataan.rekening.kode
                 if params[:skp] = 'SKPD'
