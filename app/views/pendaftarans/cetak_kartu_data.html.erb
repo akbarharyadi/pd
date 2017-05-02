@@ -1,0 +1,51 @@
+<div class="page-header">
+    <h1>Pendaftaran
+        <small>
+            <i class="ace-icon fa fa-angle-double-right"></i>
+            Cetak Kartu Data
+        </small>
+    </h1>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+		<%= form_tag cetak_kartu_data_pendaftarans_path(:format => 'pdf'), :method => :post, :class => "form-horizontal", :role => "form" do %>
+      <div class="field">
+        <div class="form-group">
+          <%= label_tag :tahun, nil, class: "col-sm-2 control-label no-padding-right" %>
+					<div class="col-sm-4">
+						<%= select_tag(:filter_tahun_rekening, options_from_collection_for_select(Rekening.select(:tahun).distinct, :tahun, :tahun), {prompt: ' -- Pilih Tahun Pajak -- ', class: "chosen-select  form-control"}) %>
+					</div>
+				</div>
+			</div>
+      <div class="field">
+				<div class="form-group">
+          <%= label_tag :rekening, nil, class: "col-sm-2 control-label no-padding-right" %>
+					<div class="col-sm-4">
+						<%= select_tag(:filter_induk_rekening, options_from_collection_for_select(Rekening.where("jenis_kode='000' and turunan_kode='000'"), :id, :nama_rekening), {prompt: ' -- Pilih induk Rekening -- ', class: "chosen-select  form-control"}) %>
+					</div>
+        </div>
+      </div>
+      <div class="field">
+        <div class="form-group">
+          <%= label_tag :tanggal_daftar, 'No Pendaftaran', class: "col-sm-2 control-label no-padding-right" %>
+          <div class="col-sm-4">
+            <div class='input-group'>
+								<%= text_field_tag :no_pendaftaran, '', class: "form-control only_allow_number", autocomplete: :on %>
+                <span class="input-group-addon">
+                  s/d
+								</span>
+                <%= text_field_tag :no_pendaftaran2, '', class: "form-control only_allow_number", autocomplete: :on %>
+            </div>
+          </div>
+        </div>
+      </div>
+			<div class="clearfix form-actions">
+        <div class="col-sm-offset-2 col-sm-10">
+          <%= button_tag(type: 'submit', class: "btn btn-info") do %>
+            <i class="ace-icon fa fa-print bigger-110"></i> Cetak
+          <% end %>
+        </div>
+      </div>
+		<% end %>
+	</div>
+</div>

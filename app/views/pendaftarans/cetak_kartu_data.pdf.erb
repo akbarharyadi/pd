@@ -1,0 +1,155 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset='utf-8' />
+    <style>
+      div.alwaysbreak { page-break-before: always; }
+      div.nobreak:before { clear:both; }
+      div.nobreak { page-break-inside: avoid; }
+      td{
+	text-align:left;
+	vertical-align:middle;
+}
+.border_top{
+	border-top:#000000 1px solid;
+}
+.border_bottom{
+  border-bottom:#000000 1px solid;
+}
+.border_left{
+  border-left:#000000 1px solid;
+}
+.border_right{
+  border-right:#000000 1px solid;
+}
+hr {
+	color:#000000;
+	margin:0px;
+	padding:0px;
+}
+p{ margin:0px;}
+.baseline {
+  vertical-align: baseline;
+}
+    </style>
+  </head>
+  <body>
+    <% @pendaftaran.each do |item| %>
+      <div class="alwaysbreak"></div>
+      <table width="100%"  border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse">
+        <tr>
+          <td width="100%" class="border_right border_left border_top border_bottom" style="padding:30px;" colspan=6>
+            <p style="font-size:16pt;text-align:center;padding-top:10px;"><strong>KARTU  DATA</strong></p>
+            <p style="font-size:16pt;text-align:center;padding-bottom:10px;"><strong><%= Rekening.where("kode='" + item.rekening.kode.to_s + "' and jenis_kode='00' and turunan_kode='00' and tahun=" + item.rekening.tahun.to_s).last.nama_rekening %></strong></p>
+            <p style="font-size:12pt;text-align:center;">Tahun Pajak : <%= item.tahun_spt %></p>
+            <p style="font-size:12pt;text-align:center;">NPWPD : <%= item.pendaftaran.npwpd %></p>
+            <p style="font-size:12pt;text-align:center;padding-bottom:10px;">Jenis Pajak : <%= item.rekening.nama_rekening %></p>
+          </td>
+        </tr>
+        <tr>
+          <td width="5%" class=" border_left " style="padding-top:20px;">
+          </td>
+          <td width="15%" class="  " style="padding-top:20px;">
+            <p style="font-size:11pt;padding-top:10px;">Nama Usaha</p>
+          </td>
+          <td width="80%" class="border_right  " style="padding-top:10px;" colspan=4>
+            <p style="font-size:11pt;padding-top:10px;">: <%= item.pendaftaran.nama_usaha %></p>
+          </td> 
+        </tr>
+        <tr>
+          <td width="5%" class=" border_left ">
+          </td>
+          <td width="15%">
+            <p style="font-size:11pt;">Alamat</p>
+          </td>
+          <td width="80%" class="border_right  "  colspan=4>
+            <p style="font-size:11pt;">: <%= item.pendaftaran.alamat_usaha %></p>
+          </td> 
+        </tr>
+        <tr>
+          <td width="5%" class=" border_left ">
+          </td>
+          <td width="15%">
+            <p style="font-size:11pt;">No. Telp. </p>
+          </td>
+          <td width="80%" class="border_right  " colspan=4>
+            <p style="font-size:11pt;">: <%= item.pendaftaran.no_telp_usaha %></p>
+          </td> 
+        </tr>
+        <tr>
+          <td width="5%" class="border_left" style="padding-top:20px;">
+          </td>
+          <td width="15%">
+            <p style="font-size:11pt;padding-top:20px;">Nama Pemilik </p>
+          </td>
+          <td width="80%" class="border_right" colspan=4>
+            <p style="font-size:11pt;padding-top:20px;">: <%= item.pendaftaran.nama_pemilik %></p>
+          </td> 
+        </tr>
+        <tr>
+          <td width="5%" class=" border_left">
+          </td>
+          <td width="15%">
+            <p style="font-size:11pt;">Alamat </p>
+          </td>
+          <td width="80%" class="border_right" colspan=4>
+            <p style="font-size:11pt;">: <%= item.pendaftaran.alamat_pemilik %></p>
+          </td> 
+        </tr>
+        <tr>
+          <td width="5%" class=" border_left border_bottom" style="padding-bottom:30px;">
+          </td>
+          <td width="20%" class=" border_bottom" style="padding-bottom:30px;">
+            <p style="font-size:11pt;">No. Telp.  </p>
+          </td>
+          <td width="75%" class="border_right  border_bottom" style="padding-bottom:20px;" colspan=4>
+            <p style="font-size:11pt;">: <%= item.pendaftaran.no_telp_pemilik %></p>
+          </td> 
+        </tr>
+        <tr>
+          <td width="5%" class=" border_left border_right border_bottom" style="padding:10px;">
+            <p style="font-size:11pt;text-align:center;">NO.</p>
+          </td>
+          <td width="20%" class=" border_right border_bottom" style="padding:10px;">
+            <p style="font-size:11pt;text-align:center;">MASA</p>
+          </td>
+          <td width="25%" class="border_right  border_bottom" style="padding:10px;">
+            <p style="font-size:11pt;text-align:center;">OMZET (RP.)</p>
+          </td> 
+          <td width="10%" class="border_right  border_bottom" style="padding:10px;">
+            <p style="font-size:11pt;text-align:center;">TARIF</p>
+          </td> 
+          <td width="20%" class="border_right  border_bottom" style="padding:10px;">
+            <p style="font-size:11pt;text-align:center;">JUMLAH (RP.)</p>
+          </td> 
+          <td width="20%" class="border_right  border_bottom" style="padding:10px;">
+            <p style="font-size:11pt;text-align:center;">SETORAN (RP.)</p>
+          </td> 
+        </tr>
+        <% (1..12).each do |month| %>
+          <% pendataan = Pendataan.where("tahun_spt=" + item.tahun_spt.to_s + " and pendaftaran_id=" + item.pendaftaran_id.to_s + " and rekening_id=" + item.rekening_id.to_s + " and extract(month from periode_awal)=" + month.to_s).first %>          
+            <tr>
+              <td width="5%" class=" border_left border_right border_bottom" style="padding:10px;">
+                <p style="font-size:11pt;text-align:center;"><%= month %></p>
+              </td>
+              <td width="20%" class=" border_right border_bottom" style="padding:10px;">
+                <p style="font-size:11pt;text-align:left;"><%= I18n.l(DateTime.parse('28' + '-' + month.to_s + '-' + Time.now.year.to_s ), format:'%B') %></p>
+              </td>
+              <td width="25%" class="border_right  border_bottom" style="padding:10px;">
+                <p style="font-size:11pt;text-align:right;"><%= humanized_money(pendataan.penetapan.last.omzet_teliti) if pendataan.present? %></p>
+              </td> 
+              <td width="10%" class="border_right  border_bottom" style="padding:10px;">
+                <p style="font-size:11pt;text-align:center;"><%= humanized_money(pendataan.rekening.persen).to_s + '%' if pendataan.present? %></p>
+              </td> 
+              <td width="20%" class="border_right  border_bottom" style="padding:10px;">
+                <p style="font-size:11pt;text-align:right;"><%= humanized_money(pendataan.penetapan.last.jumlah_pajak_teliti) if pendataan.present? %></p>
+              </td> 
+              <td width="20%" class="border_right  border_bottom" style="padding:10px;">
+                <p style="font-size:11pt;text-align:right;"><%= (humanized_money(pendataan.penetapan.last.jumlah_pajak_teliti) if pendataan.penetapan.last.tgl_setor.present?) if pendataan.present? %></p>
+              </td> 
+            </tr>
+        <% end %>
+      </table>
+    <% end %>
+  </body>
+</html>

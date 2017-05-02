@@ -134,7 +134,6 @@ class PendaftaransController < ApplicationController
           end
           @pendaftaran = pendaftaran_scope
           @wilayah = Wilayah.first
-          @tanggal = params[:filter_date]
           render pdf: judul,
                   margin:  {
                         top: 0,
@@ -142,9 +141,49 @@ class PendaftaransController < ApplicationController
                         left: 0,
                         right: 0
                     },
-                  disposition: 'attachment', 
+                  disposition: 'attachment',
                   page_height: '2.20472in', 
                   page_width: '3.50394in'
+        end
+    end
+  end
+
+  def cetak_kartu_data
+    add_breadcrumb 'Cetak Kartu Data'
+    respond_to do |format|
+        format.html
+        format.pdf do
+          pendaftaran_scope = Pendataan.select('tahun_spt, pendaftaran_id, rekening_id').distinct.joins(:rekening, :pendaftaran).all
+          judul = "Kartu Data "
+          if params[:filter_tahun_rekening].present?
+            judul += ' Tahun ' + params[:filter_tahun_rekening].to_s
+            pendaftaran_scope = pendaftaran_scope.where("rekenings.tahun= " + params[:filter_tahun_rekening])
+          end
+          if params[:filter_induk_rekening].present?
+            judul += ' Rekening ' + Kecamatan.find_by_kode(params[:filter_induk_rekening]).nama_rekening
+            pendaftaran_scope = pendaftaran_scope.where("rekenings.kode= '" + params[:filter_induk_rekening] + "'")
+          end
+          if params[:no_pendaftaran].present? and params[:no_pendaftaran2].present?
+            pendaftaran_scope = pendaftaran_scope.where("no_pendaftaran::int between '" + params[:no_pendaftaran] + "'::int and '" + params[:no_pendaftaran2] + "'::int")
+            judul += ' No Pendaftaran' + params[:no_pendaftaran].to_s + ' s/d ' + params[:no_pendaftaran2]
+          elsif params[:no_pendaftaran].present? and !params[:no_pendaftaran2].present?
+            pendaftaran_scope = pendaftaran_scope.where("no_pendaftaran::int = '" + params[:no_pendaftaran] + "'::int")
+            judul += ' No Pendaftaran' + params[:no_pendaftaran].to_s
+          elsif !params[:no_pendaftaran].present? and params[:no_pendaftaran2].present?
+            pendaftaran_scope = pendaftaran_scope.where("no_pendaftaran::int = '" + params[:no_pendaftaran2] + "'::int")
+            judul += ' No Pendaftaran' + params[:no_pendaftaran2]
+          end
+          @pendaftaran = pendaftaran_scope
+          @wilayah = Wilayah.first
+          render pdf: judul,
+                  margin:  {
+                        top: 10,
+                        bottom: 10,
+                        left: 10,
+                        right: 10
+                    },
+                  # disposition: 'attachment', 
+                  page_size: 'Legal'
         end
     end
   end
@@ -157,6 +196,6 @@ class PendaftaransController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def pendaftaran_params
-      params.require(:pendaftaran).permit(:no_pendaftaran, :no_pendaftaran2, :nama_usaha, :alamat_usaha, :kecamatan_id, :kelurahan_id, :no_telp_usaha, :nama_pemilik, :alamat_pemilik, :no_telp_pemilik, :npwpd, :tgl_npwpd, :usaha_id, :filter, :no_reg_pendaftaran, :tgl_daftar, :filter_date, :filter, :filter_kecamatan, :status)
+      params.require(:pendaftaran).permit(:no_pendaftaran, :no_pendaftaran2, :nama_usaha, :alamat_usaha, :kecamatan_id, :kelurahan_id, :no_telp_usaha, :nama_pemilik, :alamat_pemilik, :no_telp_pemilik, :npwpd, :tgl_npwpd, :usaha_id, :filter, :no_reg_pendaftaran, :tgl_daftar, :filter_date, :filter, :filter_kecamatan, :status, :filter_tahun_rekening, :filter_induk_rekening)
     end
 end
