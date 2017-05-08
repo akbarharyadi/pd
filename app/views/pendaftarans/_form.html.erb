@@ -8,7 +8,7 @@
             <div class="field">
               <div class="form-group">
                 <%= label_tag :status %>
-                <%= f.select(:status, Pendaftaran.statuses.keys.to_a.map { |w| [w.humanize, w] }, {class: "form-control"}) %>
+                <%= f.select(:status, Pendaftaran.statuses.keys.to_a.map { |w| [w.humanize, w] }, {}, {class: "form-control"}) %>
               </div>
             </div>
           </div>

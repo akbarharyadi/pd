@@ -72,4 +72,6 @@ class Pendataan < ApplicationRecord
         end
     end 
 
+    LOKASI = [["Kawasan 1", "10"], ["Kawasan 2", "8"], ["Kawasan 3", "6"], ["Kawasan 4", "4"], ["Kawasan 5", "2"]]
+    SUDUT_PANDANG = [["> dari 4 arah", "10"], ["4 arah", "8"], ["3 arah", "6"], ["2 arah", "4"], ["1 arah", "2"]]
 end

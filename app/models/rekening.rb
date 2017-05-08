@@ -2,6 +2,9 @@ class Rekening < ApplicationRecord
 
     has_many :rekening
     validates :tahun, :kode, :jenis_kode, :turunan_kode, :nama_rekening, presence: true
+    validates :status, presence: true, if: "self.kode == '1104' and self.jenis_kode != '00' and self.turunan_kode != '00'" 
+
+    enum status: {tetap:1, isidentil:2}
 
     #slugger
     extend FriendlyId

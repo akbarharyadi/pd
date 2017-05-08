@@ -69,13 +69,14 @@ $ ->
       $("#pendataan_periode_akhir").datepicker('setDate', lastDayOfTheMonth);
       $("#tgl_jth_tempo").val(("0" + (15)).slice(-2) + '-' + ("0" + (lastDayOfTheMonth.getMonth() + 2)).slice(-2) + '-' + (1900 + lastDayOfTheMonth.getYear()))
 
-  $(document).on 'change', '#pendataan_tahun_spt', (evt) ->
+  $(document).on 'change', '#pendataan_tahun_spt, #status_rekening', (evt) ->
     $.ajax '/rekenings/update_rekening',
       type: 'GET'
       dataType: 'json'
       data: {
         tahun_rekening: $("#pendataan_tahun_spt").val(),
         kode: $("#pendataan_kode_rekening").val(),
+        status: $("#status_rekening").val(),
         turunan:true
       }
       error: (jqXHR, textStatus, errorThrown) ->
@@ -154,16 +155,48 @@ $ ->
             $("#pegawai_seksi_id").append('<option value="'+ element.id+'">' + element.kode_seksi + ' - ' + element.nama_seksi+ '</option>')
         $('.chosen-select').trigger('chosen:updated')
   
-  $(document).on 'change', '#pendataan_nilai_reklame', (evt) ->
-    nilai = $('#pendataan_nilai_reklame').val().replace(/\./g, '').replace(/\,/g, '.');
+  $(document).on 'change', '#pendataan_panjang_reklame, 
+                              #pendataan_lebar_reklame, 
+                                #pendataan_jumlah_reklame, 
+                                  #pendataan_nilai_lokasi_reklame,
+                                    #pendataan_jumlah_hari_reklame,
+                                      #pendataan_sudut_pandang_reklame,
+                                          #pendataan_tinggi_reklame', (evt) ->
+
+    panjang = $('#pendataan_panjang_reklame').val().replace(/\./g, '').replace(/\,/g, '.');
+    lebar = $('#pendataan_lebar_reklame').val().replace(/\./g, '').replace(/\,/g, '.');
+    jumlah_reklame = $('#pendataan_jumlah_reklame').val().replace(/\./g, '').replace(/\,/g, '.');
+    muka = $('#pendataan_sisi_muka_reklame').val().replace(/\./g, '').replace(/\,/g, '.');
+    jumlah_hari = $('#pendataan_jumlah_hari_bulan_tahun_reklame').val().replace(/\./g, '').replace(/\,/g, '.');
+    kelas_jalan = $('#pendataan_kelas_jalan_reklame').val().replace(/\./g, '').replace(/\,/g, '.');
+    sudut_pandang = $('#pendataan_sudut_pandang_reklame').val().replace(/\./g, '').replace(/\,/g, '.');
+    tinggi = $('#pendataan_tinggi_reklame').val().replace(/\./g, '').replace(/\,/g, '.');
     persen = $('#pendataan_tarif_persen').val();
     rupiah = $('#pendataan_tarif_rupiah').val().replace(/\./g, '').replace(/\,/g, '.');
-    if nilai == ''
-      nilai = 1
+
+    if panjang == ''
+      panjang = 0
+    if lebar == ''
+      lebar = 0
+    if jumlah_reklame == ''
+      jumlah_reklame = 0
+    if muka == ''
+      muka = 0
+    if jumlah_hari == ''
+      jumlah_hari = 0
+    if kelas_jalan == ''
+      kelas_jalan = 0
+    if sudut_pandang == ''
+      sudut_pandang = 0
+    if tinggi == ''
+      tinggi = 0
     if persen == ''
       persen = 0
     if rupiah == ''
       rupiah = 0
+    luas = panjang*lebar
+    nilai = luas*jumlah_reklame*muka*jumlah_hari*kelas_jalan*sudut_pandang*tinggi*persen*rupiah
+    $('#pendataan_luas_reklame').autoNumeric('set', luas)
     $('#pendataan_jumlah_pajak').autoNumeric('set', nilai*(persen/100))
   
   $(document).on 'change', '#pendataan_npa', (evt) ->
@@ -273,3 +306,15 @@ $ ->
   # field only allow number
   $(document).on 'keypress', '.only_allow_number', (evt) -> 
     return evt.charCode >= 48 && evt.charCode <= 57
+
+  $(document).on 'change', '#rokok', (evn) ->
+    if this.checked
+      $('#tarif_sebelum_rokok').val($('#pendataan_tarif_persen').val())
+      $('#pendataan_pajak_rokok').removeAttr('readonly')
+    else
+      $('#pendataan_tarif_persen').val($('#tarif_sebelum_rokok').val())
+      $('#pendataan_pajak_rokok').attr('readonly')
+  
+  $(document).on 'change', '#pendataan_pajak_rokok', (evn) ->
+    $('#pendataan_tarif_persen').val($('#pendataan_pajak_rokok').val())
+    $("#pendataan_panjang_reklame").trigger("change");

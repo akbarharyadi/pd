@@ -152,8 +152,8 @@ ActiveRecord::Schema.define(version: 20170502130804) do
     t.string   "slug"
     t.integer  "created_by"
     t.integer  "updated_by"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
     t.float    "pemakaian_daya"
     t.float    "volume_pemakaian"
     t.float    "jumlah_volume"
@@ -165,9 +165,8 @@ ActiveRecord::Schema.define(version: 20170502130804) do
     t.float    "lebar_reklame"
     t.float    "luas_reklame"
     t.float    "jumlah_reklame"
-    t.float    "sisi_muka_reklame"
-    t.float    "jumlah_hari_bulan_tahun_reklame"
-    t.float    "kelas_jalan_reklame"
+    t.float    "jumlah_hari_reklame"
+    t.float    "nilai_lokasi_reklame"
     t.float    "sudut_pandang_reklame"
     t.float    "tinggi_reklame"
     t.float    "lokasi_reklame"
@@ -189,17 +188,16 @@ ActiveRecord::Schema.define(version: 20170502130804) do
     t.float    "npa_teliti"
     t.float    "omzet_teliti"
     t.float    "jumlah_pajak_teliti"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
     t.float    "denda"
     t.date     "tgl_setor"
     t.float    "panjang_reklame"
     t.float    "lebar_reklame"
     t.float    "luas_reklame"
     t.float    "jumlah_reklame"
-    t.float    "sisi_muka_reklame"
-    t.float    "jumlah_hari_bulan_tahun_reklame"
-    t.float    "kelas_jalan_reklame"
+    t.float    "jumlah_hari_reklame"
+    t.float    "nilai_lokasi_reklame"
     t.float    "sudut_pandang_reklame"
     t.float    "tinggi_reklame"
   end
@@ -216,8 +214,10 @@ ActiveRecord::Schema.define(version: 20170502130804) do
     t.string   "slug"
     t.integer  "created_by"
     t.integer  "updated_by"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.integer  "status"
+    t.string   "satuan_masa_pajak"
     t.index ["deleted_at"], name: "index_rekenings_on_deleted_at", using: :btree
     t.index ["slug"], name: "index_rekenings_on_slug", using: :btree
   end

@@ -17,7 +17,7 @@
           <div class="field">
             <div class="form-group">
               <%= f.label :Kode_rekening, class: "col-sm-2 control-label no-padding-right" %>
-        <div class="col-md-3">
+              <div class="col-md-3">
               <div class='input-group'>
                 <span class="input-group-addon">4.</span>
                 <%= f.text_field :kode, class: "form-control", validate: true, :maxlength => 4,  onkeypress: 'return event.charCode >= 48 && event.charCode <= 57' %>
@@ -67,6 +67,16 @@
           </div>
         </div>
       </div>
+        <div class="row">
+            <div class="field">
+              <div class="form-group">
+                <%= label_tag :status, nil, class: "col-sm-2 control-label no-padding-right" %>
+                <div class="col-md-2">
+                <%= f.select(:status, Rekening.statuses.keys.to_a.map { |w| [w.humanize, w] }, {include_blank:true}, {class: "form-control"}) %>
+              </div>
+            </div>
+          </div>
+        </div>
       <div class="clearfix form-actions">
         <div class="col-md-offset-3 col-md-9">
           <%= button_tag(type: 'submit', class: "btn btn-info") do %>

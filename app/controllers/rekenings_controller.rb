@@ -85,7 +85,11 @@ class RekeningsController < ApplicationController
       id = 0
     end
     if params[:turunan] == 'true'
-      @rekenings = Rekening.where("persen !=0 and persen is not null and jenis_kode != '00' and kode= '" + params[:kode] + "' and tahun = " + id).order(kode: "asc", jenis_kode: "asc", turunan_kode: 'asc')
+      if params[:status].present?
+        @rekenings = Rekening.where("persen !=0 and persen is not null and jenis_kode != '00' and kode= '" + params[:kode] + "' and tahun = " + id + " and status=" + Rekening.statuses[params[:status]].to_s).order(kode: "asc", jenis_kode: "asc", turunan_kode: 'asc')
+      else
+        @rekenings = Rekening.where("persen !=0 and persen is not null and jenis_kode != '00' and kode= '" + params[:kode] + "' and tahun = " + id).order(kode: "asc", jenis_kode: "asc", turunan_kode: 'asc')
+      end
     else
       @rekenings = Rekening.where("jenis_kode='00' and turunan_kode='00' and tahun = ?", id).order(kode: "asc", jenis_kode: "asc", turunan_kode: 'asc')
     end
@@ -100,6 +104,6 @@ class RekeningsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def rekening_params
-      params.require(:rekening).permit(:kode, :jenis_kode, :turunan_kode, :tahun, :tarif, :persen, :nama_rekening, :filter, :filter_induk_rekening, :filter_tahun_rekening, :turunan)
+      params.require(:rekening).permit(:status, :kode, :jenis_kode, :turunan_kode, :tahun, :tarif, :persen, :nama_rekening, :filter, :filter_induk_rekening, :filter_tahun_rekening, :turunan)
     end
 end
