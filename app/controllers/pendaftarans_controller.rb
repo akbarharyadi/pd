@@ -196,6 +196,6 @@ class PendaftaransController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def pendaftaran_params
-      params.require(:pendaftaran).permit(:no_pendaftaran, :no_pendaftaran2, :nama_usaha, :alamat_usaha, :kecamatan_id, :kelurahan_id, :no_telp_usaha, :nama_pemilik, :alamat_pemilik, :no_telp_pemilik, :npwpd, :tgl_npwpd, :usaha_id, :filter, :no_reg_pendaftaran, :tgl_daftar, :filter_date, :filter, :filter_kecamatan, :status, :filter_tahun_rekening, :filter_induk_rekening)
+      params.require(:pendaftaran).permit(:no_pendaftaran, :no_pendaftaran2, :nama_usaha, :alamat_usaha, :kecamatan_id, :kelurahan_id, :no_telp_usaha, :nama_pemilik, :alamat_pemilik, :no_telp_pemilik, :npwpd, :tgl_npwpd, :usaha_id, :filter, :no_reg_pendaftaran, :tgl_daftar, :filter_date, :filter, :filter_kecamatan, :status, :filter_tahun_rekening, :filter_induk_rekening, :npwp)
     end
 end

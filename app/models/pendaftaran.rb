@@ -6,8 +6,8 @@ class Pendaftaran < ApplicationRecord
     belongs_to :usaha
     has_many :pendataan
     #Validasi
-    validates :nama_usaha, :alamat_usaha, :kecamatan_id, :kelurahan_id, :nama_pemilik, :alamat_pemilik, :npwpd, :tgl_npwpd, :usaha_id, :no_reg_pendaftaran, :tgl_npwpd, :tgl_daftar, presence: true
-    validates :npwpd, :no_pendaftaran, :no_reg_pendaftaran, uniqueness: true
+    validates :nama_usaha, :npwp, :alamat_usaha, :kecamatan_id, :kelurahan_id, :nama_pemilik, :alamat_pemilik, :npwpd, :tgl_npwpd, :usaha_id, :no_reg_pendaftaran, :tgl_npwpd, :tgl_daftar, presence: true
+    validates :npwpd, :no_pendaftaran, :no_reg_pendaftaran, :npwpd, uniqueness: true
 
     enum status: { aktif: 0, tidak_aktif: 1 }
     

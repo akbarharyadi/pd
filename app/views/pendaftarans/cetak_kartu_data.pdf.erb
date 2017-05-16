@@ -42,7 +42,7 @@ p{ margin:0px;}
             <p style="font-size:16pt;text-align:center;padding-top:10px;"><strong>KARTU  DATA</strong></p>
             <p style="font-size:16pt;text-align:center;padding-bottom:10px;"><strong><%= Rekening.where("kode='" + item.rekening.kode.to_s + "' and jenis_kode='00' and turunan_kode='00' and tahun=" + item.rekening.tahun.to_s).last.nama_rekening %></strong></p>
             <p style="font-size:12pt;text-align:center;">Tahun Pajak : <%= item.tahun_spt %></p>
-            <p style="font-size:12pt;text-align:center;">NPWPD : <%= item.pendaftaran.npwpd %></p>
+            <p style="font-size:12pt;text-align:center;">NPWP : <%= item.pendaftaran.npwp %></p>
             <p style="font-size:12pt;text-align:center;padding-bottom:10px;">Jenis Pajak : <%= item.rekening.nama_rekening %></p>
           </td>
         </tr>

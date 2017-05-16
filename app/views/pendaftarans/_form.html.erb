@@ -4,7 +4,7 @@
       <%= render 'shared/error', error_form: pendaftaran %>
       <% if !pendaftaran.new_record? %>
         <div class="row">
-          <div class="col-md-1">
+          <div class="col-md-3">
             <div class="field">
               <div class="form-group">
                 <%= label_tag :status %>
@@ -31,11 +31,21 @@
             </div>
           </div>
         </div>
+      </div>
+      <div class="row">
         <div class="col-md-2">
           <div class="field">
             <div class="form-group">
               <%= f.label :no_reg_pendaftaran %>
               <%= f.text_field :no_reg_pendaftaran, class: "form-control", validate: true, readonly: true %>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="field">
+            <div class="form-group">
+              <%= f.label :npwp %>
+              <%= f.text_field :npwp, class: "form-control", validate: true %>
             </div>
           </div>
         </div>

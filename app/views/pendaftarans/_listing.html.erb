@@ -5,7 +5,7 @@
     <thead>
       <tr role="row">
         <th class="sorting"><%= smart_listing.sortable "No. Pendaftaran", :no_pendaftaran %></th>
-        <th class="sorting"><%= smart_listing.sortable "NPWPD", :npwpd %></th>
+        <th class="sorting"><%= smart_listing.sortable "NPWP", :npwp %></th>
         <th class="sorting"><%= smart_listing.sortable "Tgl. Daftar", :tgl_daftar %></th>
         <th class="sorting"><%= smart_listing.sortable "Nama Usaha", :nama_usaha %></th>
         <th class="sorting"><%= smart_listing.sortable "Nama Pemilik", :nama_pemilik %></th>
@@ -26,7 +26,7 @@
                 <tr role="row" class="even">
               <% end %>
           <td><%= pendaftaran.no_pendaftaran %></td>
-          <td><%= pendaftaran.npwpd %></td>
+          <td><%= pendaftaran.npwp %></td>
           <td><%= pendaftaran.tgl_daftar.strftime('%d-%m-%Y') %></td>
           <td><%= pendaftaran.nama_usaha %></td>
           <td><%= pendaftaran.nama_pemilik %></td>
