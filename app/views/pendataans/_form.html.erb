@@ -40,7 +40,7 @@
           <div class="field">
             <div class="form-group">
               <%= f.label :pendaftaran_id, 'Wajib Pajak' %>
-              <%= f.collection_select(:pendaftaran_id, Pendaftaran.all, :id, :npwpd_nama_usaha, {prompt: ' -- Pilih Wajib Pajak -- '}, {class: "chosen-select form-control", selected: pendataan.pendaftaran_id}) %>
+              <%= f.collection_select(:pendaftaran_id, Pendaftaran.all, :id, :npwp_nama_usaha, {prompt: ' -- Pilih Wajib Pajak -- '}, {class: "chosen-select form-control", selected: pendataan.pendaftaran_id}) %>
             </div>
           </div>
         </div>
@@ -84,14 +84,18 @@
             <div class="field">
               <div class="form-group">
                 <%= label_tag :status, 'Status Reklame' %>
-                <%= select_tag(:status_rekening, options_for_select(Rekening.statuses.keys.to_a.map { |w| [w.humanize, w] }, Rekening.statuses[pendataan.rekening.try(:status)]), {class: "form-control", prompt: ""}) %>
+                <%= select_tag(:status_rekening, options_for_select(Rekening.statuses.keys.to_a.map { |w| [w.humanize, w]}, pendataan.rekening.try(:status)), {class: "form-control", prompt: ""}) %>
               </div>
             </div>
           </div>
       <% end %>
       </div>
       <div class="row">
-        <div class="col-md-5">
+        <% if rekening.kode == '1104' %>
+          <div class="col-md-8">
+        <% else %>
+          <div class="col-md-5">
+        <% end %>
           <div class="field">
             <div class="form-group">
               <%= f.label :rekening_id, 'Rekening' %>
@@ -153,28 +157,51 @@
 
       <% if rekening.kode == '1104' %> 
         <div class="row">
-          <div class="col-md-2">
+          <div class="col-md-5">
             <div class="field">
               <div class="form-group">
-                <%= f.label :jumlah_reklame %>
+                <%= f.label :judul_reklame %>
+                <%= f.text_field :judul_reklame, class: "form-control", validate: true %>
+              </div>
+            </div>
+          </div> 
+        </div>
+        <div class="row">
+          <div class="col-md-8">
+            <div class="field">
+              <div class="form-group">
+                <%= f.label :lokasi_reklame %>
+                <%= f.text_area :lokasi_reklame, class: "form-control", validate: true %>
+              </div>
+            </div>
+          </div> 
+        </div>
+        <div class="row">
+          <div class="col-md-1">
+            <div class="field">
+              <div class="form-group">
+                <%= f.label :jumlah_reklame, "Jumlah" %>
                 <%= f.text_field :jumlah_reklame, class: "form-control money-left", validate: true,  onkeypress: 'return event.charCode >= 48 && event.charCode <= 57' %>
               </div>
             </div>
           </div> 
-          <div class="col-md-3">
+          <div class="col-md-1 col-md-offset-1">
             <div class="field">
               <div class="form-group">
-                <%= f.label :jumlah_hari_reklame, "Jml Hari/Bln/Thn/Penyelenggaraan" %>
+                <%= f.label :jumlah_hari_reklame, "Hari/Bln/Thn/Penyelenggaraan" %>
                 <%= f.text_field :jumlah_hari_reklame, class: "form-control money-left", validate: true,  onkeypress: 'return event.charCode >= 48 && event.charCode <= 57' %>
               </div>
             </div>
           </div> 
-          <div class="col-md-3">
+          <div class="col-md-2 col-md-offset-2">
             <div class="field">
               <div class="form-group">
                 <%= f.label :pajak_rokok %>
                 <div class='input-group'>
                 <%= f.text_field :pajak_rokok, class: "form-control money-left", readonly:true, onkeypress: 'return event.charCode >= 48 && event.charCode <= 57', validate: true %>
+                <span class="input-group-addon">
+                    %
+                  </span>
                 <span class="input-group-addon">
                     <%= check_box_tag :rokok, 0 %>
                   </span>
@@ -197,7 +224,7 @@
               </div>
             </div>
           </div> 
-          <div class="col-md-3">
+          <div class="col-md-2 col-md-offset-0 ">
             <div class="field">
               <div class="form-group">
                 <%= f.label :lebar_reklame %>
@@ -210,7 +237,7 @@
               </div>
             </div>
           </div> 
-          <div class="col-md-3">
+          <div class="col-md-2 col-md-offset-1">
             <div class="field">
               <div class="form-group">
                 <%= f.label :luas_reklame %>
@@ -228,7 +255,7 @@
           <div class="col-md-2">
             <div class="field">
               <div class="form-group">
-                <%= f.label :tinggi_reklame %>
+                <%= f.label :tinggi_reklame, "Tinggi" %>
                 <div class='input-group'>
                 <%= f.text_field :tinggi_reklame, class: "form-control money-left", validate: true, data: { role: 'money' } %>
                 <span class="input-group-addon">
@@ -238,19 +265,19 @@
               </div>
             </div>
           </div> 
-          <div class="col-md-3">
+          <div class="col-md-2 ">
             <div class="field">
               <div class="form-group">
-                <%= f.label :nilai_lokasi_reklame %>
-                <%= f.select :nilai_lokasi_reklame, options_for_select(Pendataan::LOKASI), {include_blank:true}, {class: "form-control"} %>
+                <%= f.label :nilai_lokasi_reklame, "Lokasi" %>
+                <%= f.select :nilai_lokasi_reklame, options_for_select(Pendataan::LOKASI, :selected => pendataan.nilai_lokasi_reklame.to_i), {include_blank:true}, {class: "form-control", selected: pendataan.nilai_lokasi_reklame} %>
               </div>
             </div>
           </div> 
-          <div class="col-md-3">
+          <div class="col-md-2  col-md-offset-1">
             <div class="field">
               <div class="form-group">
-                <%= f.label :sudut_pandang_reklame %>
-                <%= f.select :sudut_pandang_reklame, options_for_select(Pendataan::SUDUT_PANDANG), {include_blank:true}, {class: "form-control"} %>
+                <%= f.label :sudut_pandang_reklame, "Sudut Pandang" %>
+                <%= f.select :sudut_pandang_reklame, options_for_select(Pendataan::SUDUT_PANDANG, :selected => pendataan.sudut_pandang_reklame.to_i), {include_blank:true}, {class: "form-control"} %>
               </div>
             </div>
           </div> 
@@ -259,25 +286,25 @@
           <div class="col-md-2">
             <div class="field">
               <div class="form-group">
-                <%= f.label :nilai_media %>
+                <%= f.label :tarif_rupiah, 'Nilai Sewa' %>
                 <div class='input-group'>
                   <span class="input-group-addon">
                     Rp.
                   </span>
-                  <%= text_field_tag :nilai_media, '', {class: "form-control money-left", validate: true, data: { role: 'money' }, readonly:true} %>
+                  <%= f.text_field :tarif_rupiah, class: "form-control money-left", data: { role: 'money' }, readonly:true %>
                 </div>
               </div>
             </div>
-          </div> 
+          </div>
           <div class="col-md-3">
             <div class="field">
               <div class="form-group">
-                <%= f.label :nilai_strategis %>
+                <%= f.label :nilai_sewa_reklame %>
                 <div class='input-group'>
                   <span class="input-group-addon">
                     Rp.
                   </span>
-                  <%= text_field_tag :nilai_strategis, '', {class: "form-control money-left", validate: true, data: { role: 'money' }, readonly:true} %>
+                  <%= text_field_tag :nilai_sewa_reklame, '', {class: "form-control money-left", validate: true, data: { role: 'money' }, readonly:true} %>
                 </div>
               </div>
             </div>
@@ -296,6 +323,47 @@
             </div>
           </div> 
         </div> 
+        <div class="row">
+          <div class="col-md-2">
+            <div class="field">
+              <div class="form-group">
+                <%= f.label :tarif_persen, 'Tarif' %>
+                <div class='input-group'>
+                  <%= f.text_field :tarif_persen, class: "form-control money-left", readonly:true %>
+                  <span class="input-group-addon">
+                    %
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="field">
+              <div class="form-group">
+                <%= f.label :nilai_media %>
+                <div class='input-group'>
+                  <span class="input-group-addon">
+                    Rp.
+                  </span>
+                  <%= text_field_tag :nilai_media, '', {class: "form-control money-left", validate: true, data: { role: 'money' }, readonly:true} %>
+                </div>
+              </div>
+            </div>
+          </div> 
+          <div class="col-md-3">
+            <div class="field">
+              <div class="form-group">
+                <%= f.label :jumlah_pajak %>
+                <div class='input-group'>
+                  <span class="input-group-addon">
+                    Rp.
+                  </span>
+                  <%= f.text_field :jumlah_pajak, class: "form-control money-left", data: { role: 'money' }, validate: true, readonly:true %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       <% end %>
       
       <% if rekening.kode == '1105' %>
@@ -323,48 +391,49 @@
           </div>
         </div>    
       <% end %>
-      
-      <div class="row">
-        <div class="col-md-2">
-          <div class="field">
-            <div class="form-group">
-              <%= f.label :tarif_persen, 'Tarif' %>
-              <div class='input-group'>
-                <%= f.text_field :tarif_persen, class: "form-control money-left", readonly:true %>
-                <span class="input-group-addon">
-                  %
-                </span>
+      <% if rekening.kode != '1104' %>
+        <div class="row">
+          <div class="col-md-2">
+            <div class="field">
+              <div class="form-group">
+                <%= f.label :tarif_persen, 'Tarif' %>
+                <div class='input-group'>
+                  <%= f.text_field :tarif_persen, class: "form-control money-left", readonly:true %>
+                  <span class="input-group-addon">
+                    %
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="field">
+              <div class="form-group">
+                <%= f.label :tarif_rupiah, 'Nilai' %>
+                <div class='input-group'>
+                  <span class="input-group-addon">
+                    Rp.
+                  </span>
+                  <%= f.text_field :tarif_rupiah, class: "form-control money-left", data: { role: 'money' }, readonly:true %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="field">
+              <div class="form-group">
+                <%= f.label :jumlah_pajak %>
+                <div class='input-group'>
+                  <span class="input-group-addon">
+                    Rp.
+                  </span>
+                  <%= f.text_field :jumlah_pajak, class: "form-control money-left", data: { role: 'money' }, validate: true, readonly:true %>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-md-3">
-          <div class="field">
-            <div class="form-group">
-              <%= f.label :tarif_rupiah, 'Nilai Pasar' %>
-              <div class='input-group'>
-                <span class="input-group-addon">
-                  Rp.
-                </span>
-                <%= f.text_field :tarif_rupiah, class: "form-control money-left", data: { role: 'money' }, readonly:true %>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="field">
-            <div class="form-group">
-              <%= f.label :jumlah_pajak %>
-              <div class='input-group'>
-                <span class="input-group-addon">
-                  Rp.
-                </span>
-                <%= f.text_field :jumlah_pajak, class: "form-control money-left", data: { role: 'money' }, validate: true, readonly:true %>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <% end %>
       <div class="clearfix form-actions">
         <div class="col-md-offset-3 col-md-9">
           <%= button_tag(type: 'submit', class: "btn btn-info") do %>

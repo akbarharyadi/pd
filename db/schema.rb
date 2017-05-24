@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170516151030) do
+ActiveRecord::Schema.define(version: 20170521131132) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -170,8 +170,8 @@ ActiveRecord::Schema.define(version: 20170516151030) do
     t.float    "nilai_lokasi_reklame"
     t.float    "sudut_pandang_reklame"
     t.float    "tinggi_reklame"
-    t.float    "lokasi_reklame"
-    t.float    "judul_reklame"
+    t.text     "lokasi_reklame"
+    t.string   "judul_reklame"
     t.index ["deleted_at"], name: "index_pendataans_on_deleted_at", using: :btree
     t.index ["slug"], name: "index_pendataans_on_slug", using: :btree
   end
@@ -201,6 +201,8 @@ ActiveRecord::Schema.define(version: 20170516151030) do
     t.float    "nilai_lokasi_reklame"
     t.float    "sudut_pandang_reklame"
     t.float    "tinggi_reklame"
+    t.integer  "status"
+    t.integer  "status2"
   end
 
   create_table "rekenings", force: :cascade do |t|

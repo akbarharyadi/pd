@@ -43,7 +43,7 @@
       <div class="row">
           <div class="field">
             <div class="form-group">
-              <%= f.label :nilai_pasar, class: "col-sm-2 control-label no-padding-right" %>
+              <%= f.label :nilai_pasar, "Nilai", class: "col-sm-2 control-label no-padding-right" %>
               <div class="col-md-3">
               <div class='input-group'>
                 <span class="input-group-addon">Rp.</span>
@@ -56,7 +56,7 @@
       <div class="row">
           <div class="field">
             <div class="form-group">
-              <%= f.label :tarif_persen, class: "col-sm-2 control-label no-padding-right" %>
+              <%= f.label :tarif_persen, "Tarif", class: "col-sm-2 control-label no-padding-right" %>
             <div class="col-md-2">
               <div class='input-group'>
                 <% rekening.persen = number_with_precision rekening.persen, precision: 2,  strip_insignificant_zeros: true, separator: '.', delimiter: ',' %>

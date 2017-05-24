@@ -1,43 +1,34 @@
+<div class="page-header">
+    <h1>Pendaftaran
+        <small>
+            <i class="ace-icon fa fa-angle-double-right"></i>
+            Cetak STS
+        </small>
+    </h1>
+</div>
 <div class="row">
   <div class="col-xs-12">
-    <h3 class="header smaller lighter blue">Cetak STS</h3>
-    <div class="clearfix"></div>
-    <%= smart_listing_controls_for(:pendataans, {class:"form-vertical", :role => "form"}) do %>
-        <div class="col-xs-12">
-            <div class="col-md-2">
-                <div class="field">
-                    <div class="form-group">
-                        <%= label_tag :tanggal_setor %>
-                        <div class='input-group'>
-                            <%= text_field_tag :tanggal, @current_date, {class: "form-control date-picker", 'data-date-format'=>"dd-mm-yyyy", onchange:"$('.smart-listing-controls').submit();"} %>
-                            <span class="input-group-addon">
-                                <i class="fa fa-calendar bigger-110"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
+		<%= form_tag penyetoran_cetak_sts_path(:format => 'pdf'), :method => :post, :class => "form-horizontal", :role => "form" do %>
+      <div class="field">
+        <div class="form-group">
+          <%= label_tag :tanggal_setor, nil, class: "col-sm-2 control-label no-padding-right" %>
+          <div class="col-sm-4">
+            <div class='input-group'>
+								<%= text_field_tag :filter_date, '', class: "form-control range-picker", placeholder: "Pilih Tanggal Setor", autocomplete: :on %>
+                <span class="input-group-addon">
+				    <i class="fa fa-calendar bigger-110"></i>
+				</span>
             </div>
+          </div>
         </div>
-    <% end %>
-    <div class="clearfix"></div>
-    <div class="col-xs-12">
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="widget-box">
-                    <div class="widget-header widget-header-flat">
-                        <h5 class="smaller blue" style="float: left;">List pendataan yang sudah setor</h5>
-                        <div class="widget-toolbar">
-                            <%= link_to(raw('<i class="ace-icon fa fa-search"> Refresh</i>'), 'javascript:void(0)', onclick:"$('.smart-listing-controls').submit();") %>
-                        </div>
-                    </div>
-                    <div class="widget-body">
-                        <div class="widget-main">
-					        <%= smart_listing_render(:pendataans) %>
-                        </div>
-                    </div>
-                </div>
-			</div>
-		</div>
+      </div>
+			<div class="clearfix form-actions">
+        <div class="col-sm-offset-2 col-sm-10">
+          <%= button_tag(type: 'submit', class: "btn btn-info") do %>
+            <i class="ace-icon fa fa-print bigger-110"></i> Cetak
+          <% end %>
+        </div>
+      </div>
+		<% end %>
 	</div>
-  </div>
 </div>

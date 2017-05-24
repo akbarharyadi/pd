@@ -29,6 +29,10 @@ class Pendaftaran < ApplicationRecord
         "#{npwpd} - #{nama_usaha}"
     end
 
+    def npwp_nama_usaha
+        "#{npwp} - #{nama_usaha}"
+    end
+
 
     def default_values
         self.status ||= 0

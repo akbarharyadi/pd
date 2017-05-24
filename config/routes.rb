@@ -43,13 +43,14 @@ Rails.application.routes.draw do
   get 'penyetoran/index'
   get 'penyetoran/proses'
   get 'penyetoran/list'
-  get 'penyetoran/cetak_sts'
+  match 'penyetoran/cetak_sts', via: [:get, :post]
+  get 'penyetoran/cetak_tanda_bukti'
 
   match 'penetapan/index', via: [:get, :post]
   post 'penetapan/tetapkan'
   get 'penetapan/proses'
   get 'penetapan/list'
-  get 'penetapan/cetak_skp'
+  match 'penetapan/cetak_skp', via: [:get, :post]
   
   root 'home#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

@@ -5,7 +5,7 @@
   </head>
   <body>
   <table width="100%" border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse">
-  <tr>
+  <tr role="row" style="text-align:center; padding-top:10px;">
 	<td style="text-align:center; padding-top:10px;">
 	  <p style="font-size:12pt;">DAFTAR WAJIB PAJAK <%= @wilayah.jenis_wilayah.upcase + ' ' + @wilayah.nama_wilayah.upcase %></p>
       <p style="font-size:9pt;"><%= @tanggal %></p>
@@ -18,13 +18,13 @@
   <table width="100%" border="1" cellpadding="0" cellspacing="0" style="border-collapse:collapse;font-size:10pt;" >
     <thead>
       <tr role="row" style="text-align:center; padding-top:10px;">
-        <th class="sorting">No</th>
-        <th class="sorting">No. Pendaftaran</th>
-        <th class="sorting">NPWP</th>
-        <th class="sorting">Tgl. Daftar</th>
-        <th class="sorting">Nama Usaha</th>
-        <th class="sorting">Nama Pemilik</th>
-        <th class="sorting">Status</th>
+        <th class="sorting" style="text-align:center; padding:5px;">No</th>
+        <th class="sorting" style="text-align:center; padding:5px;">No. Pendaftaran</th>
+        <th class="sorting" style="text-align:center; padding:5px;">NPWP</th>
+        <th class="sorting" style="text-align:center; padding:5px;">Tgl. Daftar</th>
+        <th class="sorting" style="text-align:center; padding:5px;">Nama Usaha</th>
+        <th class="sorting" style="text-align:center; padding:5px;">Nama Pemilik</th>
+        <th class="sorting" style="text-align:center; padding:5px;">Status</th>
       </tr>
     </thead>
 

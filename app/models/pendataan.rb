@@ -15,7 +15,7 @@ class Pendataan < ApplicationRecord
     validates :pemakaian_daya, :volume_pemakaian, presence: true, if: "self.rekening.kode == '1105'"
     validates :omzet, presence: true, if: "self.rekening.kode != '1105' and self.rekening.kode != '1111' and self.rekening.kode != '1104' and self.rekening.kode != '1108'"
     validates :jumlah_volume, presence: true, if: "self.rekening.kode == '1111'"
-    validates :nilai_reklame, presence: true, if: "self.rekening.kode == '1104'"
+    validates :jumlah_reklame, :jumlah_hari_reklame, :panjang_reklame, :lebar_reklame, :nilai_lokasi_reklame, :sudut_pandang_reklame, presence: true, if: "self.rekening.kode == '1104'"
     validates :npa, presence: true, if: "self.rekening.kode == '1108'"
     acts_as_paranoid
 

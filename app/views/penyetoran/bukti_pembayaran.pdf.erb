@@ -106,7 +106,7 @@ p{ margin:0px;}
                 <p style="font-size:10pt;">:</p>
             </td>
             <td width="73%" class="line12" style="padding:10px;padding-bottom:5px;" >
-                <p style="font-size:10pt;"><%= @pendataan.pendaftaran.nama_usaha %></p>
+                <p style="font-size:10pt;"><%= @penetapan.pendataan.pendaftaran.nama_usaha %></p>
             </td>
         </tr> 
         <tr>
@@ -119,7 +119,7 @@ p{ margin:0px;}
                 <p style="font-size:10pt;">:</p>
             </td>
             <td width="73%" class="line12" style="padding-left:10px;padding-right:10px;padding-bottom:5px;" >
-                <p style="font-size:10pt;"><%= @pendataan.pendaftaran.alamat_usaha %></p>
+                <p style="font-size:10pt;"><%= @penetapan.pendataan.pendaftaran.alamat_usaha %></p>
             </td>
         </tr>  
         <tr>
@@ -132,12 +132,15 @@ p{ margin:0px;}
                 <p style="font-size:10pt;">:</p>
             </td>
             <td width="73%" class="line12" style="padding-left:10px;padding-right:10px;padding-bottom:5px;" >
-                <p style="font-size:10pt;"><%= @pendataan.pendaftaran.npwpd %></p>
+                <p style="font-size:10pt;"><%= @penetapan.pendataan.pendaftaran.npwpd %></p>
             </td>
         </tr>
         <tr>
             <td width="100%" class="line3" style="padding:10px;padding-top:20px;" colspan=4>
-                <p style="font-size:10pt;">Sebagai pembayaran <strong><%= @pendataan.rekening.nama_rekening.capitalize %></strong>, masa pajak bulan <%= I18n.l(@pendataan.periode_awal, format:'%B %Y') %></p>
+                <p style="font-size:10pt;">Sebagai pembayaran <strong>
+                <%= @penetapan.pendataan.rekening.nama_rekening.capitalize %>
+                </strong>, masa pajak bulan <%= I18n.l(@penetapan.pendataan.periode_awal, format:'%B %Y') %>
+                </p>
             </td>
         </tr>
     </table>
@@ -151,12 +154,12 @@ p{ margin:0px;}
         </thead>
         <tbody>
             <tr>
-                <td class="sorting baseline" style="padding:10px;border:#000000 1px solid;"><p style="font-size:10pt;text-align:center;"><%= @pendataan.rekening.rekenig_lengkap %></p></td>
+                <td class="sorting baseline" style="padding:10px;border:#000000 1px solid;"><p style="font-size:10pt;text-align:center;"><%= @penetapan.pendataan.rekening.rekenig_lengkap %></p></td>
                 <td class="sorting baseline" style="padding:10px;border:#000000 1px solid;"><p style="font-size:10pt;">
-                    <%= @pendataan.rekening.nama_rekening %><br>
-                    <% if @pendataan.rekening.kode == '1105' %>
+                    <%= @penetapan.pendataan.rekening.nama_rekening %><br>
+                    <% if @penetapan.pendataan.rekening.kode == '1105' %>
                         Pemakaian (KVA) x Volume Pemakaian x Nilai Pasar x Tarif<br>
-                        <%= humanized_money @penetapan.pemakaian_daya_teliti %> x <%= humanized_money @penetapan.volume_pemakaian_teliti %> x <%= humanized_money @pendataan.rekening.tarif %> x <%= humanized_money @pendataan.rekening.persen %>%<br>
+                        <%= humanized_money @penetapan.pemakaian_daya_teliti %> x <%= humanized_money @penetapan.volume_pemakaian_teliti %> x <%= humanized_money @penetapan.pendataan.rekening.tarif %> x <%= humanized_money @penetapan.pendataan.rekening.persen %>%<br>
                     <% else %>
                     
                     <% end %>

@@ -182,7 +182,7 @@ class PendaftaransController < ApplicationController
                         left: 10,
                         right: 10
                     },
-                  # disposition: 'attachment', 
+                  disposition: 'attachment', 
                   page_size: 'Legal'
         end
     end

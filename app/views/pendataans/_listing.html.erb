@@ -7,7 +7,7 @@
         <th class="sorting">Tahun SPT</th>
         <th class="sorting">No Pendataan</th>
         <th class="sorting">Rekening</th>
-        <th class="sorting">NPWPD</th>
+        <th class="sorting">NPWP</th>
         <th class="sorting">Nama Usaha</th>
         <th class="sorting">Periode</th>
         <th class="sorting">Jatuh Tempo</th>
@@ -29,7 +29,7 @@
           <td><%= pendataan.tahun_spt %></td>
           <td><%= pendataan.no_pendataan %></td>
           <td><%= pendataan.rekening.nama_rekening %></td>
-          <td><%= pendataan.pendaftaran.npwpd %></td>
+          <td><%= pendataan.pendaftaran.npwp %></td>
           <td><%= pendataan.pendaftaran.nama_usaha %></td>
           <td><%= I18n.l(pendataan.periode_awal, format:'%d %B %Y') + ' s/d ' + I18n.l(pendataan.periode_akhir, format:'%d %B %Y') %></td>
           <td><% if pendataan.jatuh_tempo == '-' %>

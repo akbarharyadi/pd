@@ -67,9 +67,15 @@ p{ margin:0px;}
 .baseline {
   vertical-align: baseline;
 }
+div.alwaysbreak { page-break-before: always; }
+      div.nobreak:before { clear:both; }
+      div.nobreak { page-break-inside: avoid; }
 </style>
   </head>
   <body style='font-family:"Times New Roman", Georgia, Serif;'>
+  <% @penetapan.each do |penetapan| %>
+    <% rekening_induk = Rekening.where("tahun=" + penetapan.pendataan.rekening.tahun.to_s + " and kode='" + penetapan.pendataan.rekening.kode + "' and jenis_kode='00' and turunan_kode='00'").first %>
+      <div class="alwaysbreak"></div>
     <table width="100%"  border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse">
         <tr>
             <!-- Header start -->
@@ -97,7 +103,7 @@ p{ margin:0px;}
             <td width="30%" class="line12 baseline" style="padding:10px;">
                 <p style="font-size:10pt; text-align:left;">Setoran seperti yg dilakukan pada tanggal :</p>
                 <p style="font-size:10pt; text-align:left;">No. BKU :</p>
-                <p style="font-size:10pt; text-align:left;">No. Bukti : <%= @pendataan.no_setor %></p>
+                <p style="font-size:10pt; text-align:left;">No. Bukti : <%= penetapan.no_setor %></p>
             </td>
         </tr>
     </table>
@@ -108,29 +114,29 @@ p{ margin:0px;}
             </td>
         </tr>
         <tr>
-            <td width="30%" class="line13 baseline" style="padding:10px;padding-top:5px;padding-bottom:0px;">
+            <td width="35%" class="line13 baseline" style="padding:10px;padding-top:5px;padding-bottom:0px;">
                 <p style="font-size:10pt; text-align:left;">Diharapkan menerima uang sejumlah</p>
             </td>
             <td width="2%" class="baseline" style="padding-top:5px;padding-bottom:0px;">
                 <p style="font-size:10pt; text-align:center;">:</p>
             </td>
             <td width="68%" class="line12 baseline" style="padding:10px;padding-top:5px;padding-bottom:0px;">
-                <p style="font-size:10pt; text-align:left;">Rp. <%= humanized_money @pendataan.jumlah_pajak %></p>
+                <p style="font-size:10pt; text-align:left;">Rp. <%= humanized_money penetapan.jumlah_pajak_teliti %></p>
             </td>
         </tr>
         <tr>
-            <td width="30%" class="line13 baseline" style="padding:10px;padding-top:5px;padding-bottom:0px;">
+            <td width="35%" class="line13 baseline" style="padding:10px;padding-top:5px;padding-bottom:0px;">
                 <p style="font-size:10pt; text-align:left;">Dengan Huruf</p>
             </td>
             <td width="2%" class="baseline" style="padding-top:5px;padding-bottom:0px;">
                 <p style="font-size:10pt; text-align:center;">:</p>
             </td>
             <td width="68%" class="line12 baseline" style="padding:10px;padding-top:5px;padding-bottom:0px;">
-                <p style="font-size:10pt; text-align:left;"><i><%= Terbilang.convert(@pendataan.jumlah_pajak).upcase %> RUPIAH</i>)</p>
+                <p style="font-size:10pt; text-align:left;">(<i><%= Terbilang.convert(penetapan.jumlah_pajak_teliti).upcase %> RUPIAH</i>)</p>
             </td>
         </tr>
         <tr>
-            <td width="30%" class="line13 baseline" style="padding:10px;padding-top:5px;padding-bottom:0px;">
+            <td width="35%" class="line13 baseline" style="padding:10px;padding-top:5px;padding-bottom:0px;">
                 <p style="font-size:10pt; text-align:left;">Untuk disetorkan ke Rekening</p>
             </td>
             <td width="2%" class="baseline" style="padding-top:5px;padding-bottom:0px;">
@@ -141,16 +147,16 @@ p{ margin:0px;}
             </td>
         </tr>
         <tr>
-            <td width="30%" class="line13 baseline" style="padding:10px;padding-top:5px;padding-bottom:0px;">
+            <td width="35%" class="line13 baseline" style="padding:10px;padding-top:5px;padding-bottom:0px;">
                 <p style="font-size:10pt; text-align:left;">Yaitu Pembayaran</p>
             </td>
             <td width="2%" class="baseline" style="padding-top:5px;padding-bottom:0px;">
                 <p style="font-size:10pt; text-align:center;">:</p>
             </td>
             <td width="68%" class="line12 baseline" style="padding:10px;padding-top:5px;padding-bottom:50px;">
-                <p style="font-size:10pt; text-align:left;">Pembayaran Pokok <%= @rekening_induk.nama_rekening.split.map(&:capitalize).join(' ') %></p>
-                <p style="font-size:10pt; text-align:left;">Oleh <%= @pendataan.pendaftaran.nama_usaha %></p>
-                <p style="font-size:10pt; text-align:left;">Periode <%= I18n.l(@pendataan.periode_awal, format:'%B %Y') %></p>
+                <p style="font-size:10pt; text-align:left;">Pembayaran Pokok <%= rekening_induk.nama_rekening.split.map(&:capitalize).join(' ') %></p>
+                <p style="font-size:10pt; text-align:left;">Oleh <%= penetapan.pendataan.pendaftaran.nama_usaha %></p>
+                <p style="font-size:10pt; text-align:left;">Periode <%= I18n.l(penetapan.pendataan.periode_awal, format:'%B %Y') %></p>
             </td>
         </tr>
     </table>
@@ -158,18 +164,18 @@ p{ margin:0px;}
         <tr>
             <td width="30%" class="line1 baseline" style="padding:10px;">
                 <p style="font-size:10pt; text-align:left;">Telah Diterima</p>
-                <p style="font-size:10pt; text-align:left;">Uang Sejumlah : Rp. <%= humanized_money @pendataan.jumlah_pajak %></p>
+                <p style="font-size:10pt; text-align:left;">Uang Sejumlah : Rp. <%= humanized_money penetapan.jumlah_pajak_teliti %></p>
                 <p style="font-size:10pt; text-align:left;"><%= @wilayah.nama_wilayah.capitalize %>, ..................</p>
                 <p style="font-size:10pt; text-align:center;">Pemegang Kas Daerah</p>
             </td>
             <td width="40%" class="baseline" style="padding:10px;border:#000000 1px solid;">
                 <p style="font-size:10pt; text-align:left;">Telah Terima uang Sejumlah</p>
-                <p style="font-size:10pt; text-align:left;">BPD : Rp. <%= humanized_money @pendataan.jumlah_pajak %></p>
+                <p style="font-size:10pt; text-align:left;">BPD : Rp. <%= humanized_money penetapan.jumlah_pajak_teliti %></p>
                 <p style="font-size:10pt; text-align:left;">Cabang <%= @wilayah.nama_wilayah.capitalize %></p>
                 <p style="font-size:10pt; text-align:center;">Petugas</p>
             </td>
             <td width="30%" class="line9 baseline" style="padding:10px;">
-                <p style="font-size:10pt; text-align:center;"><%= @wilayah.nama_wilayah.capitalize %>, <%= I18n.l(@pendataan.tgl_setor, format:'%B %Y') %></p>
+                <p style="font-size:10pt; text-align:center;"><%= @wilayah.nama_wilayah.capitalize %>, <%= I18n.l(penetapan.tgl_setor, format:'%B %Y') %></p>
                 <p style="font-size:10pt; text-align:center;">&emsp; &emsp;</p>
                 <p style="font-size:10pt; text-align:center;">&emsp; &emsp;</p>
                 <p style="font-size:10pt; text-align:center;"><%= @ttd.try(:baris1) %></p>
@@ -182,5 +188,6 @@ p{ margin:0px;}
             </td>
         </tr>
     </table>
+    <% end %>
   </body>
 </html>

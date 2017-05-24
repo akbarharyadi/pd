@@ -91,17 +91,17 @@ $ ->
   $(document).on 'change', '#pendataan_rekening_id', (evt, params) ->
     tarif = $('#pendataan_rekening_id option[value="' + params.selected + '"]').attr('tarif')
     persen = $('#pendataan_rekening_id option[value="' + params.selected + '"]').attr('persen')
-    if persen == 'null' || persen == '' 
+    if persen == 'null' or persen == '' 
        persen = '0'
-    if tarif == 'null' || tarif == '' 
+    if tarif == 'null' or tarif == '' 
        tarif = '0'
     $('#pendataan_tarif_persen').val(Math.round(persen*100)/100);
-    $('#pendataan_tarif_rupiah').val(tarif);
+    $('#pendataan_tarif_rupiah').autoNumeric('set', tarif);
     $('#pendataan_pemakaian_daya').trigger("change");
     $('#pendataan_volume_pemakaian').trigger("change");
     $('#pendataan_omzet').trigger("change");
     $('#pendataan_jumlah_volume').trigger("change");
-    $('#pendataan_nilai_reklame').trigger("change");
+    $('#pendataan_panjang_reklame').trigger("change");
 
   $(document).on 'change', '#pendataan_omzet', (evt) ->
     omzet = $(this).val().replace(/\./g, '').replace(/\,/g, '.');
@@ -117,14 +117,18 @@ $ ->
     volume = $('#pendataan_volume_pemakaian').val().replace(/\./g, '').replace(/\,/g, '.');
     persen = $('#pendataan_tarif_persen').val();
     rupiah = $('#pendataan_tarif_rupiah').val().replace(/\./g, '').replace(/\,/g, '.');
+    console.log(pemakaian)
+    console.log(volume)
+    console.log(persen)
+    console.log(rupiah)
     if pemakaian == ''
       pemakaian = 1
     if volume == ''
       volume = 1
     if persen == ''
       persen = 0
-    if rupiah == ''
-      rupiah = 0
+    if rupiah == '' or rupiah == '0.00'
+      rupiah = 1
     $('#pendataan_jumlah_pajak').autoNumeric('set', pemakaian*volume*rupiah*(persen/100))
   
   $(document).on 'change', '#pendataan_jumlah_volume', (evt) ->
@@ -161,43 +165,62 @@ $ ->
                                   #pendataan_nilai_lokasi_reklame,
                                     #pendataan_jumlah_hari_reklame,
                                       #pendataan_sudut_pandang_reklame,
-                                          #pendataan_tinggi_reklame', (evt) ->
+                                        #pendataan_tinggi_reklame', (evt) ->
 
-    panjang = $('#pendataan_panjang_reklame').val().replace(/\./g, '').replace(/\,/g, '.');
-    lebar = $('#pendataan_lebar_reklame').val().replace(/\./g, '').replace(/\,/g, '.');
-    jumlah_reklame = $('#pendataan_jumlah_reklame').val().replace(/\./g, '').replace(/\,/g, '.');
-    muka = $('#pendataan_sisi_muka_reklame').val().replace(/\./g, '').replace(/\,/g, '.');
-    jumlah_hari = $('#pendataan_jumlah_hari_bulan_tahun_reklame').val().replace(/\./g, '').replace(/\,/g, '.');
-    kelas_jalan = $('#pendataan_kelas_jalan_reklame').val().replace(/\./g, '').replace(/\,/g, '.');
-    sudut_pandang = $('#pendataan_sudut_pandang_reklame').val().replace(/\./g, '').replace(/\,/g, '.');
-    tinggi = $('#pendataan_tinggi_reklame').val().replace(/\./g, '').replace(/\,/g, '.');
-    persen = $('#pendataan_tarif_persen').val();
-    rupiah = $('#pendataan_tarif_rupiah').val().replace(/\./g, '').replace(/\,/g, '.');
+    panjang = if $('#pendataan_panjang_reklame').val() == '' or $('#pendataan_panjang_reklame').val() == null then 0 else parseFloat($('#pendataan_panjang_reklame').val().replace(/\./g, '').replace(/\,/g, '.'))
+    lebar = if $('#pendataan_lebar_reklame').val() == '' or $('#pendataan_lebar_reklame').val() == null then 0 else parseFloat($('#pendataan_lebar_reklame').val().replace(/\./g, '').replace(/\,/g, '.'))
+    nilai_media = if $('#pendataan_tarif_rupiah').val() == '' or $('#pendataan_tarif_rupiah').val() == null then 0 else parseFloat($('#pendataan_tarif_rupiah').val().replace(/\./g, '').replace(/\,/g, '.'))
+    tinggi = if $('#pendataan_tinggi_reklame').val() == '' or $('#pendataan_tinggi_reklame').val() == null then 0 else parseFloat($('#pendataan_tinggi_reklame').val().replace(/\./g, '').replace(/\,/g, '.'))
+    skor_lokasi = if $('#pendataan_nilai_lokasi_reklame').val() == '' or $('#pendataan_nilai_lokasi_reklame').val() == null then 0 else parseFloat($('#pendataan_nilai_lokasi_reklame').val())
+    skor_sudut_pandang = if $('#pendataan_sudut_pandang_reklame').val() == '' or $('#pendataan_sudut_pandang_reklame').val() == null then 0 else parseFloat($('#pendataan_sudut_pandang_reklame').val())
+    skor_ketinggian = hitung_ketinggian(tinggi)
+    tarifpr = if $('#pendataan_tarif_persen').val() == '' or $('#pendataan_tarif_persen').val() == null then 0 else parseFloat($('#pendataan_tarif_persen').val().replace(/\,/g, '.'))
+    hari = if $('#pendataan_jumlah_hari_reklame').val() == '' or $('#pendataan_jumlah_hari_reklame').val() == null then 0 else parseFloat($('#pendataan_jumlah_hari_reklame').val())
+    jumlah_reklame = if $('#pendataan_jumlah_reklame').val() == '' or $('#pendataan_jumlah_reklame').val() == null then 0 else parseFloat($('#pendataan_jumlah_reklame').val())
+    luas = (panjang * lebar);
+    pajak_reklame = 0
+    total_nilai_strategis = 0
+    total_media_reklame = 0
+    nilai_sewa_reklame = 0
 
-    if panjang == ''
-      panjang = 0
-    if lebar == ''
-      lebar = 0
-    if jumlah_reklame == ''
-      jumlah_reklame = 0
-    if muka == ''
-      muka = 0
-    if jumlah_hari == ''
-      jumlah_hari = 0
-    if kelas_jalan == ''
-      kelas_jalan = 0
-    if sudut_pandang == ''
-      sudut_pandang = 0
-    if tinggi == ''
-      tinggi = 0
-    if persen == ''
-      persen = 0
-    if rupiah == ''
-      rupiah = 0
-    luas = panjang*lebar
-    nilai = luas*jumlah_reklame*muka*jumlah_hari*kelas_jalan*sudut_pandang*tinggi*persen*rupiah
-    $('#pendataan_luas_reklame').autoNumeric('set', luas)
-    $('#pendataan_jumlah_pajak').autoNumeric('set', nilai*(persen/100))
+    $('#pendataan_luas_reklame').autoNumeric 'set', luas
+
+    if $('#status_rekening').val() == 'tetap'
+      #nilai sewa reklame
+      nilai_luas_media_reklame = luas * nilai_media
+      nilai_ketinggian = 100000 * tinggi
+      total_nilai_media_reklame = nilai_luas + nilai_ketinggian
+
+      jml_skor_lokasi = skor_lokasi * 50 / 100
+      jml_skor_sudut_pandang = skor_sudut_pandang * 20 / 100
+      jml_skor_ketinggian = skor_ketinggian * 30 / 100
+      total_nilai_strategis = (jml_skor_lokasi + jml_skor_sudut_pandang + jml_skor_ketinggian) * tentukan_satuan_nilai_stategis(luas) * hari;
+      nilai_sewa_reklame = total_nilai_media_reklame + total_nilai_strategis;
+      pajak_reklame = tarifpr / 100 * nilai_sewa_reklame;
+      total_media_reklame = total_nilai_media_reklame;
+     else if $('#status_rekening').val() == 'isidentil'
+      total_media_reklame = nilai_media * hari * luas
+      total_nilai_strategis = skor_lokasi * 1000 * hari * luas
+      pajak_reklame = tarifpr / 100 * (total_media_reklame + total_nilai_strategis)
+      nilai_sewa_reklame = total_media_reklame + total_nilai_strategis
+
+    console.log(total_nilai_strategis)
+    if `typeof total_nilai_strategis == 'undefined'` or isNaN(total_nilai_strategis)
+      `total_nilai_strategis = 0`
+    $('#nilai_sewa_reklame').autoNumeric 'set', parseFloat(total_nilai_strategis)
+
+    console.log(nilai_sewa_reklame)
+    if `typeof nilai_sewa_reklame == 'undefined'` or isNaN(nilai_sewa_reklame)
+      `nilai_sewa_reklame = 0`
+    $('#nilai_sewa').autoNumeric 'set', parseFloat(nilai_sewa_reklame)
+    console.log(total_media_reklame)
+    if `typeof total_media_reklame == 'undefined'` or isNaN(total_media_reklame)
+      `total_media_reklame = 0`
+    $('#nilai_media').autoNumeric 'set', parseFloat(total_media_reklame)
+    `pajak_jml_reklame = pajak_reklame * jumlah_reklame`
+    if `typeof pajak_jml_reklame == 'undefined'` or isNaN(pajak_jml_reklame)
+      `pajak_jml_reklame = 0`
+    $('#pendataan_jumlah_pajak').autoNumeric 'set', parseFloat(pajak_jml_reklame)
   
   $(document).on 'change', '#pendataan_npa', (evt) ->
     nilai = $('#pendataan_npa').val().replace(/\./g, '').replace(/\,/g, '.');
@@ -294,27 +317,59 @@ $ ->
       skp = 'SKPDN'
     $('#selisih').autoNumeric('set', selisih)
     $('#hasil_penetapan').val(skp)
-
-# padding string with zero leading
-  window.padstring = (pad, str) ->
-    return pad.substring(0, pad.length - str.length) + str
   
   # change value using function padstring
-  $(document).on 'change', '#no_pendaftaran, #no_pendaftaran2', (evt) ->
+  $(document).on 'change', '#no_pendaftaran, #no_pendaftaran2, #no_pendataan_penetapan', (evt) ->
     $(this).val(padstring('0000000', $(this).val()))
   
   # field only allow number
   $(document).on 'keypress', '.only_allow_number', (evt) -> 
-    return evt.charCode >= 48 && evt.charCode <= 57
+    return evt.charCode >= 48 and evt.charCode <= 57
 
   $(document).on 'change', '#rokok', (evn) ->
     if this.checked
       $('#tarif_sebelum_rokok').val($('#pendataan_tarif_persen').val())
+      $('#pendataan_tarif_persen, #pendataan_pajak_rokok').val('25')
       $('#pendataan_pajak_rokok').removeAttr('readonly')
     else
       $('#pendataan_tarif_persen').val($('#tarif_sebelum_rokok').val())
-      $('#pendataan_pajak_rokok').attr('readonly')
+      $('#pendataan_pajak_rokok').attr('readonly','readonly')
   
   $(document).on 'change', '#pendataan_pajak_rokok', (evn) ->
     $('#pendataan_tarif_persen').val($('#pendataan_pajak_rokok').val())
     $("#pendataan_panjang_reklame").trigger("change");
+
+  # padding string with zero leading
+  window.padstring = (pad, str) ->
+    return pad.substring(0, pad.length - str.length) + str
+  
+  # hitung ketinggian
+  window.hitung_ketinggian = (i) ->
+    x = 0
+    if parseFloat(i) > 15
+      x = 10
+    else if parseFloat(i) >= 10 and parseFloat(i) <= 14.99
+      x = 8
+    else if parseFloat(i) >= 6 and parseFloat(i) <= 9.99
+      x = 6
+    else if parseFloat(i) >= 3 and parseFloat(i) <= 5.99
+      x = 4
+    else if parseFloat(i) <= 2.99
+      x = 2
+    x
+
+  window.tentukan_satuan_nilai_stategis = (l) ->
+    nilai_strategis = 0
+    if parseFloat(l) >= 0.25 and parseFloat(l) <= 6.99
+      nilai_strategis = 250000
+    else if parseFloat(l) >= 7 and parseFloat(l) <= 15.99
+      nilai_strategis = 500000
+    else if parseFloat(l) >= 16 and parseFloat(l) <= 29.99
+      nilai_strategis = 750000
+    else if parseFloat(l) >= 30 and parseFloat(l) <= 40
+      nilai_strategis = 1000000
+    else if parseFloat(l) > 40
+      nilai_strategis = 1750000
+    nilai_strategis
+  
+  $('#pendataan_panjang_reklame').trigger("change");

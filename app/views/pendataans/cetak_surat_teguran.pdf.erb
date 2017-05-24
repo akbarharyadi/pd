@@ -266,14 +266,14 @@ p{ margin:0px;}
         <thead>
             <tr role="row">
                 <th class="sorting" style="padding:10px;">Nama WP</th>
-                <th class="sorting" style="padding:10px;">NPWPD</th>
+                <th class="sorting" style="padding:10px;">NPWP</th>
                 <th class="sorting" style="padding:10px;">URAIAN PAJAK</th>
                 <th class="sorting" style="padding:10px;">MASA PAJAK</th>
             </tr>
         </thead>
         <tbody>
             <td class="sorting" style="padding:10px;"><%= @pendataan.pendaftaran.nama_usaha %></td>
-            <td class="sorting" style="padding:10px;"><%= @pendataan.pendaftaran.npwpd %></td>
+            <td class="sorting" style="padding:10px;"><%= @pendataan.pendaftaran.npwp %></td>
             <td class="sorting" style="padding:10px;"><%= @pendataan.rekening.nama_rekening %></td>
             <td class="sorting" style="padding:10px;"><%= I18n.l(@pendataan.periode_awal, format:'%B %Y') %></td>
         </tbody>

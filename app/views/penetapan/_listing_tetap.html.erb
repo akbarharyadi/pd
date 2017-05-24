@@ -7,11 +7,11 @@
         <th class="sorting">Nomor Kohir</th>
         <th class="sorting">No Pendataan</th>
         <th class="sorting">Rekening</th>
-        <th class="sorting">NPWPD</th>
+        <th class="sorting">NPWP</th>
         <th class="sorting">Nama Usaha</th>
         <th class="sorting">Periode</th>
         <th class="sorting">Tanggal Tetap</th>
-        <th>Status</th>
+        <th class="sorting">Penetapan</th>
         <th></th>
       </tr>
     </thead>
@@ -20,23 +20,23 @@
       <% 
           counting = 1
       %>
-      <% smart_listing.collection.each do |pendataan| %>
+      <% smart_listing.collection.each do |penetapan| %>
               <% if counting.odd? %>
                   <tr role="row" class="odd">
               <% else %>
                 <tr role="row" class="even">
               <% end %>
-          <td><%= pendataan.no_kohir %></td>
-          <td><%= pendataan.no_pendataan %></td>
-          <td><%= pendataan.rekening.nama_rekening %></td>
-          <td><%= pendataan.pendaftaran.npwpd %></td>
-          <td><%= pendataan.pendaftaran.nama_usaha %></td>
-          <td><%= I18n.l(pendataan.periode_awal, format:'%d %B %Y') + ' s/d ' + I18n.l(pendataan.periode_akhir, format:'%d %B %Y') %></td>
-          <td><%= I18n.l(pendataan.tgl_tetap, format:'%d %B %Y') if pendataan.tgl_tetap.present? %></td>
-          <td><%= pendataan.status_pendataan %></td>
+          <td><%= penetapan.no_tetap %></td>
+          <td><%= penetapan.pendataan.no_pendataan %></td>
+          <td><%= penetapan.pendataan.rekening.nama_rekening %></td>
+          <td><%= penetapan.pendataan.pendaftaran.npwp %></td>
+          <td><%= penetapan.pendataan.pendaftaran.nama_usaha %></td>
+          <td><%= I18n.l(penetapan.pendataan.periode_awal, format:'%d %B %Y') + ' s/d ' + I18n.l(penetapan.pendataan.periode_akhir, format:'%d %B %Y') %></td>
+          <td><%= I18n.l(penetapan.tgl_tetap, format:'%d %B %Y') if penetapan.tgl_tetap.present? %></td>
+          <td><%= penetapan.status2.gsub('_','') %></td>
           <td>
               <div class="action-buttons">
-                <%= link_to(raw('<i class="ace-icon fa fa-print bigger-130"></i> SKPD/N'), penetapan_cetak_skp_path(id: pendataan.id, tanggal:@current_date, format: 'pdf')) %>
+                <%= link_to(raw('<i class="ace-icon fa fa-pencil bigger-130"></i>'), penetapan_cetak_skp_path(id: penetapan.id, tanggal:@current_date, format: 'pdf')) %>
               </div>
           </td>
         </tr>

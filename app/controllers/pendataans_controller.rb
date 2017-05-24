@@ -63,7 +63,16 @@ class PendataansController < ApplicationController
           nilai_reklame_teliti:@pendataan.nilai_reklame,
           npa_teliti:@pendataan.npa,
           omzet_teliti:@pendataan.omzet,
-          jumlah_pajak_teliti:@pendataan.jumlah_pajak)
+          jumlah_pajak_teliti:@pendataan.jumlah_pajak, 
+          jumlah_reklame: @pendataan.jumlah_reklame,
+          jumlah_hari_reklame: @pendataan.jumlah_hari_reklame, 
+          panjang_reklame: @pendataan.panjang_reklame, 
+          lebar_reklame: @pendataan.lebar_reklame, 
+          nilai_lokasi_reklame: @pendataan.nilai_lokasi_reklame, 
+          sudut_pandang_reklame: @pendataan.sudut_pandang_reklame, 
+          luas_reklame: @pendataan.luas_reklame, 
+          tinggi_reklame: @pendataan.tinggi_reklame
+          )
         format.html { redirect_to @pendataan, notice: 'Pendataan berhasil tersimpan.' }
         format.json { render :show, status: :created, location: @pendataan }
       else
@@ -198,6 +207,6 @@ class PendataansController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def pendataan_params
-      params.require(:pendataan).permit(:tgl_data, :tahun_spt, :pendaftaran_id, :rekening_id, :periode_awal, :periode_akhir, :omzet, :jumlah_pajak, :kode_rekening, :tarif_rupiah, :tarif_persen, :filter, :pemakaian_daya, :volume_pemakaian, :jumlah_volume, :filter_tahun_rekening, :filter_induk_rekening, :jenis_surat, :tgl_cetak, :filter_date, :nilai_reklame, :pajak_rokok, :npa)
+      params.require(:pendataan).permit(:tgl_data, :tahun_spt, :pendaftaran_id, :rekening_id, :periode_awal, :periode_akhir, :omzet, :jumlah_pajak, :kode_rekening, :tarif_rupiah, :tarif_persen, :filter, :pemakaian_daya, :volume_pemakaian, :jumlah_volume, :filter_tahun_rekening, :filter_induk_rekening, :jenis_surat, :tgl_cetak, :filter_date, :nilai_reklame, :pajak_rokok, :npa, :jumlah_reklame, :jumlah_hari_reklame, :panjang_reklame, :lebar_reklame, :nilai_lokasi_reklame, :sudut_pandang_reklame, :luas_reklame, :tinggi_reklame, :lokasi_reklame, :judul_reklame)
     end
 end

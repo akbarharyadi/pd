@@ -28,7 +28,7 @@ module ApplicationHelper
 
   def generate_no_kohir
     pendataan = Penetapan.where("no_tetap is not null").order("no_tetap::int desc").first
-    if pendataan == nil
+    if !pendataan.present?
         1
     else
         pendataan.no_tetap + 1

@@ -115,6 +115,20 @@
                 <%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> List Penetapan </span>'), penetapan_list_path) %>
                 <b class="arrow"></b>
 			</li>
+			<li class="<%= 'active open' if params[:controller] == 'penetapan' and params[:action] == 'cetak_skp' %>">
+				<a href="#" class="dropdown-toggle">
+					<i class="menu-icon fa fa-caret-right"></i>
+					Cetak
+					<b class="arrow fa fa-angle-down"></b>
+				</a>
+				<b class="arrow"></b>
+				<ul class="submenu">
+					<li class="<%= 'active' if params[:controller] == 'penetapan' and params[:action] == 'cetak_skp' %>">
+						<%= link_to(raw('<i class="menu-icon fa fa-caret-right"></i><span class="menu-text"> SKPD/N/KB </span>'), penetapan_cetak_skp_path()) %>
+						<b class="arrow"></b>
+					</li>
+				</ul>
+			</li>
 		</ul>
 	</li>
 	<li class="<%= 'active open' if params[:controller] == 'penyetoran' %>">
